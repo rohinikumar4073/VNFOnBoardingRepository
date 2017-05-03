@@ -1,6 +1,11 @@
-define([
-    'react', 'jquery', 'toastr', "react-dropzone",'axios','react-loading','config'
-], function(React, $, toastr, Dropzone,axios,Loader ,config) {
+var React = require("react");
+var $ = require("jquery");
+var  axios= require("axios");
+var toastr = require("toastr");
+var Loader = require("react-loading");
+var config = require("./../../properties/config.js");
+
+
 
     var Upload = React.createClass({
         getInitialState: function() {
@@ -129,5 +134,4 @@ define([
 
                                     });
 
-                                    return Upload;
-                                });
+      module.exports = Upload;

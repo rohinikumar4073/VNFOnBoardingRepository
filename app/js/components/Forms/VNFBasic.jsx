@@ -1,6 +1,6 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
     var FormVNF = Form.default;
 
 const schema = {
@@ -157,6 +157,4 @@ const uiSchema = {
          }
     });
 
-    return VNFBasic;
-
-});
+    module.exports= VNFBasic;

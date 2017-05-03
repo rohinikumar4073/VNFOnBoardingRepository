@@ -1,6 +1,13 @@
-define([
-    'react', 'jquery', 'toastr', 'config','react-loading','components/Forms/SampleMachina','jsx!components/Workflow','axios'
-], function(React, $, toastr, config, Loader, SampleMachina,Workflow,axios) {
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./SampleMachina.js");
+var Loader =require("react-loading");
+var toastr=require("toastr");
+var axios= require("axios");
+var config=require("./../../properties/config.js");
+var Workflow=require("./../Workflow.jsx");
+
+
 
     var homePage = React.createClass({
 
@@ -284,5 +291,4 @@ var data=[];
 
     });
 
-    return homePage;
-});
+    module.exports= homePage;

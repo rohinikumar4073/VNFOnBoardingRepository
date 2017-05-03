@@ -1,6 +1,6 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
+var React =require("react");
+var $ =require("jquery");
+var Form =require("./../../thirdParty/react-jsonschema-form.js");
     var FormCommon = Form.default;
 
 const schema = {
@@ -87,7 +87,4 @@ const uiSchema = {
                $("#verification button").click();
              },
     });
-
-    return CommonInfo;
-
-});
+    module.exports= CommonInfo;

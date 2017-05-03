@@ -1,6 +1,7 @@
-define([
-    'react', 'jquery', 'react-jsonschema-form', 'toastr'
-], function(React, $, Form, toastr) {
+var React =require("react");
+var $ =require("jquery");
+var Form =require("./../../thirdParty/react-jsonschema-form.js");
+
     var FormConfig = Form.default;
 
     const schema = {
@@ -312,6 +313,5 @@ define([
         }
     });
 
-    return ManagementInfo;
-
-});
+  
+module.exports= ManagementInfo;

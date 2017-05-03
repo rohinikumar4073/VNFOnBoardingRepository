@@ -6,6 +6,8 @@ var GridData=require("./GridData.jsx");
 var CustomEdit=require("./Forms/CustomEdit.jsx");
 var CustomDelete=require("./Forms/CustomDelete.jsx");
 var agGridReact=require("ag-grid-react-component");
+var $=require("jquery");
+
   var AgGridReactGRID = agGridReact.AgGridReact;
     var PackageData = React.createClass({
         onSelectionGridChanged: function(rowData, name) {

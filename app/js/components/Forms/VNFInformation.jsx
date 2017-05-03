@@ -1,6 +1,9 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr','jsx!components/Forms/VNFBasic','jsx!components/Forms/KpiParameters','jsx!components/Forms/ManagementInfo'
-], function(React, $,  Form, toastr,VNFBasic,KpiParameters,ManagementInfo) {
+var React=require("react");
+var $ =require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var VNFBasic = require("./VNFBasic.jsx");
+var KpiParameters = require("./KpiParameters.jsx");
+var ManagementInfo = require("./ManagementInfo.jsx");
   var nextPage="";
     var VMInformation = React.createClass({
         getInitialState:function(){
@@ -151,6 +154,4 @@ define([
          }
     });
 
-    return VMInformation;
-
-});
+    module.exports= VMInformation;

@@ -17,6 +17,7 @@ var Panel = React.createClass({
               <Header className="container-fluid" />
                 <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
                   </LeftPanel>
+                                              <RightPanel className="totalRightScreenMode" ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
             </div>
         );
     },

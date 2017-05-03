@@ -14,34 +14,8 @@ var PackageUpload=require("./Forms/VNFPackageUpload.jsx");
 var VNFInformation=require("./Forms/VNFInformation.jsx");
 var HomePage=require("./Forms/HomePage.jsx");
 var GenerateDescriptors=require("./Forms/GenerateDescriptors.jsx");
+var Loader=require("react-loading");
 
-define([
-    'react',
-    'toastr',
-    'agGrid',
-    'reactCellRendererFactory',
-    'reactFilterFactory',
-    'jsx!components/PackageData',
-    'jsx!components/Forms/GeneralInfo',
-    'jsx!components/Forms/CommonInfo',
-    'jsx!components/Forms/Orchestration',
-    'jsx!components/Forms/VirtualResource',
-    'jsx!components/Forms/ManagementConfig',
-    'jsx!components/Forms/Networking',
-    'jsx!components/Forms/ScalingRedundancy',
-    'jsx!components/Forms/PhysicalResource',
-    'jsx!components/Forms/PackageUpload',
-    'jsx!components/Forms/VNFInformation',
-    'jsx!components/Forms/HomePage',
-    'jsx!components/Forms/GenerateDescriptors',
-    "axios",
-    "config",
-    'react-loading'
-], function(React, toastr, agGridReact, reactCellRendererFactory, reactFilterFactory,
-   PackageData, GeneralInfo, CommonInfo, Orchestration,
-    VirtualResource, ManagementConfig, Networking,
-     ScalingRedundancy, PhysicalResource,PackageUpload,
-      VNFInformation,HomePage,GenerateDescriptors,axios, config, Loader) {
     var AgGridReactGRID = agGridReact.AgGridReact;
     var RightPanel = React.createClass({
       setActivePage:function(activePage){
@@ -271,6 +245,4 @@ define([
         }
     });
 
-    return RightPanel;
-
-});
+    module.exports= RightPanel;

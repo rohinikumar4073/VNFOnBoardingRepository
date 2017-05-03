@@ -1,6 +1,9 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr','jsx!components/Forms/ScalingRedundancy','jsx!components/Forms/PostInstall','jsx!components/Forms/Resource'
-], function(React, $,  Form, toastr,ScalingRedundancy, PostInstall, Resource) {
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var ScalingRedundancy=require("./ScalingRedundancy.jsx")
+var Resource=require("./Resource.jsx")
+var PostInstall=require("./PostInstall.jsx")
   var nextPage="";
     var PhysicalResource = React.createClass({
 
@@ -148,6 +151,4 @@ define([
          }
     });
 
-    return PhysicalResource;
-
-});
+module.exports=PhysicalResource;

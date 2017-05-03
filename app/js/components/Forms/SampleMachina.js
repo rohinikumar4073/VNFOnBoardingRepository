@@ -1,7 +1,5 @@
-define([
-    'machina', 'axios'
-], function(machina, axios) {
-
+var machina=require("machina");
+var axios=require("axios");
         var vnfWorkflow = new machina.Fsm({
             initialize: function() {
             },
@@ -37,5 +35,4 @@ define([
                 }
             }
         });
-return vnfWorkflow;
-      });
+module.exports=vnfWorkflow;

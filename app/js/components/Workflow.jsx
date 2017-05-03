@@ -1,13 +1,14 @@
-define([
-    'react', 'jquery', 'toastr', 'config','react-loading','d3'
-], function(React, $, toastr, config, Loader,d3) {
+
+var React = require("react");
+var $ = require("jquery");
+var d3 =require("d3");
 
     var WorkFlow = React.createClass({
 
         componentDidMount: function() {
           debugger;
 
-        
+
           },
         loadData:function(data){
           $(".chartContainer").empty()
@@ -201,5 +202,4 @@ define([
 
     });
 
-    return WorkFlow;
-});
+    module.exports= WorkFlow;

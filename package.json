@@ -22,16 +22,18 @@
     "phantomjs": "^1.9.17",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.3.0",
-    "gulp-order":"1.1.1",
-    "jquery":"3.2.1",
-    "toastr" :"2.1.2",
-    "ag-grid-react-component":"3.2.2",
-    "axios":"0.16.1",
-    "react-jsonschema-form":"0.48.0"
+    "gulp-order": "1.1.1",
+    "jquery": "3.2.1",
+    "toastr": "2.1.2",
+    "ag-grid-react-component": "3.2.2",
+    "axios": "0.16.1",
+    "react-loading":"0.0.9",
+    "d3":"4.8.0",
+    "machina":"2.0.0"
   },
   "dependencies": {
     "flux-react": "^2.6.6",
-    "react": "15.5.4",
-    "react-dom": "15.5.4"
+    "react": "^0.14.x",
+     "react-dom": "^0.14.x"
   }
 }

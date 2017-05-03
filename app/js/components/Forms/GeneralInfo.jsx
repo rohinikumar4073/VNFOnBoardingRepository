@@ -1,6 +1,6 @@
 var React =require("react");
 var $ =require("jquery");
-var Form =require("react-jsonschema-form");
+var Form =require("./../../thirdParty/react-jsonschema-form.js");
 
     var FormGeneral = Form.default;
 

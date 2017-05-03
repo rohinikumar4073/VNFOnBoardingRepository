@@ -1,6 +1,7 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
+
     var FormScale = Form.default;
 
 const schema = {
@@ -78,5 +79,4 @@ const uiSchema = {
            $("#scalingRed button").click();
          },
     });
-    return ScalingRedundancy;
-});
+module.exports=ScalingRedundancy;

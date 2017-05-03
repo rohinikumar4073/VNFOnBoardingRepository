@@ -1,6 +1,8 @@
-define([
-    'react', 'jquery', 'react-jsonschema-form', 'toastr'
-], function(React, $, Form, toastr) {
+var React =require("react");
+var $ =require("jquery");
+var Form =require("./../../thirdParty/react-jsonschema-form.js");
+
+
     var FormVR = Form.default;
     var List = React.createClass({
         render: function() {
@@ -593,7 +595,7 @@ define([
         "fixedNoToolbar": [42, true, "additional item one", "additional item two"]
     }
     var isFromTabClick = false;
-    elem = "";
+  var  elem = "";
     var VirtualResource = React.createClass({
         getInitialState: function() {
             return ({
@@ -834,6 +836,5 @@ define([
         }
     });
 
-    return VirtualResource;
 
-});
+    module.exports= VirtualResource;

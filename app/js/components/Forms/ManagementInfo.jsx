@@ -1,6 +1,6 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
     var FormMgmtInfo = Form.default;
     const schema = {
         "type": "object",
@@ -116,5 +116,4 @@ const uiSchema = {
               $("#managementInfo button").click();
          }
     });
-    return Management;
-});
+    module.exports= Management;

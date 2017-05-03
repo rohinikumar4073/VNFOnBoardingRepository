@@ -1,7 +1,8 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
-    var FormResource = Form.default;
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
+
+var FormResource = Form.default;
 
 const schema = {
   "type": "object",
@@ -98,6 +99,4 @@ const uiSchema = {
          }
     });
 
-    return Resource;
-
-});
+  module.exports= Resource;
