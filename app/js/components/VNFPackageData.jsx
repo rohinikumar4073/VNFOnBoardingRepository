@@ -5,10 +5,9 @@ var config=require("./../properties/config.js");
 var GridData=require("./GridData.jsx");
 var CustomEdit=require("./Forms/CustomEdit.jsx");
 var CustomDelete=require("./Forms/CustomDelete.jsx");
-var agGridReact=require("ag-grid-react-component");
 var $=require("jquery");
+var dataService=require("./../services/DataService.js");
 
-  var AgGridReactGRID = agGridReact.AgGridReact;
     var PackageData = React.createClass({
         onSelectionGridChanged: function(rowData, name) {
             var data = rowData.formData;
@@ -103,16 +102,7 @@ var $=require("jquery");
         render: function() {
             var topHeaderTemplate;
             var gridTemplate;
-            gridTemplate = (
-                <div className="ag-fresh vnfGrid">
-                    <AgGridReactGRID gridOptions={this.state.gridOptions} quickFilterText={this.state.quickFilterText} icons={this.state.icons} columnDefs={this.state.columnDefs} debug="true"/>
-                </div>
-            );
-            topHeaderTemplate = (
-                <div className="form-group">
-                    <input type="text" className="form-control gridFilter" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
-                </div>
-            );
+
             var self = this;
             return (
                 <div className="col-md-12 vnfPackages">
@@ -128,8 +118,6 @@ var $=require("jquery");
 
                     </div>
                     <div className="vnfpackageListView">
-                        {topHeaderTemplate}
-                        {gridTemplate}
 
                     </div>
 
@@ -201,7 +189,7 @@ var $=require("jquery");
                 debugger
                 packageData.push(packageJSON);
             }
-            this.state.gridOptions.api.setRowData(packageData)
+        //    this.state.gridOptions.api.setRowData(packageData)
             this.setState({rowData: packageData})
         },
         componentDidMount: function() {
@@ -209,7 +197,7 @@ var $=require("jquery");
             axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
                 self.processPackageData(response.data);
             })
-            self.state.gridOptions.api.sizeColumnsToFit();
+            //self.state.gridOptions.api.sizeColumnsToFit();
             dataService.registerGridData(this);
         }
     });

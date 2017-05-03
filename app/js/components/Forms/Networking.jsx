@@ -1,7 +1,7 @@
-define([
-    'react', 'jquery' ,'react-jsonschema-form', 'toastr'
-], function(React, $,  Form, toastr) {
-    var FormNetwork = Form.default;
+var React = require("react");
+var $ = require("jquery");
+var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var FormNetwork = Form.default;
 
 const schema = {
   "type": "object",
@@ -119,5 +119,4 @@ const uiSchema = {
            $("#netReq button").click();
          }
     });
-    return NetworkInfo;
-});
+    module.exports= NetworkInfo;

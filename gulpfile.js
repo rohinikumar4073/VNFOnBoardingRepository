@@ -140,7 +140,7 @@ var cssTask = function (options) {
         var start = new Date();
         console.log('Building CSS bundle');
         gulp.src(options.src)
-				.pipe(order(["bootstrap.css","vzbootstrap.css","toastr.css","index.css"]))
+				.pipe(order(["font-awesome.css","bootstrap.css","vzbootstrap.css","toastr.css","index.css"]))
           .pipe(concat('main.css'))
           .pipe(gulp.dest(options.dest))
           .pipe(notify(function () {

@@ -1,7 +1,6 @@
 var React =require("react");
 var toastr=require("toastr");
 var axios=require("axios");
-var agGridReact=require("ag-grid-react-component");
 var PackageData=require("./VNFPackageData.jsx");
 var GeneralInfo=require("./Forms/GeneralInfo.jsx");
 var CommonInfo=require("./Forms/CommonInfo.jsx");
@@ -15,8 +14,9 @@ var VNFInformation=require("./Forms/VNFInformation.jsx");
 var HomePage=require("./Forms/HomePage.jsx");
 var GenerateDescriptors=require("./Forms/GenerateDescriptors.jsx");
 var Loader=require("react-loading");
+var config=require("./../properties/config.js");
 
-    var AgGridReactGRID = agGridReact.AgGridReact;
+var Networking =require("./Forms/Networking.jsx");
     var RightPanel = React.createClass({
       setActivePage:function(activePage){
         this.setState({pageActive: activePage});
@@ -132,42 +132,7 @@ var Loader=require("react-loading");
 
         },
         render: function() {
-            var topHeaderTemplate;
-            var gridTemplate;
-            gridTemplate = (
-                <div className="ag-fresh vnfGrid">
-                    <AgGridReactGRID gridOptions={this.state.gridOptions} quickFilterText={this.state.quickFilterText} icons={this.state.icons} columnDefs={this.state.columnDefs} debug="true"/>
-                </div>
-            );
-            topHeaderTemplate = (
-                <div className="form-group">
-                    <input type="text" className="form-control gridFilter" placeholder="Type text to filter..."/>
-                </div>
-            );
 
-            var GeneralInfoForm = (
-                <GeneralInfo></GeneralInfo>
-            );
-            var vnfPackage = (
-                <div className="col-md-12 vnfPackages">
-                    <h2>VNF Packages</h2>
-                    <div className="viewOption">
-                        <a href="#" className="tableView active" onClick={this.tableClick}>
-                            <i className="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Table View"></i>
-                        </a>
-                        <a href="#" className="gridView" onClick={this.cardClick}>
-                            <i className="fa fa-th" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Card View"></i>
-                        </a>
-                    </div>
-                    <div className="vnfpackageListView">
-                        {topHeaderTemplate}
-                        {gridTemplate}
-
-                    </div>
-
-                    <div className="vnf vnfpackageCardView"></div>
-                </div>
-            );
             return (
 
                 <div className={"contentMain rightPanel "+this.props.className}>
