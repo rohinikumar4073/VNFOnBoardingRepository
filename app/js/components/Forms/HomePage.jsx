@@ -6,14 +6,15 @@ var toastr = require("toastr");
 var axios = require("axios");
 var config = require("./../../properties/config.js");
 var Workflow = require("./../Workflow.jsx");
-var PackageUpload=require("./VNFPackageUpload.jsx");
+var PackageUpload = require("./VNFPackageUpload.jsx");
+var RightPanel = require("./../RightPanel.jsx");
+var LeftPanel = require("./../LeftPanel.jsx");
 
 var homePage = React.createClass({
 
     loadQuestionaire: function() {
-        this.props.setActivePage("networkInfo");
-        $(".totalRightScreenMode").removeClass("totalRightScreenMode")
-        $(".totalLeftScreenMode").removeClass("totalLeftScreenMode")
+        this.setState({pageActive:"questionaire"});
+
     },
     componentDidMount: function() {
 
@@ -66,18 +67,19 @@ var homePage = React.createClass({
 
     },
     uploadPackage: function() {
-        this.props.setActivePage("upload");
+        this.setStatus({pageActive:"upload"});
         $(".leftMain").addClass("totalLeftScreenMode")
         $(".rightPanel").addClass("totalRightScreenMode")
 
     },
     generateDescriptors: function() {
+      this.setStatus({pageActive:"generateDescriptors"});
+
         this.props.setActivePage("generateDescriptors");
-        $(".totalRightScreenMode").removeClass("totalRightScreenMode")
         $(".totalLeftScreenMode").removeClass("totalLeftScreenMode")
     },
     goMainScreen: function() {
-        this.props.setActivePage("package");
+        this.props.setActivePage({pageActive:"package"});
     },
     getInitialState: function() {
 
@@ -89,7 +91,8 @@ var homePage = React.createClass({
             isGenDescComp: this.props.formData.isGenDescComp,
             testPackageExecuted: this.props.formData.testPackageExecuted,
             loaderOn: false,
-            statusLoaderOn: false
+            statusLoaderOn: false,
+            pageActive:"upload"
         };
     },
     testPackage: function() {
@@ -116,7 +119,7 @@ var homePage = React.createClass({
         var self = this;
 
         setInterval(function() {
-            var retrieveUrl = config.formApi+"/vnf/123/retrieve";
+            var retrieveUrl = config.formApi + "/vnf/" + self.props.formData.id + "/retrieve";
 
             axios.get(retrieveUrl).then(function(response) {
                 var data = [];
@@ -141,16 +144,15 @@ var homePage = React.createClass({
         }, 2000);
     },
     transition: function() {
-      debugger;
+        console.log(this.props.formData.id)
+        var uploadUrl = config.formApi + "/vnf/" + this.props.formData.id + "/initialize";
+        var self = this;
+        axios.put(uploadUrl, {}).then(function(response) {
+            console.log(response);
 
-          var uploadUrl = "http://10.76.110.81:40512/vnf/123/initialize";
-          var self = this;
-          axios.put(uploadUrl,{}).then(function(response) {
-              console.log(response);
-
-          }).catch(function(error) {
-              console.log(error);
-          });
+        }).catch(function(error) {
+            console.log(error);
+        });
 
         this.loopTimeout();
     },
@@ -206,6 +208,11 @@ var homePage = React.createClass({
 
     },
     render: function() {
+      var PanelElem=(<div >
+                        <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
+                            </LeftPanel>
+                            <RightPanel className="totalRightScreenMode" ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
+                       </div>);
         return (
             <div className="contentMain rightPanel totalRightScreenMode">
                 <div className="contentBody">
@@ -224,18 +231,16 @@ var homePage = React.createClass({
                                         : "uploadPackage cardPackage active"} onClick={this.uploadPackage}>
                                         <i className="pull-left fa faicon fa-cloud-upload"></i>
 
-                                        <h2>Upload
-                                          VNF Package</h2>
+                                        <h2>Upload VNF Package</h2>
 
                                     </a>
 
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadQuestionaire}>
                                     <a href="#" className="cardPackage  ">
-                                    <i className="pull-left fa fa-question-circle faicon "></i>
+                                        <i className="pull-left fa fa-question-circle faicon "></i>
 
-                                        <h2>VNF Onboarding
-                                          Questionaire</h2>
+                                        <h2>VNF Onboarding Questionaire</h2>
 
                                     </a>
                                 </div>
@@ -244,9 +249,8 @@ var homePage = React.createClass({
                                     <a href="#" className={this.state.isGenDescComp
                                         ? "generatePackage greenColor cardPackage"
                                         : "generatePackage cardPackage"} onClick={this.generateDescriptors}>
-                                          <i className="pull-left fa faicon fa-cubes"></i>
-                                        <h2>Generate
-                                          Descriptors</h2>
+                                        <i className="pull-left fa faicon fa-cubes"></i>
+                                        <h2>Generate Descriptors</h2>
 
                                     </a>
                                 </div>
@@ -268,13 +272,14 @@ var homePage = React.createClass({
                                             </span>
                                         </h2>
 
-
                                     </a>
 
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
-
-                                  <PackageUpload setPageActive={this.setPageActive} ref="upload"  transition={this.transition} saveAndSetFormData={this.saveAndSetFormData}  formData={this.state.data}/> :
+                                    {
+                                      this.state.pageActive =="upload" ?
+                                      <PackageUpload setPageActive={this.setPageActive} ref="upload" transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                      : (this.state.pageActive =="questionaire" ? PanelElem:"" )}
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
                                     <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>

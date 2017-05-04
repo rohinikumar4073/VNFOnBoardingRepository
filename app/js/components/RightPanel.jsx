@@ -8,10 +8,9 @@ var VirtualResource=require("./Forms/VirtualResource.jsx");
 var ManagementConfig=require("./Forms/ManagementConfig.jsx");
 var ScalingRedundancy=require("./Forms/ScalingRedundancy.jsx");
 var PhysicalResource=require("./Forms/PhysicalResource.jsx");
-var PackageUpload=require("./Forms/VNFPackageUpload.jsx");
+
 var VNFInformation=require("./Forms/VNFInformation.jsx");
-var HomePage=require("./Forms/HomePage.jsx");
-var GenerateDescriptors=require("./Forms/GenerateDescriptors.jsx");
+
 var Loader=require("react-loading");
 var config=require("./../properties/config.js");
 
@@ -142,11 +141,7 @@ var Networking =require("./Forms/Networking.jsx");
                         <div className="row">
                             <div className="col-xs-12">
 
-                                {this.state.pageActive == "package"
-                                    ? <PackageData ref="package" setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
-                                  : (this.state.pageActive == "generalInfo"
-                                        ? <GeneralInfo setPageActive={this.setPageActive} ref="generalInfo" formData={this.state.data["generalInfo"]}/>
-                                      : this.state.pageActive == "verification"
+                                {this.state.pageActive == "verification"
                                             ? <CommonInfo setPageActive={this.setPageActive} ref="verification" formData={this.state.data["verification"]}/>
                                           : this.state.pageActive == "vmInfo"
                                                 ? <VirtualResource setPageActive={this.setPageActive}
@@ -161,15 +156,9 @@ var Networking =require("./Forms/Networking.jsx");
                                                             ? <Networking setPageActive={this.setPageActive} ref="networkInfo" formData={this.state.data["networkInfo"]}/>
                                                             : this.state.pageActive == 8
                                                                 ? <CommonInfo setPageActive={this.setPageActive} ref="8" formData={this.state.data[8]}/>
-                                                              : (this.state.pageActive == "additonalInfo"
-                                                                    ? <PhysicalResource setPageActive={this.setPageActive} ref="additonalInfo" saveFormData={this.saveFormData} formData={this.state.data["additonalInfo"]}/>
-                                                                  : this.state.pageActive == "upload"
-                                                                    ? <PackageUpload setPageActive={this.setPageActive} ref="upload"  saveAndSetFormData={this.saveAndSetFormData}  formData={this.state.data}/> :
-                                                                    this.state.pageActive == "homePage"
-                                                                      ? <HomePage setActivePage={this.setActivePage} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>
-                                                                    : this.state.pageActive == "generateDescriptors"
-                                                                    ? <GenerateDescriptors setActivePage={this.setActivePage} saveAndSetFormData={this.saveAndSetFormData} ref="generateDescriptors" formData={this.state.data}/>
-                                                                  : ""))
+                                                              : this.state.pageActive == "additonalInfo"
+                                                                    ? <PhysicalResource setPageActive={this.setPageActive} ref="additonalInfo" saveFormData={this.saveFormData} formData={this.state.data["additonalInfo"]}/>:""
+
 }
 
                             </div>

@@ -21,6 +21,10 @@ var Panel = React.createClass({
           this.setState(data);
 
         },
+        setActivePage:function(data){
+          
+            this.setState(data);
+        },
     render: function() {
 
         return (

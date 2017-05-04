@@ -116,26 +116,24 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                     "width" : boxWidth+"px"
                 });
 
-        defs = svg.append("defs");
+      var  defs = svg.append("defs");
         defs.append("marker")
-            .attr({
-                "id":"markerArrow",
-                "refX":"0",
-                "refY":"4",
-                "markerWidth":arrowWidth,
-                "markerHeight":arrowHeight,
-                "orient":"auto"
-            })
+           .attr("id", "markerArrow")
+            .attr("refX", "0")
+            .attr("refY", "4",)
+            .attr("markerWidth", arrowWidth)
+            .attr("markerHeight", arrowHeight)
+            .attr("orient", "auto")
+
             .append("path")
             .attr("d", "M0,4 L8,4 L4,1 L8,4 L4,7")
             .style("fill","none")
             .style("stroke","black")
             .style("stroke-width",1);
 
-        var lineFunction = d3.svg.line()
+        var lineFunction = d3.line()
             .x(function(d) { return d.x; })
-            .y(function(d) { return d.y; })
-            .interpolate("linear");
+            .y(function(d) { return d.y; });
 
         var lineGraph = bar.append("path")
             .attr("d",function(d, i){
@@ -172,14 +170,12 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                     // target coordinates
                     {"x" : targetX, "y" : targetY}]);
 
-            })
-            .attr({
-                "stroke" : "black",
-                "fill" : "none",
-                "stroke-width" : 2,
-                "marker-end" : "url(#markerArrow)",
-                "class" : "arrowLine"
-            })
+            })  .attr("stroke", "black")
+              .attr("fill", "none",)
+              .attr("stroke-width", 2)
+              .attr("marker-end", "url(#markerArrow)")
+              .attr("class", "arrowLine")
+          
             .attr("", function(d,i){
                 // remove last arrow
                 if (i == data.length-1 )

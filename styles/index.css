@@ -32,7 +32,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 .userInfo > .dropdown>a ,.userInfo > .dropdown>a :hover{background-color:#e7e7e7 !important}
 .userInfo > .dropdown>a {display:inline-block;padding-top: 4px;padding-bottom: 4px; }
 .dropdown-menu{border-radius: 0;border-color: #DDD;}
-.leftMain{float:left; margin-top: 50px;position: fixed;z-index: 999;}
+.leftMain{}
 .leftMainBody{ width:260px; background:#f8f8f8; height:100%;}
 .leftnav{margin:0; padding:0;}
 .leftnav  li .active{ background:#cd040b !important;}
@@ -368,7 +368,6 @@ ag-fresh .ag-paging-button {
   text-indent: 0px;
 
 }
-.totalLeftScreenMode{display: none}
 .totalRightScreenMode{margin-left:0px !important;}
 .add-new{    height: 150px;
     padding: 10px;
@@ -475,4 +474,10 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .package-heading-span{
   position: relative;
 top: -4px;
+}
+.uploadfile div.upload{
+  border: dashed 1px;
+  height: 200px;
+      width: auto;
+      padding:  50px;
 }
