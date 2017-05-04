@@ -5,9 +5,9 @@ var config = require("./../properties/config.js");
 var GridData = require("./GridData.jsx");
 var CustomEdit = require("./Forms/CustomEdit.jsx");
 var CustomDelete = require("./Forms/CustomDelete.jsx");
+var NewVNFForm=require("./Forms/NewVNFForm.jsx");
 var $ = require("jquery");
 var dataService = require("./../services/DataService.js");
-
 var PackageData = React.createClass({
     onSelectionGridChanged: function(rowData, name) {
         var data = rowData.formData;
@@ -24,7 +24,7 @@ var PackageData = React.createClass({
 
     },
     getInitialState: function() {
-
+      debugger;
         return {
             quickFilterText: null,
             height: 250,
@@ -83,10 +83,11 @@ var PackageData = React.createClass({
                 ? "Configured"
                 : "Not Configured",
             isVnfActive: this.props.formData.isVnfActive,
-            isGenDescComp: this.props.formData.isGenDescComp
+            isGenDescComp: this.props.formData.isGenDescComp,
+            addNew: false
 
         }
-
+        debugger;
     },
     rowClicked(data) {},
     onQuickFilterText(event) {
@@ -102,7 +103,7 @@ var PackageData = React.createClass({
         var self = this;
         return (
           <div className="container-fluid">
-            <div className="row content-body">
+            <div className="row content-body packageData">
                 <div className="col-md-12 vnfPackages">
                     <h2 className="page-heading">VNF Directory</h2>
                     <div className="viewOption">
@@ -142,14 +143,30 @@ var PackageData = React.createClass({
 
                     </div>
                 </div>
-            </div>
-            </div>
-
+              </div>
+            {this.state.addNew
+            ? <NewVNFForm header="Create VNF Record" closePage={this.closePage} />
+          : ""
+        }
+        </div>
         );
     },
+    closePage: function(close){
+      if(close == "close"){
+        this.setState({addNew: false});
+        $('.packageData').removeClass('crossFade');
+        var self = this;
+        axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
+          self.setState({rowData: []})
+            self.processPackageData(response.data);
+        })
+      }
+    },
     createNew: function() {
-
-        this.props.forAddNew();
+      this.setState({addNew: true});
+      $('.packageData').addClass('crossFade');
+      debugger;
+        //this.props.forAddNew();
     },
     cardClick: function() {
 
@@ -193,7 +210,7 @@ var PackageData = React.createClass({
                 ? true
                 : false;
             index++;
-            debugger
+            debugger;
             packageData.push(packageJSON);
         }
         //    this.state.gridOptions.api.setRowData(packageData)
@@ -201,6 +218,7 @@ var PackageData = React.createClass({
     },
     componentDidMount: function() {
         var self = this;
+        debugger;
         axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
             self.processPackageData(response.data);
         })

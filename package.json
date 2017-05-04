@@ -30,6 +30,7 @@
     "react-loading": "0.0.9",
     "d3": "4.8.0",
     "machina": "2.0.0"
+
   },
   "dependencies": {
     "flux-react": "^2.6.6",
