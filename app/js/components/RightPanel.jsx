@@ -12,6 +12,7 @@ var PackageUpload=require("./Forms/VNFPackageUpload.jsx");
 var VNFInformation=require("./Forms/VNFInformation.jsx");
 var HomePage=require("./Forms/HomePage.jsx");
 var GenerateDescriptors=require("./Forms/GenerateDescriptors.jsx");
+var NewVNFForm=require("./Forms/NewVNFForm.jsx");
 var Loader=require("react-loading");
 var config=require("./../properties/config.js");
 
@@ -25,8 +26,9 @@ var Networking =require("./Forms/Networking.jsx");
       },
       forAddNew: function() {
           var packageName=this.generatePackageName();
-          this.setState({pageActive: "generalInfo", packageName: packageName, data: {}})
+          this.setState({pageActive: "NewVnfPopUp", packageName: packageName, data: {}})
       },
+
         setPageActive: function(pageNumber, fromPage, formData, prevPageName) {
           var packageName=this.getPackageName();
            if(pageNumber!="package"){
@@ -169,7 +171,9 @@ var Networking =require("./Forms/Networking.jsx");
                                                                       ? <HomePage setActivePage={this.setActivePage} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>
                                                                     : this.state.pageActive == "generateDescriptors"
                                                                     ? <GenerateDescriptors setActivePage={this.setActivePage} saveAndSetFormData={this.saveAndSetFormData} ref="generateDescriptors" formData={this.state.data}/>
-                                                                  : ""))
+                                                                  : this.state.pageActive == "NewVnfPopUp"
+                                                                  ? <NewVNFForm setActivePage={this.setActivePage} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                                                : ""))
 }
 
                             </div>

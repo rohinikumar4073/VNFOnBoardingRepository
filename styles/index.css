@@ -106,7 +106,7 @@ html a {color: #333;}
 .contentBody label{    font-family: nhg-text-roman, arial, sans-serif;    font-weight: normal;}
 .contentBody{border-top: 4px solid #000;}
 .contentFooter{float: left;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 20px;}
-.rjsf button{display:none;}
+.rjsf button{display:block;}
 
 #accordion .panel-heading .panel-title a, .accordion .panel-heading .panel-title a{ font-size:15px;}
 .form-group{padding: 15px 0 0;}
@@ -475,4 +475,13 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .package-heading-span{
   position: relative;
 top: -4px;
+}
+.crossFade{
+  opacity: .50;
+  color: #000;
+}
+.newVnf {
+  position: absolute;
+  top: 100px;
+  left: 500px;
 }
