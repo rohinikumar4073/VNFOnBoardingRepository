@@ -14,6 +14,7 @@ var Dropzone=require("react-dropzone");
 
         onDrop: function(acceptedFiles) {
             this.setState({files: acceptedFiles});
+            this.props.transition();
         },
 
         onOpenClick: function() {
@@ -97,28 +98,32 @@ var Dropzone=require("react-dropzone");
                     : "packageUpload"}>
                     <div className="row">
                         <div className="col-sm-12">
-                            <h1>Package Upload</h1>
-                            <div className="uploadfile">
-                                <Dropzone ref={(node) => {
-                                    this.dropzone = node;
-                                }} onDrop={this.onDrop}>
-                                    <div>Try dropping some files here, or click to select files to upload.</div>
-                                </Dropzone>
-                                {this.state.files.length > 0
-                                    ? <div>
-                                            <h2>Uploading {this.state.files.length}
-                                                files...</h2>
-                                            <div>{this.state.files.map((file) => <h3>{file.name}</h3>)}</div>
-                                        </div>
-                                    : null}
+                        <div className="col-sm-6">
+                        </div>
+                        <div className="col-sm-6">
+                        <div className="uploadfile">
+                            <Dropzone ref={(node) => {
+                                this.dropzone = node;
+                            }} onDrop={this.onDrop}
+style={{}}
+                            >
+                                <div>Try dropping some files here, or click to select files to upload.</div>
+                            </Dropzone>
+                            {this.state.files.length > 0
+                                ? <div>
+                                        <h2>Uploading {this.state.files.length}
+                                            files...</h2>
+                                        <div>{this.state.files.map((file) => <h3>{file.name}</h3>)}</div>
+                                    </div>
+                                : null}
 
-                            </div>
+                        </div>
+                        </div>
+
                         </div>
                     </div>
-                    <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.uploadPackage}>Upload</a>
-                      <div className="contentFooter">
-                         <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
-                      </div>
+
+
                 </div>
                 <div className={this.state.loaderOn
                     ? "showLoader"

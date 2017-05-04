@@ -23,7 +23,7 @@ var actions = require('./../../actions.js');
                                 <div className="navbar-header">
                                     <a className="vzlogo" href="/"></a>
                                 </div>
-                                <h1 className="sublogo">VNF Onboarding Portal</h1>
+                                <h1 className="sublogo">VNF Exchange</h1>
                                 <UserProfile></UserProfile>
                                 </div>
                             </nav>

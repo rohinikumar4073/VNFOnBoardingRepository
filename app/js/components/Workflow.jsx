@@ -1,7 +1,7 @@
 
 var React = require("react");
 var $ = require("jquery");
-var d3 =require("d3");
+var d3 =require("./../thirdParty/d3/d3.min.js");
 
     var WorkFlow = React.createClass({
 
@@ -87,12 +87,10 @@ var d3 =require("d3");
             .attr("stroke","none");
 
             bar.append("foreignObject")
-            .attr({
-                "x" : 0,
-                "y" : 0,
-                "width" : boxWidth+"px",
-                "height" : boxHeight+"px"
-            })
+            .attr("x" , 0)
+              .attr("y" , 0)
+              .attr("width",boxWidth)
+              .attr("height",boxHeight)
             .append("xhtml:body")
             .html(
                 '<div class="displayData">'+

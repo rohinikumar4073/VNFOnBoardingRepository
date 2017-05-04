@@ -1,6 +1,6 @@
 var React = require("react");
 var $ = require("jquery");
-var Form = require("./SampleMachina.js");
+var SampleMachina = require("./SampleMachina.js");
 var Loader = require("react-loading");
 var toastr = require("toastr");
 var axios = require("axios");
@@ -116,12 +116,12 @@ var homePage = React.createClass({
         var self = this;
 
         setInterval(function() {
-            var retrieveUrl = "http://10.76.110.81:40512/vnf/123/retrieve";
+            var retrieveUrl = config.formApi+"/vnf/123/retrieve";
 
             axios.get(retrieveUrl).then(function(response) {
                 var data = [];
                 console.log(response.data)
-                for (object in response.data) {
+                for (var object in response.data) {
                     var dataObj = {
                         content: ""
                     }
@@ -141,7 +141,17 @@ var homePage = React.createClass({
         }, 2000);
     },
     transition: function() {
-        SampleMachina.transition("upload")
+      debugger;
+
+          var uploadUrl = "http://10.76.110.81:40512/vnf/123/initialize";
+          var self = this;
+          axios.put(uploadUrl,{}).then(function(response) {
+              console.log(response);
+
+          }).catch(function(error) {
+              console.log(error);
+          });
+
         this.loopTimeout();
     },
     activateVNF: function() {
@@ -205,24 +215,28 @@ var homePage = React.createClass({
                                 ? "homePageClass"
                                 : ""}>
                                 <h2 className="homePageHeading">
-                                    <i className="fa fa-angle-left get-back" aria-hidden="true"></i>
+                                    <i className="fa fa-angle-left get-back" aria-hidden="true" onClick={this.goMainScreen}></i>
                                     <span className="package-heading-span">{this.props.formData.generalInfo.productinfo.vnfproductname}</span>
                                 </h2>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
                                     <a href="#" className={this.props.formData.isPackageUploaded
                                         ? "uploadPackage greenColor cardPackage"
                                         : "uploadPackage cardPackage active"} onClick={this.uploadPackage}>
+                                        <i className="pull-left fa faicon fa-cloud-upload"></i>
+
                                         <h2>Upload
-                                            <br/>VNF Package</h2>
-                                        <i className="pull-right fa faicon fa-cloud-upload"></i>
+                                          VNF Package</h2>
+
                                     </a>
 
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadQuestionaire}>
                                     <a href="#" className="cardPackage  ">
+                                    <i className="pull-left fa fa-question-circle faicon "></i>
+
                                         <h2>VNF Onboarding
-                                            <br/>Questionaire</h2>
-                                        <i className="pull-right fa fa-question-circle faicon "></i>
+                                          Questionaire</h2>
+
                                     </a>
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
@@ -230,21 +244,22 @@ var homePage = React.createClass({
                                     <a href="#" className={this.state.isGenDescComp
                                         ? "generatePackage greenColor cardPackage"
                                         : "generatePackage cardPackage"} onClick={this.generateDescriptors}>
+                                          <i className="pull-left fa faicon fa-cubes"></i>
                                         <h2>Generate
-                                            <br/>Descriptors</h2>
-                                        <i className="pull-right fa faicon fa-cubes"></i>
+                                          Descriptors</h2>
+
                                     </a>
                                 </div>
 
                                 <div className="col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="#" className={this.state.configurationStatus == 'Not Configured'
-                                        ? " cardPackage not-configured"
+                                        ? " cardPackage "
                                         : (this.state.configurationStatus == "Configured"
                                             ? "cardPackage configured"
                                             : (this.state.configurationStatus == "ACTIVE"
                                                 ? "cardPackage active-vnf"
                                                 : "cardPackage on-boarding"))}>
-                                        <h2>Status<br/>
+                                        <h2>Status
                                             <span>{this.state.configurationStatus}</span>
                                             <span className="progressActive">
                                                 <span className="one">.</span>
@@ -253,20 +268,22 @@ var homePage = React.createClass({
                                             </span>
                                         </h2>
 
-                                        <i className="pull-right fa faicon fa-flask"></i>
+
                                     </a>
 
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
 
-                                  <PackageUpload setPageActive={this.setPageActive} ref="upload"  saveAndSetFormData={this.saveAndSetFormData}  formData={this.state.data}/> :
+                                  <PackageUpload setPageActive={this.setPageActive} ref="upload"  transition={this.transition} saveAndSetFormData={this.saveAndSetFormData}  formData={this.state.data}/> :
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
                                     <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
                                 </div>
 
                             </div>
-
+                            <div className="contentFooter">
+                                <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}>Return to VNF Directory</a>
+                            </div>
                             <div className={this.state.loaderOn
                                 ? "showLoader"
                                 : "hideLoader"}>
