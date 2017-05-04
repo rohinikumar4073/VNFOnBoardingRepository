@@ -383,12 +383,12 @@ ag-fresh .ag-paging-button {
 /*Home page */
 
 .mainPackage{ background: #000; padding:15px; width: 100%; display: inline-block; margin-top:15px; margin-bottom:15px;}
-.mainPackage h2,.cardPackage h2{ display: inline-block; color: #FFF; font-size:25px;margin-bottom: 0px;}
+.mainPackage h2,.cardPackage h2{ display: inline-block; color: #FFF; font-size:18px;margin-bottom: 0px;}
 .cardPackage h2{ color:#000}
-.cardPackage .faicon{ color:#000; font-size: 40px;}
+.cardPackage .faicon{ color:#000; font-size: 24px;}
 .mainPackage .fa-question-circle{ font-size: 64px; color:#FFF;}
 .mainPackage img{ position: absolute;height: 35px;bottom: 2.3em;left: 2.5em;}
-.cardPackage{ border:1px solid #000;padding:15px; width: 100%;display: inline-block; margin-top:15px; margin-bottom:15px;}
+.cardPackage{ border:1px solid #000;padding:15px; width: 100%;display: inline-block; margin:0px 0px 10px; }
 
 .not-configured{    border-left: 10px solid #A80909 !important; border-top: 1px solid #A80909;border-bottom: 1px solid #A80909; border-right: 1px solid #A80909;}
 .not-configured h2 span, .configured h3 span{ color: #A80909}
