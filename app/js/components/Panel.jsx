@@ -3,21 +3,26 @@ var $ = require("jquery");
 var LeftPanel = require("./LeftPanel.jsx");
 var Header= require("./Header.jsx");
 var RightPanel= require("./RightPanel.jsx");
+var PackageData=require("./VNFPackageData.jsx");
 
 var Panel = React.createClass({
 
     changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
+    getInitialState: function() {
+        return {pageActive: "package", packageName: "",
+          loaderOn: false,
+          statusLoaderOn: false,
+          data:{"generalInfo":{}}}
 
+    },
     render: function() {
 
         return (
             <div>
               <Header className="container-fluid" />
-                <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
-                  </LeftPanel>
-                                              <RightPanel className="totalRightScreenMode" ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
+<PackageData ref="package" setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
             </div>
         );
     },

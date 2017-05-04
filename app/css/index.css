@@ -456,7 +456,11 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .displayData .panel{
 	margin : 0;
   height: 175px;
-}.panel-body{
+}
+.panel-body{
   height: 85px;
 
+}
+.content-body{
+  padding-top: 70px;
 }

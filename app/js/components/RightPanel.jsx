@@ -1,7 +1,6 @@
 var React =require("react");
 var toastr=require("toastr");
 var axios=require("axios");
-var PackageData=require("./VNFPackageData.jsx");
 var GeneralInfo=require("./Forms/GeneralInfo.jsx");
 var CommonInfo=require("./Forms/CommonInfo.jsx");
 var Orchestration=require("./Forms/Orchestration.jsx");

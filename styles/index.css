@@ -69,13 +69,13 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 
 .vnfpackageListView{display: none;}
 .vnfpackageCardView,.vnfpackageListView{ margin-top:20px;}
-.vnfpackageCardView >div{margin-bottom: 20px; }
-.vnfpackageCardView >div>a{text-decoration:none;}
+.vnfpackageCardView > div {margin-bottom: 20px; }
+.vnfpackageCardView > div > a{text-decoration:none;}
 .card{background-color: #f5f5f5;}
 .card:hover{box-shadow: 0 10px 12px rgba(0, 0, 0, .2); }
+html a {color: #333;}
 .card > .card-body{padding: 15px;height: 100px;    color: #333;    overflow-y: hidden; }
-.card > .card-body >h4{margin:0; margin-bottom:5px;}
-.card > .card-body >h4 span{font-family:nhg-text-roman;font-size: 15px;}
+.card > .card-body  h4{margin:0; margin-bottom:5px;}
 .card > .card-footer{background-color: rgb(232, 246, 254);width: 100%;padding: 16px 15px;}
 .card-footer-text{font-size: 14px;color: #000;font-family:"nhg-display-bold";}
 .card-footer > i{ color: #CD040B;}
@@ -408,7 +408,7 @@ ag-fresh .ag-paging-button {
 nav{border-radius: 0 !important;}
 .input-transparent-field input[type=text],.input-transparent-field input[type=password]{padding-left: 10px;}
 /*Home page */
-.homePageHeading{text-align: center;}
+.homePageHeading{text-align: left;}
 .vnf-disabled{
   cursor: unset;
 }
@@ -458,4 +458,7 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 }.panel-body{
   height: 85px;
 
+}
+.content-body{
+  padding-top: 70px;
 }
