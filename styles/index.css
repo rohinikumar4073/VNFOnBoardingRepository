@@ -475,13 +475,11 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
   position: relative;
 top: -4px;
 }
-<<<<<<< HEAD
 .uploadfile div.upload{
   border: dashed 1px;
   height: 200px;
       width: auto;
-      padding:  50px;
-=======
+      padding:  50px;}
 .crossFade{
   opacity: .50;
   color: #000;
@@ -490,5 +488,4 @@ top: -4px;
   position: absolute;
   top: 100px;
   left: 500px;
->>>>>>> 99556afaf67a753a71505dd8fa8d103c633d0a5f
 }
