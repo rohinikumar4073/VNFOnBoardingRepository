@@ -11136,6 +11136,6 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
   height: 85px;
 
 }
-.contentbody{
-  padding-top: 70px !important;
+.content-body{
+  padding-top: 70px;
 }
