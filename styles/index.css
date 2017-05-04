@@ -382,11 +382,11 @@ ag-fresh .ag-paging-button {
 }
 /*Home page */
 
-.mainPackage{ background: #000; height:218px; padding:15px; width: 100%; display: inline-block; margin-top:15px; margin-bottom:15px;}
-.mainPackage h2,.cardPackage h2{ display: inline-block; color: #FFF; font-size:25px;}
+.mainPackage{ background: #000; padding:15px; width: 100%; display: inline-block; margin-top:15px; margin-bottom:15px;}
+.mainPackage h2,.cardPackage h2{ display: inline-block; color: #FFF; font-size:25px;margin-bottom: 0px;}
 .cardPackage h2{ color:#000}
 .cardPackage .faicon{ color:#000; font-size: 40px;}
-.mainPackage .fa-question-circle{ font-size: 140px; color:#FFF;}
+.mainPackage .fa-question-circle{ font-size: 64px; color:#FFF;}
 .mainPackage img{ position: absolute;height: 35px;bottom: 2.3em;left: 2.5em;}
 .cardPackage{ border:1px solid #000;padding:15px; width: 100%;display: inline-block; margin-top:15px; margin-bottom:15px;}
 
@@ -435,7 +435,10 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .greenColor i.fa-cubes {color: #00AC3E;}
 .greenColor i.fa-cloud-upload {color: #00AC3E;}
 .greenColor i.fa-check {color: #00AC3E;}
-
+.cardPackage.active{    border-left: 10px solid #A80909 !important;
+    border-top: 1px solid #A80909;
+    border-bottom: 1px solid #A80909;
+    border-right: 1px solid #A80909; }
 .showLoader {display: block; margin-left: 50%;}
 .hideLoader {display: none;}
 .homePageClass {opacity: 0.2;}
@@ -461,4 +464,15 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 }
 .content-body{
   padding-top: 70px;
+}
+.vnfPackages h2.page-heading{
+ margin-left:10px;    margin-bottom: 0px;
+}
+.get-back{
+  padding-right: 10px;
+  font-size: 32px;
+}
+.package-heading-span{
+  position: relative;
+top: -4px;
 }

@@ -4,7 +4,7 @@ var  axios= require("axios");
 var toastr = require("toastr");
 var Loader = require("react-loading");
 var config = require("./../../properties/config.js");
-
+var Dropzone=require("react-dropzone");
 
 
     var Upload = React.createClass({
