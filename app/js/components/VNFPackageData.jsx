@@ -102,9 +102,9 @@ var PackageData = React.createClass({
         var self = this;
         return (
           <div className="container-fluid">
-            <div className="row contentbody">
+            <div className="row content-body">
                 <div className="col-md-12 vnfPackages">
-                    <h2>VNF Directory</h2>
+                    <h2 className="page-heading">VNF Directory</h2>
                     <div className="viewOption">
 
                         <a href="#" className="gridView" onClick={this.cardClick}>

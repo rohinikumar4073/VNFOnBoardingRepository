@@ -4,6 +4,7 @@ var LeftPanel = require("./LeftPanel.jsx");
 var Header= require("./Header.jsx");
 var RightPanel= require("./RightPanel.jsx");
 var PackageData=require("./VNFPackageData.jsx");
+var HomePage=require("./Forms/HomePage.jsx");
 
 var Panel = React.createClass({
 
@@ -16,13 +17,21 @@ var Panel = React.createClass({
           statusLoaderOn: false,
           data:{"generalInfo":{}}}
 
-    },
+    },    setPackageDataAndName:function(data){
+          this.setState(data);
+
+        },
     render: function() {
 
         return (
             <div>
               <Header className="container-fluid" />
-<PackageData ref="package" setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
+                {this.state.pageActive == "package" ?
+                    <PackageData ref="package" setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
+                     : (this.state.pageActive == "homePage"
+                         ? <HomePage setActivePage={this.setActivePage} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>:"")
+                       }
+
             </div>
         );
     },

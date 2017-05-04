@@ -27,13 +27,14 @@
     "toastr": "2.1.2",
     "ag-grid-react-component": "3.2.2",
     "axios": "0.16.1",
-    "react-loading":"0.0.9",
-    "d3":"4.8.0",
-    "machina":"2.0.0"
+    "react-loading": "0.0.9",
+    "d3": "4.8.0",
+    "machina": "2.0.0"
   },
   "dependencies": {
     "flux-react": "^2.6.6",
     "react": "^0.14.x",
-     "react-dom": "^0.14.x"
+    "react-dom": "^0.14.x",
+    "react-dropzone": "^3.13.1"
   }
 }
