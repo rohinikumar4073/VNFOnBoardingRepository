@@ -157,7 +157,6 @@ var PackageData = React.createClass({
         $('.packageData').removeClass('crossFade');
         var self = this;
         axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
-          self.setState({rowData: []})
             self.processPackageData(response.data);
         })
       }
