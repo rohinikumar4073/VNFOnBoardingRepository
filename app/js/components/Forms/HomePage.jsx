@@ -137,13 +137,11 @@ var homePage = React.createClass({
                     var dataObj = {
                         content: ""
                     }
+                    dataObj.content = object;
+                    data.push(dataObj)
                     if (response.data[object].status == "not-started") {
-                      dataObj.content = object;
-                      data.push(dataObj)
+
                         break;
-                    } else if (response.data[object].status == "completed") {
-
-
                     }
                 }
                 self.refs.workFlow.loadData(data)
@@ -151,7 +149,7 @@ var homePage = React.createClass({
             }).catch(function(error) {
                 console.log(error);
             });
-        }, 2000);
+        },50000);
     },
     transition: function() {
         console.log(this.props.formData.id)

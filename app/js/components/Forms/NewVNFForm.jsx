@@ -93,7 +93,6 @@ const uiSchema = {
         ajaxCalltoSetData:function(data,packageName,callback){
           var savePackageUrl=config.formApi+ "/vnf/"+packageName+"/saveFormData";
           var self=this;
-          debugger;
                     axios.post(savePackageUrl, {
                         formData: data
                     }).then(function(response) {

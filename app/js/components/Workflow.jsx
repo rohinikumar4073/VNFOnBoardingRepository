@@ -97,6 +97,8 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                     '<div class="panel panel-primary">'+
                         '<div class="panel-heading">Panel Heading</div>'+
                         '<div class="panel-body">'+
+                          '<div class="dots-container">'+
+
                         '<span class="dots"></span>'+
   '<span class="dots"></span>'+
     '<span class="dots"></span>'+
@@ -105,16 +107,15 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
           '<span class="dots"></span>'+
             '<span class="dots"></span>'+
               '<span class="dots"></span>'+  '<span class="dots"></span>'+
-                  '<span class="dots"></span>'+
+                  '<span class="dots"></span>'+  +'</div>'+
                         +'</div>'+
-                        '<div class="panel-footer">Panel footer</div>'+
                     '</div>'+
                 '</div>'
                 );
 
            for (var i=0;i<data.length; i++){
-               var textElements1 = document.querySelectorAll(".displayData .panel-body");
-               var textElements2 = document.querySelectorAll(".displayData .panel-heading");
+              // var textElements1 = document.querySelectorAll(".displayData .panel-body");
+              var textElements2 = document.querySelectorAll(".displayData .panel-heading");
 
             //   textElements1[i].textContent = data[i].content;
                textElements2[i].textContent = data[i].content;
