@@ -488,4 +488,6 @@ top: -4px;
   position: absolute;
   top: 100px;
   left: 500px;
+}.btn-save,.btn-cancel{
+  display: inline-block;
 }

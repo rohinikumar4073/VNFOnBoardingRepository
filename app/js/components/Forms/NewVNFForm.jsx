@@ -115,8 +115,8 @@ const uiSchema = {
                                 console.log("i am errors" + errors);
                             }} onSubmit={this.onSubmit}>
                                 <div>
-                                    <button type="submit" className="btn btn-sm btn-primary" data="Save">Save</button>
-                                    <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
+                                    <button type="submit" className="btn btn-sm btn-primary btn-save" data="Save">Save</button>
+                                    <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default  btn-cancel" data="Cancel">Cancel</button>
                                 </div>
                             </NewVnf>
                         </div>
