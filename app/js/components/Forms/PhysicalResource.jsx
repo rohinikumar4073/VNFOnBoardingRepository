@@ -126,10 +126,7 @@ var PostInstall=require("./PostInstall.jsx")
                                           </div>
                           </div>
                         </div>
-                         <div className="contentFooter">
-                            <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"verification","prev")}>Previous</a>
-                            <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
-                         </div>
+                  
                         </div>
             );
         },
@@ -141,8 +138,7 @@ var PostInstall=require("./PostInstall.jsx")
            this.state.val = "saveAndExit";
              $("#phys button").click();
              this.props.setPageActive("homePage", "next", {},"additonalInfo");
-             $(".leftMain").addClass("totalLeftScreenMode");
-             $(".contentMain").addClass("totalRightScreenMode");
+
            //this.setState({val: "saveAndExit"});
          },
          finishForm:function(){

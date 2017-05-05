@@ -132,11 +132,7 @@ const uiSchema = {
                 <div id="virRes">
                       <FormVNF schema={schema} uiSchema={uiSchema} formData={this.state.formData} onSubmit={this.onSubmit}>
                         </FormVNF>
-                         <div className="contentFooter">
-                        {/*    <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a> */}
-                            <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
-                            <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
-                         </div>
+                        
                         </div>
             );
         },moveNext:function(){

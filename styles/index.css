@@ -33,7 +33,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 .userInfo > .dropdown>a {display:inline-block;padding-top: 4px;padding-bottom: 4px; }
 .dropdown-menu{border-radius: 0;border-color: #DDD;}
 .leftMain{}
-.leftMainBody{ width:260px; background:#f8f8f8; height:100%;}
+.leftMainBody{  background:#f8f8f8; height:100%;}
 .leftnav{margin:0; padding:0;}
 .leftnav  li .active{ background:#cd040b !important;}
 .leftnav  li a{padding: 15px 25px 15px 20px;width: 100%; display:block; color:#FFF; font-size:16px;font-family: nhg-text-roman, arial, sans-serif;     border-top: 1px solid #404040;    background-color: #333;}
@@ -42,7 +42,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 .leftnav  li a:hover,.leftnav  li a:focus{ text-decoration:none;}
 .leftnav  li i{font-size:25px; float:right;}
 
-.contentMain{ margin-left:260px;padding: 20px;padding-top: 70px;}
+.contentMain{padding: 20px;padding-top: 70px;}
 .contentBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:850px;}
 
 .generateDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
@@ -456,9 +456,6 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .displayData .panel{
 	margin : 0;
   height: 175px;
-}.panel-body{
-  height: 85px;
-
 }
 .content-body{
   padding-top: 70px;
@@ -489,4 +486,167 @@ top: -4px;
   left: 500px;
 }.btn-save,.btn-cancel{
   display: inline-block;
+}
+button.btn.btn-info {
+    display: none;
+}.right-panel-forms .contentFooter {
+    display: re;
+    position: relative;
+    background: transparent;
+}
+.right-panel-forms .nextBtn,.finishBtn{float:left;}
+
+.dots {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  &:not(:last-child){
+    margin-right: $dotSize*1.5;
+  }
+
+  &:before, &:after {
+    content: "";
+    display: inline-block;
+    width: $dotSize;
+    height: $dotSize;
+    border-radius: 50%;
+
+    position: absolute;
+  }
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      &:before {
+        -webkit-transform: translateY(-200%);
+        transform: translateY(-200%);
+
+        -webkit-animation: animBefore 1s linear infinite;
+        animation: animBefore 1s linear infinite;
+
+        -webkit-animation-delay: $i*-0.9s;
+        animation-delay: $i*-0.9s;
+
+        background-color: $topDotColor;
+      }
+
+      &:after {
+        -webkit-transform: translateY(200%);
+        transform: translateY(200%);
+
+        -webkit-animation: animAfter 1s linear infinite;
+        animation: animAfter 1s linear infinite;
+
+        -webkit-animation-delay: $i*-0.9s;
+        animation-delay: $i*-0.9s;
+
+        background-color: $bottomDotColor;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes animBefore {
+  0% {
+    -webkit-transform: scale(1) translateY(-200%);
+    z-index: 1;
+  }
+
+  25% {
+    -webkit-transform: scale(1.3) translateY(0);
+    z-index: 1;
+  }
+
+  50% {
+    -webkit-transform: scale(1) translateY(200%);
+    z-index: -1;
+  }
+
+  75% {
+    -webkit-transform: scale(0.7) translateY(0);
+    z-index: -1;
+  }
+
+  100% {
+    -webkit-transform: scale(1) translateY(-200%);
+    z-index: -1;
+  }
+}
+@keyframes animBefore {
+  0% {
+    transform: scale(1) translateY(-200%);
+    z-index: 1;
+  }
+
+  25% {
+    transform: scale(1.3) translateY(0);
+    z-index: 1;
+  }
+
+  50% {
+    transform: scale(1) translateY(200%);
+    z-index: -1;
+  }
+
+  75% {
+    transform: scale(0.7) translateY(0);
+    z-index: -1;
+  }
+
+  100% {
+    transform: scale(1) translateY(-200%);
+    z-index: -1;
+  }
+}
+@-webkit-keyframes animAfter {
+  0% {
+    -webkit-transform: scale(1) translateY(200%);
+    z-index: -1;
+  }
+
+  25% {
+    -webkit-transform: scale(0.7) translateY(0);
+    z-index: -1;
+  }
+
+  50% {
+    -webkit-transform: scale(1) translateY(-200%);
+    z-index: 1;
+  }
+
+  75% {
+    -webkit-transform: scale(1.3) translateY(0);
+    z-index: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1) translateY(200%);
+    z-index: 1;
+  }
+}
+@keyframes animAfter {
+  0% {
+    transform: scale(1) translateY(200%);
+    z-index: -1;
+  }
+
+  25% {
+    transform: scale(0.7) translateY(0);
+    z-index: -1;
+  }
+
+  50% {
+    transform: scale(1) translateY(-200%);
+    z-index: 1;
+  }
+
+  75% {
+    transform: scale(1.3) translateY(0);
+    z-index: 1;
+  }
+
+  100% {
+    transform: scale(1) translateY(200%);
+    z-index: 1;
+  }
 }

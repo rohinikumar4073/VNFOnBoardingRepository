@@ -9,12 +9,22 @@ var Workflow = require("./../Workflow.jsx");
 var PackageUpload = require("./VNFPackageUpload.jsx");
 var RightPanel = require("./../RightPanel.jsx");
 var LeftPanel = require("./../LeftPanel.jsx");
+global.jQuery = require('jquery');
+
+
+var bootstrap = require("bootstrap");
 
 var homePage = React.createClass({
+  changeRightPanel: function(pageNumber) {
+      this.refs.rightPanel.setPageActive(pageNumber)
 
+  },
     loadQuestionaire: function() {
         this.setState({pageActive:"questionaire"});
 
+
+    },changeStatus: function(pageNumber) {
+        this.refs.leftPanel.changeStatus(pageNumber);
     },
     componentDidMount: function() {
 
@@ -67,13 +77,12 @@ var homePage = React.createClass({
 
     },
     uploadPackage: function() {
-        this.setStatus({pageActive:"upload"});
-        $(".leftMain").addClass("totalLeftScreenMode")
-        $(".rightPanel").addClass("totalRightScreenMode")
+        this.setState({pageActive:"upload"});
+
 
     },
     generateDescriptors: function() {
-      this.setStatus({pageActive:"generateDescriptors"});
+      this.setState({pageActive:"generateDescriptors"});
 
         this.props.setActivePage("generateDescriptors");
         $(".totalLeftScreenMode").removeClass("totalLeftScreenMode")
@@ -129,10 +138,11 @@ var homePage = React.createClass({
                         content: ""
                     }
                     if (response.data[object].status == "not-started") {
+                      dataObj.content = object;
+                      data.push(dataObj)
                         break;
                     } else if (response.data[object].status == "completed") {
-                        dataObj.content = object;
-                        data.push(dataObj)
+
 
                     }
                 }
@@ -208,10 +218,10 @@ var homePage = React.createClass({
 
     },
     render: function() {
-      var PanelElem=(<div >
+      var PanelElem=(<div className="row" >
                         <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
                             </LeftPanel>
-                            <RightPanel className="totalRightScreenMode" ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
+                            <RightPanel className="totalRightScreenMode" formDataFromHome={this.props.formData} ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
                        </div>);
         return (
             <div className="contentMain rightPanel totalRightScreenMode">
@@ -226,9 +236,9 @@ var homePage = React.createClass({
                                     <span className="package-heading-span">{this.props.formData.generalInfo.productinfo.vnfproductname}</span>
                                 </h2>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <a href="#" className={this.props.formData.isPackageUploaded
-                                        ? "uploadPackage greenColor cardPackage"
-                                        : "uploadPackage cardPackage active"} onClick={this.uploadPackage}>
+                                    <a href="#" className={this.state.pageActive=="upload"
+                                        ? "uploadPackage  cardPackage active"
+                                        : "uploadPackage cardPackage  "} onClick={this.uploadPackage}>
                                         <i className="pull-left fa faicon fa-cloud-upload"></i>
 
                                         <h2>Upload VNF Package</h2>
@@ -237,7 +247,9 @@ var homePage = React.createClass({
 
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadQuestionaire}>
-                                    <a href="#" className="cardPackage  ">
+                                    <a href="#" className={this.state.pageActive =="questionaire"
+                                        ? "uploadPackage  cardPackage active"
+                                        : "uploadPackage cardPackage  "}>
                                         <i className="pull-left fa fa-question-circle faicon "></i>
 
                                         <h2>VNF Onboarding Questionaire</h2>
@@ -246,9 +258,9 @@ var homePage = React.createClass({
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
 
-                                    <a href="#" className={this.state.isGenDescComp
-                                        ? "generatePackage greenColor cardPackage"
-                                        : "generatePackage cardPackage"} onClick={this.generateDescriptors}>
+                                    <a href="#" className={this.state.pageActive =="generateDescriptors"
+                                        ? "uploadPackage  cardPackage active"
+                                        : "uploadPackage cardPackage  "} onClick={this.generateDescriptors}>
                                         <i className="pull-left fa faicon fa-cubes"></i>
                                         <h2>Generate Descriptors</h2>
 

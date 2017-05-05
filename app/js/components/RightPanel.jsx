@@ -111,7 +111,7 @@ var Networking =require("./Forms/Networking.jsx");
             this.setState({packageName: packageName})
         },
         getInitialState: function() {
-            return {pageActive: "package", packageName: "",
+            return {pageActive: "networkInfo", packageName: "",
               loaderOn: false,
               statusLoaderOn: false,
               data:{"generalInfo":{}}}
@@ -133,13 +133,12 @@ var Networking =require("./Forms/Networking.jsx");
 
             return (
 
-                <div className={"contentMain rightPanel "+this.props.className}>
                   <div className={this.state.loaderOn
                       ? "homePageClass"
                       : ""}>
-                    <div className="contentBody">
-                        <div className="row">
-                            <div className="col-xs-12">
+
+                        <div >
+                            <div className="col-xs-9 right-panel-forms">
 
                                 {this.state.pageActive == "verification"
                                             ? <CommonInfo setPageActive={this.setPageActive} ref="verification" formData={this.state.data["verification"]}/>
@@ -163,15 +162,15 @@ var Networking =require("./Forms/Networking.jsx");
 
                             </div>
                         </div>
-                    </div>
 
-                </div>
                     <div className={this.state.loaderOn
                         ? "showLoader"
                         : "hideLoader"}>
                          <Loader type='spinningBubbles' color='#000000'></Loader>
                     </div>
-                      </div>
+                </div>
+
+
 
             );
         },
@@ -193,8 +192,8 @@ var Networking =require("./Forms/Networking.jsx");
         },
 
         componentDidMount: function() {
-
-
+debugger;
+          this.setState({"data":this.props.formDataFromHome});
         }
     });
 

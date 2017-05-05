@@ -70,6 +70,7 @@ const uiSchema = {
 }
     var NetworkInfo = React.createClass({
         getInitialState:function(){
+          debugger;
             return({
               formData:this.props.formData, val: ""
             }
@@ -82,8 +83,7 @@ const uiSchema = {
           if(this.state.val == "saveAndExit"){
             debugger;
             this.props.setPageActive("homePage", "next", data,"networkInfo");
-           $(".leftMain").addClass("totalLeftScreenMode");
-          $(".contentMain").addClass("totalRightScreenMode");
+
           }
           else{
             this.props.setPageActive("vnfInfo","next",data,"networkInfo")
@@ -93,21 +93,20 @@ const uiSchema = {
             return (
                 <div id="netReq">
                       <h2>Networking Requirements</h2>
-                        <FormNetwork schema={schema} uiSchema={uiSchema} formData={this.state.formData} onSubmit={this.onSubmit}>
+                        <FormNetwork schema={schema} uiSchema={uiSchema} formData={this.props.formData} onSubmit={this.onSubmit}>
                         </FormNetwork>
-                         <div className="contentFooter">
-                            <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"generalInfo","prev")}>Previous</a>
-                            <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
-                            <a href="#"  className="btn btn-danger btn-sm nextBtn" onClick={this.moveClick}>Next</a>
-                         </div>
+                        <div className="contentFooter">
+                           <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"generalInfo","prev")}>Previous</a>
+                           <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                           <a href="#"  className="btn btn-danger btn-sm nextBtn" onClick={this.moveClick}>Next</a>
+                        </div>
                         </div>
             );
         },
          componentDidMount: function() {
-            var bodyWidth=$('body').width();
-            $('.contentFooter').css('width',bodyWidth-300);
-            $(".leftMain").removeClass("totalRightScreenMode")
-            $(".rightPanel").removeClass("totalLeftScreenMode")
+
+
+
          },
          saveAndExit: function(){
            this.state.val = "saveAndExit";

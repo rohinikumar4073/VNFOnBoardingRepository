@@ -33,7 +33,8 @@
     "react-dom":"^15.5.4",
     "ag-grid": "9.1.x",
     "ag-grid-enterprise": "9.1.x",
-"ag-grid-react": "9.1.x"
+"ag-grid-react": "9.1.x",
+"bootstrap":"^3.3.7"
 
   },
   "dependencies": {

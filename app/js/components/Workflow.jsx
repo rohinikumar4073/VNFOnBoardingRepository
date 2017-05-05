@@ -96,7 +96,17 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                 '<div class="displayData">'+
                     '<div class="panel panel-primary">'+
                         '<div class="panel-heading">Panel Heading</div>'+
-                        '<div class="panel-body"></div>'+
+                        '<div class="panel-body">'+
+                        '<span class="dots"></span>'+
+  '<span class="dots"></span>'+
+    '<span class="dots"></span>'+
+      '<span class="dots"></span>'+
+        '<span class="dots"></span>'+
+          '<span class="dots"></span>'+
+            '<span class="dots"></span>'+
+              '<span class="dots"></span>'+  '<span class="dots"></span>'+
+                  '<span class="dots"></span>'+
+                        +'</div>'+
                         '<div class="panel-footer">Panel footer</div>'+
                     '</div>'+
                 '</div>'
@@ -106,7 +116,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                var textElements1 = document.querySelectorAll(".displayData .panel-body");
                var textElements2 = document.querySelectorAll(".displayData .panel-heading");
 
-               textElements1[i].textContent = data[i].content;
+            //   textElements1[i].textContent = data[i].content;
                textElements2[i].textContent = data[i].content;
 
             }
@@ -175,7 +185,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
               .attr("stroke-width", 2)
               .attr("marker-end", "url(#markerArrow)")
               .attr("class", "arrowLine")
-          
+
             .attr("", function(d,i){
                 // remove last arrow
                 if (i == data.length-1 )

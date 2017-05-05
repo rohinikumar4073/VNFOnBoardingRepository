@@ -127,10 +127,12 @@ var ManagementInfo = require("./ManagementInfo.jsx");
                                         </div>
                         </div>
                       </div>
+
                       <div className="contentFooter">
                          <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a>
                          <a href="#" id="save" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
-                         <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
+                           <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
+
                       </div>
                       </div>
             );
@@ -142,15 +144,13 @@ var ManagementInfo = require("./ManagementInfo.jsx");
           this.state.val = "saveAndExit";
             $("#vvnf button").click();
             this.props.setPageActive("homePage", "next", {},"vnfInfo");
-            $(".leftMain").addClass("totalLeftScreenMode");
-            $(".contentMain").addClass("totalRightScreenMode");
+
           //this.setState({val: "saveAndExit"});
         },
          componentDidMount: function() {
             var bodyWidth=$('body').width();
             $('.contentFooter').css('width',bodyWidth-300);
-            $(".leftMain").removeClass("totalLeftScreenMode")
-            $(".rightPanel").removeClass("totalRightScreenMode")
+
          }
     });
 

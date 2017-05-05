@@ -18,7 +18,7 @@ var PackageData = React.createClass({
     },
 
     onSelectionChanged: function(rowData) {
-        var selectedRows = this.state.gridOptions.api.getSelectedRows();
+    //    var selectedRows = this.state.gridOptions.api.getSelectedRows();
         var selectedRowsString = '';
         var data = selectedRows[0].data.formData;
         var name = selectedRows[0].name;
@@ -132,8 +132,6 @@ var PackageData = React.createClass({
 
                     </div>
                     <div className="vnfpackageListView">
-                      {topHeaderTemplate}
-                      {gridTemplate}
 
                     </div>
 
@@ -239,7 +237,7 @@ var packageData = this.state.rowData;
         this.setState({rowData: packageData})
 
       var dataForTable=  JSON.parse(JSON.stringify(packageData))
-        this.state.gridOptions.api.setRowData(dataForTable);
+    //    this.state.gridOptions.api.setRowData(dataForTable);
 
 
     },
@@ -249,7 +247,7 @@ var packageData = this.state.rowData;
         axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
             self.processPackageData(response.data);
         })
-        self.state.gridOptions.api.sizeColumnsToFit();
+        //self.state.gridOptions.api.sizeColumnsToFit();
         dataService.registerGridData(this);
     }
 });
