@@ -19,7 +19,7 @@ var Login = React.createClass({
                         <a class="vzlogo1" href="#"></a>
                     </div>
                     <div className="app-header__body">
-                        <h1>VNF Onboarding Portal</h1>
+                        <h1>VNF Exchange</h1>
                     </div>
                 </div>
                 <div className="row main-section">

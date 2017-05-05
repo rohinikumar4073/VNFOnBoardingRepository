@@ -25,7 +25,7 @@ exports.AgGridReact = React.createClass({
     componentDidMount: function () {
         var reactFrameworkFactory = new reactFrameworkFactory_1.ReactFrameworkFactory(this);
         var gridParams = { frameworkFactory: reactFrameworkFactory };
-        var domNode = ReactDOM.findDOMNode(this);
+        var domNode = this.findDOMNode();
         this.gridOptions = AgGrid.ComponentUtil.copyAttributesToGridOptions(this.props.gridOptions, this.props);
         new AgGrid.Grid(domNode, this.gridOptions, gridParams);
         this.api = this.gridOptions.api;

@@ -29,13 +29,16 @@
     "axios": "0.16.1",
     "react-loading": "0.0.9",
     "d3": "4.8.0",
-    "machina": "2.0.0"
+    "machina": "2.0.0",
+    "react-dom":"^15.5.4",
+    "ag-grid": "9.1.x",
+    "ag-grid-enterprise": "9.1.x",
+"ag-grid-react": "9.1.x"
 
   },
   "dependencies": {
-    "flux-react": "^2.6.6",
-    "react": "^0.14.x",
-    "react-dom": "^0.14.x",
+    "flux-react": "^3.0.0",
+    "react": "^15.5.4",
     "react-dropzone": "^3.13.1"
   }
 }

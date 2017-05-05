@@ -8,6 +8,8 @@ var CustomDelete = require("./Forms/CustomDelete.jsx");
 var NewVNFForm=require("./Forms/NewVNFForm.jsx");
 var $ = require("jquery");
 var dataService = require("./../services/DataService.js");
+var AgGridReactGRID  = require("ag-grid-react").AgGridReact;
+
 var PackageData = React.createClass({
     onSelectionGridChanged: function(rowData, name) {
         var data = rowData.formData;
@@ -100,6 +102,19 @@ var PackageData = React.createClass({
         var topHeaderTemplate;
         var gridTemplate;
 
+                    gridTemplate = (
+                        <div className="ag-fresh vnfGrid">
+                            <AgGridReactGRID gridOptions={this.state.gridOptions}
+                               quickFilterText={this.state.quickFilterText} icons={this.state.icons}
+                               columnDefs={this.state.columnDefs} debug="true"/>
+                        </div>
+                    );
+                    topHeaderTemplate = (
+                        <div className="form-group">
+                            <input type="text" className="form-control gridFilter" onChange={this.onQuickFilterText.bind(this)} placeholder="Type text to filter..."/>
+                        </div>
+                    );
+
         var self = this;
         return (
           <div className="container-fluid">
@@ -116,7 +131,11 @@ var PackageData = React.createClass({
                         </a>
 
                     </div>
-                    <div className="vnfpackageListView"></div>
+                    <div className="vnfpackageListView">
+                      {topHeaderTemplate}
+                      {gridTemplate}
+
+                    </div>
 
                     <div className="vnf vnfpackageCardView">
                       <div className="col-sm-4 col-md-4 col-lg-3">
@@ -184,7 +203,12 @@ var PackageData = React.createClass({
 
     },
     processPackageData: function(p) {
-        var packageData = [];
+var packageData = this.state.rowData;
+      while(packageData.length) {
+          packageData.pop();
+        }
+        this.setState({rowData: packageData})
+
         var index = 1;
         for (var key in p) {
             var packageJSON = {};
@@ -209,11 +233,15 @@ var PackageData = React.createClass({
                 ? true
                 : false;
             index++;
-            debugger;
             packageData.push(packageJSON);
         }
-        //    this.state.gridOptions.api.setRowData(packageData)
+        debugger;
         this.setState({rowData: packageData})
+
+      var dataForTable=  JSON.parse(JSON.stringify(packageData))
+        this.state.gridOptions.api.setRowData(dataForTable);
+
+
     },
     componentDidMount: function() {
         var self = this;
@@ -221,7 +249,7 @@ var PackageData = React.createClass({
         axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
             self.processPackageData(response.data);
         })
-        //self.state.gridOptions.api.sizeColumnsToFit();
+        self.state.gridOptions.api.sizeColumnsToFit();
         dataService.registerGridData(this);
     }
 });
