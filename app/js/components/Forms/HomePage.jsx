@@ -297,7 +297,10 @@ self.loopTimeout();
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
                                     {
                                       this.state.pageActive =="upload" ?
-                                      <PackageUpload setPageActive={this.setPageActive} ref="upload" transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                      <PackageUpload setPageActive={this.setPageActive} ref="upload"
+                                          id={this.props.formData.id}
+
+                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
                                       : (this.state.pageActive =="questionaire" ? PanelElem:"" )}
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
