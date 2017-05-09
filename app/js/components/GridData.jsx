@@ -1,6 +1,5 @@
 var React =require("react");
-
-
+var $ = require("jquery");
     var GridData = React.createClass({
       getInitialState: function(){
           return {
@@ -9,6 +8,7 @@ var React =require("react");
                   : "Not Configured",
               isVnfActive: this.props.data.isVnfActive,
               isGenDescComp: this.props.data.isGenDescComp
+
           };
       },
       componentDidMount: function(){
@@ -75,13 +75,14 @@ var React =require("react");
         }
       return(
             <div className="col-sm-4 col-md-4 col-lg-3" >
-                <a href="#" onClick={this.props.onSelectionGridChanged.bind(this,this.props.data.data,this.props.data.name)}>
                     <div className="card">
                         <div className="card-body">
+
                             <h4>Company Name -
                                 <span>{this.props.data.companyname}</span>
-                                <span className={"status "+flag2}><i className={"fa "+ flag} aria-hidden="true"></i></span>
+                                <span className={"status "+flag2}><i onClick={this.props.handleDelete.bind(this,this.props.data.name)}>x</i></span>
                             </h4>
+
                             <h4>VNF Product Name -
                                 <span>{this.props.data.vnfproductname}</span>
                             </h4>
@@ -101,12 +102,11 @@ var React =require("react");
 
                             <p></p>
                         </div>
-                        <div className="card-footer">
+                        <div className="card-footer" onClick={this.props.onSelectionGridChanged.bind(this,this.props.data.data,this.props.data.name)}>
                             <span className="card-footer-text">View details</span>
                             <i className="pull-right fa fa-chevron-right"></i>
                         </div>
                     </div>
-                </a>
             </div>
 
         );

@@ -9,7 +9,8 @@ var NewVNFForm=require("./Forms/NewVNFForm.jsx");
 var $ = require("jquery");
 var dataService = require("./../services/DataService.js");
 var AgGridReactGRID  = require("ag-grid-react").AgGridReact;
-
+var Alert = require("./Forms/Alert.jsx");
+var deleteVnfName = "";
 var PackageData = React.createClass({
     onSelectionGridChanged: function(rowData, name) {
         var data = rowData.formData;
@@ -28,6 +29,7 @@ var PackageData = React.createClass({
     getInitialState: function() {
       debugger;
         return {
+            deleteComponent: false,
             quickFilterText: null,
             height: 250,
             gridOptions: {},
@@ -154,7 +156,7 @@ var PackageData = React.createClass({
                       </div>
                         {
                           this.state.rowData.map(function(data) {
-                            return <GridData data={data} onSelectionGridChanged={self.onSelectionGridChanged}/>
+                            return <GridData data={data} onSelectionGridChanged={self.onSelectionGridChanged} handleDelete={self.handleDelete} closePopup={self.closePopup}/>
                           })
                         }
 
@@ -165,8 +167,33 @@ var PackageData = React.createClass({
             ? <NewVNFForm header="Create VNF Record" closePage={this.closePage} />
           : ""
         }
+        {this.state.deleteComponent
+          ? <Alert closePopup = {this.closePopup} deleteRecord={this.deleteRecord}/>
+        : ""}
         </div>
         );
+    },
+    handleDelete(value){
+      $('.packageData').addClass('crossFade');
+      deleteVnfName = value;
+      this.setState({deleteComponent: true});
+    },
+    closePopup: function(){
+      this.setState({deleteComponent: false});
+      $('.packageData').removeClass('crossFade');
+    },
+    deleteRecord: function(){
+      var self=this;
+      var vnfProductName = deleteVnfName;
+      var deleteURL = config.formApi + "/vnf/" + vnfProductName + "/deleteForm";
+      axios["delete"](deleteURL).then(function (response) {
+          toastr.success("VNF Deleted successfully!");
+          deleteVnfName = "";
+          axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
+              self.processPackageData(response.data);
+          });
+          self.closePopup();
+      });
     },
     closePage: function(close){
       if(close == "close"){
