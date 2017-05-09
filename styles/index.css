@@ -650,3 +650,26 @@ button.btn.btn-info {
     z-index: 1;
   }
 }
+.modal-dialog-newVnf {
+    margin-left: 15%;
+    position: relative;
+    max-width: 70%;
+    max-height: 80%;
+    background-color: white;
+}
+.modal-content {
+  min-width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  margin: auto;
+}
+
+.alertDiv {
+  position: relative;
+  max-width: 30%;
+  max-height: 40%;
+  background-color: white;
+  padding: 10px;
+  border: none;
+  margin: auto;
+}

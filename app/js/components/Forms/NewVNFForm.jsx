@@ -105,8 +105,8 @@ const uiSchema = {
         },
         render: function() {
             return (
-              <div className="modal-dialog modal-lg newVnf">
-                    <div className={"modal-content " + this.props.className}>
+              <div className="modal-dialog-newVnf">
+                    <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" onClick={this.handleCancel}>
                                 &times;
@@ -117,13 +117,13 @@ const uiSchema = {
                             <NewVnf schema={schema} uiSchema={uiSchema} formData={formData} onSubmit={this.onSubmit} onError={errors => {
                                 console.log("i am errors" + errors);
                             }} onSubmit={this.onSubmit}>
-                                <div>
-
-                                    <button type="submit" className="btn btn-sm btn-primary btn-save" data="Save">Save</button>
-                                    <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default  btn-cancel" data="Cancel">Cancel</button>
-
-                                    <button type="submit" className="btn btn-sm btn-primary" data="Save">Save</button>
-
+                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                    <button type="submit" className="btn btn-sm btn-primary btn-save" data="Save">
+                                      Save
+                                    </button>
+                                    <button type="button" className="btn btn-sm btn-default  btn-cancel" data="Cancel" onClick={this.handleCancel}>
+                                      Cancel
+                                    </button>
                                 </div>
                             </NewVnf>
                         </div>
