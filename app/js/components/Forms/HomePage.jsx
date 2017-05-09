@@ -1,3 +1,4 @@
+
 var React = require("react");
 var $ = require("jquery");
 var SampleMachina = require("./SampleMachina.js");
@@ -125,33 +126,39 @@ var homePage = React.createClass({
     },
     loopTimeout: function() {
 
+this.callTransition();
+var self=this;
+        setInterval(function() {
+            self.callTransition();
+            },5000);
+    },
+    callTransition:function(){
         var self = this;
 
-        setInterval(function() {
             var retrieveUrl = config.formApi + "/vnf/" + self.props.formData.id + "/retrieve";
-
+var counter =1;
             axios.get(retrieveUrl).then(function(response) {
                 var data = [];
                 console.log(response.data)
                 for (var object in response.data) {
                     var dataObj = {
-                        content: ""
+                        content: "",
+                        status:response.data[object].status
                     }
-                    if (response.data[object].status == "not-started") {
-                      dataObj.content = object;
-                      data.push(dataObj)
-                        break;
-                    } else if (response.data[object].status == "completed") {
-
-
+                    dataObj.content = object;
+                    if (response.data[object].status == "not-started" && counter ==1) {
+                                counter++;
+                                dataObj.status="in-progress";
                     }
+                                        data.push(dataObj);
+
                 }
                 self.refs.workFlow.loadData(data)
 
             }).catch(function(error) {
                 console.log(error);
             });
-        }, 2000);
+
     },
     transition: function() {
         console.log(this.props.formData.id)
@@ -159,12 +166,12 @@ var homePage = React.createClass({
         var self = this;
         axios.put(uploadUrl, {}).then(function(response) {
             console.log(response);
-
+self.loopTimeout();
         }).catch(function(error) {
             console.log(error);
         });
 
-        this.loopTimeout();
+
     },
     activateVNF: function() {
         var self = this;

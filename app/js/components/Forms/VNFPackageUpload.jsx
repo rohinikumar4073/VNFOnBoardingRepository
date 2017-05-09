@@ -93,7 +93,7 @@ var Upload = React.createClass({
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="col-sm-6">
-                                <img src="images/structure.jpg" height="500"/>
+                                <img src="images/structure.jpg" height="300"/>
                             </div>
                             <div className="col-sm-6">
                                 <h1>

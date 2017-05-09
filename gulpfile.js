@@ -180,7 +180,7 @@ gulp.task('default', function () {
 		imagesTask(
 			{
 		    development: true,
-		    src: './styles/images/**/*.{png,jpeg}',
+		    src: './styles/images/**/*.{png,jpeg,gif}',
 		    dest: './build/images'
 		  }
 		)

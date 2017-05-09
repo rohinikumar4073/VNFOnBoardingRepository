@@ -1,4 +1,3 @@
-
 var React = require("react");
 var $ = require("jquery");
 var d3 =require("./../thirdParty/d3/d3.min.js");
@@ -97,28 +96,56 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                     '<div class="panel panel-primary">'+
                         '<div class="panel-heading">Panel Heading</div>'+
                         '<div class="panel-body">'+
-                        '<span class="dots"></span>'+
-  '<span class="dots"></span>'+
-    '<span class="dots"></span>'+
-      '<span class="dots"></span>'+
-        '<span class="dots"></span>'+
-          '<span class="dots"></span>'+
-            '<span class="dots"></span>'+
-              '<span class="dots"></span>'+  '<span class="dots"></span>'+
-                  '<span class="dots"></span>'+
-                        +'</div>'+
-                        '<div class="panel-footer">Panel footer</div>'+
+                        "<i class='fa ' aria-hidden='true'></i>"+
+
+                        '</div>'+
                     '</div>'+
                 '</div>'
                 );
 
            for (var i=0;i<data.length; i++){
-               var textElements1 = document.querySelectorAll(".displayData .panel-body");
-               var textElements2 = document.querySelectorAll(".displayData .panel-heading");
+              var textElements1 = document.querySelectorAll(".displayData .panel-body");
+              var textElements2 = document.querySelectorAll(".displayData .panel-heading");
+                var iTags=document.querySelectorAll(".displayData i");
+                 var dispData=document.querySelectorAll(".displayData ");
+                     dispData[i].classList.add(data[i].status);
+                 if(data[i].status=="in-progress"){
+                    var str=  '<div class="spinner">'+
+                                               '   <div class="bounce1"></div>'+
+                                                '  <div class="bounce2"></div>'+
+                                                '  <div class="bounce3"></div>'+
+                                            '</div>';
 
+
+                    textElements1[i].insertAdjacentHTML('beforeend', str);
+                 }
+                  switch(data[i].content) {
+                            case "upload":
+                             iTags[i].classList.add("fa-cloud-upload");
+                            break;
+                             case "package_validation":
+                             iTags[i].classList.add("fa-check-square-o");
+                            break;
+                            case "security":
+                             iTags[i].classList.add("fa-shield");
+                            break;
+                             case "instantiation":
+                             iTags[i].classList.add("fa-desktop");
+                            break;
+                            case "test_updates":
+                             iTags[i].classList.add("fa-file-text");
+                            break;
+                             case "certification":
+                             iTags[i].classList.add("fa-certificate");
+                            break;
+                             case "artifactory_version_update":
+                             iTags[i].classList.add("fa-retweet");
+                            break;
+                        }
             //   textElements1[i].textContent = data[i].content;
                textElements2[i].textContent = data[i].content;
 
+                    debugger;
             }
             d3.selectAll(".displayData")
                 .style({
@@ -138,7 +165,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
             .append("path")
             .attr("d", "M0,4 L8,4 L4,1 L8,4 L4,7")
             .style("fill","none")
-            .style("stroke","black")
+            .style("stroke","#cbcbcb")
             .style("stroke-width",1);
 
         var lineFunction = d3.line()
@@ -180,7 +207,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                     // target coordinates
                     {"x" : targetX, "y" : targetY}]);
 
-            })  .attr("stroke", "black")
+            })  .attr("stroke", "#cbcbcb")
               .attr("fill", "none",)
               .attr("stroke-width", 2)
               .attr("marker-end", "url(#markerArrow)")
