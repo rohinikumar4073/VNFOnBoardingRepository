@@ -374,9 +374,9 @@ ag-fresh .ag-paging-button {
   .add-new .fa  {    font-size: 75px;
     color: #CD040B;}
     .totalRightScreenMode .contentFooter{margin-left:0px !important;width: 100% !important;}
-.uploadfile div{
+.uploadfile > div{
   padding: 10px;
-  margin: 10px
+  margin: 10px;
 }
 /*Home page */
 
@@ -456,6 +456,7 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .displayData .panel{
 	margin : 0;
   height: 175px;
+  border:transparent;
 }
 .content-body{
   padding-top: 70px;
@@ -792,9 +793,59 @@ button.btn.btn-info {
 .displayData .panel-primary>.panel-heading{
   font-size: 18px;
   font-family: nhg-text-bold,arial;
-  background-color: #000;
-    border-color: #000;
+  background-color: transparent;
+    border-color: transparent;
+    color: #000;
+    text-align: center;
+    text-transform: capitalize;
 } .displayData .panel-primary{
   border-color: #000;
 
 }
+.chartContainer{
+    position:relative;
+    left:100px;
+}.displayData .panel-body{
+    background: #cbcbcb;
+    border-radius: 87%;
+    border: 1px solid #cbcbcb;
+    width: 75px;
+    height: 75px;
+    margin:0px auto;
+            margin-top: 6px;
+            text-align: center;;
+
+}
+foreignobject body{
+    background:transparent;
+    margin:0px;
+    auto:0px;
+}.displayData .panel-body .fa{
+    font-size: 30px;
+    margin-top: 6px;
+    color: #fff
+    }
+    .displayData .panel-body .fa{
+        font-size: 30px;
+        margin-top: 6px;
+        color: #fff
+    }
+    .displayData.in-progress .panel-body,.displayData.completed .panel-body{
+        background:transparent;
+    }.displayData.in-progress .panel-body .fa{
+
+        color: #f5a34d;
+    }.displayData.in-progress .progressActive{
+        display: inline;
+    color: #f5a34d;
+    font-size: 46px;
+}   .displayData.completed .panel-body .fa{
+
+        color: #a1b872;
+    }
+    .displayData.in-progress .panel-body {
+      background-image: url(images/three-circle-loader.gif);
+      background-position: 8px 46px;
+      background-size: 78%;
+      background-repeat: no-repeat;
+    }
