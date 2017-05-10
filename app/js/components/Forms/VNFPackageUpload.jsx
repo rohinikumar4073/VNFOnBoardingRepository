@@ -13,6 +13,32 @@ var Upload = React.createClass({
 
     onDrop: function(acceptedFiles) {
         this.setState({files: acceptedFiles});
+        debugger;
+            var theform = new FormData();
+            var nsd = acceptedFiles[0];
+            var fileName = nsd.name;
+
+            console.log(nsd.name);
+            console.log(nsd);
+            var self = this;
+            var f = fileName.substr(0, fileName.lastIndexOf('.'));
+            theform.append('uploadFile', nsd, nsd.name);
+            $.ajax({
+                url: config.formApi + "vnf/"+ self.props.id+"/UploadFile",
+                data: theform,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                success: function(data) {
+                  //  toastr.success("File Upload Succesfully");
+                },
+                error: function(data) {
+                  //  toastr.error("error in file uploaded");
+                }
+            })
+
+
         this.props.transition();
     },
 
