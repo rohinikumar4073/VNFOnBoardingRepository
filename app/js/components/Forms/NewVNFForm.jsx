@@ -108,7 +108,8 @@ const uiSchema = {
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" onClick={this.handleCancel}>
-                                &times;
+                              <i className="fa fa-times" aria-hidden="true"></i>
+
                             </button>
                             <h3>{this.props.header}</h3>
                         </div>

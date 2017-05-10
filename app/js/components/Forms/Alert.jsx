@@ -12,15 +12,10 @@ var Alert = React.createClass({
     var {alert, style} = this.props;
     return (
       <div className="alertDiv">
-              <div className="modal-header">
-                  <button type="button" className="close" onClick={this.removeAlert}>
-                      &times;
-                  </button>
-                  <h3>Delete VNF</h3>
-              </div>
+              
               <div className="modal-body">
                 <div style={{padding:'20px'}}>
-                    <span>Are you sure you want to delete this VNF?</span>
+                    <h3>Are you sure you want to delete this VNF?</h3>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                     <button type="button" className="btn btn-sm btn-primary btn-save" onClick={this.props.deleteRecord}>

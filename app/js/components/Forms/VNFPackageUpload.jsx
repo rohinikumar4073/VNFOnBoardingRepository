@@ -11,13 +11,49 @@ var Upload = React.createClass({
     getInitialState: function() {
         return {files: [], loaderOn: false};
     },
+    parseHeatTempate:function(){
+      var self=this;
+      var vmInfo={};
+           var data={
+           "data": [
+             {
+               "flavor": "vmx.vfp1",
+               "image": "vpfe-15.1F5-S1",
+               "network": [
+                 "9812c641-5b3a-4375-a54d-67685578ade0",
+                 "vmx_internal_network",
+                 "3fa4a0e0-c807-4892-9915-3eaf419a7f06",
+                 "8efceb35-31b9-4e1e-b63a-1f83aee1dc3e"
+               ]
+             }
+           ],
+           "vm_count": 1
+          };
+        data.data.forEach(function(v,i){
+             vmInfo["VM_"+(i+1)]={
+               "generalInfo": {
 
+                   "imagename": v.image,
+                   "vmflavorreq": v.flavor,
+
+               }
+             }
+           });
+ self.props.formData.vmInfo=vmInfo;
+     self.props.formData.vnfInfo = {
+       "vnfBasic": {
+         "countvms":   data.vm_count
+       }
+     };  self.props.formData.isPackageUploaded=true;
+   self.props.saveAndSetFormData(self.props.formData);
+    },
     onDrop: function(acceptedFiles) {
         this.setState({files: acceptedFiles});
+        this.parseHeatTempate()
             var theform = new FormData();
             var nsd = acceptedFiles[0];
             var fileName = nsd.name;
-
+$(".chartContainerH2").show();
             console.log(nsd.name);
             console.log(nsd);
             var self = this;

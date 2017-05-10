@@ -125,12 +125,7 @@ var PackageData = React.createClass({
                     <h2 className="page-heading">VNF Directory</h2>
                     <div className="viewOption">
 
-                        <a href="#" className="gridView" onClick={this.cardClick}>
-                            <i className="fa fa-th" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Card View"></i>
-                        </a>
-                        <a href="#" className="tableView active" onClick={this.tableClick}>
-                            <i className="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Table View"></i>
-                        </a>
+                      
 
                     </div>
                     <div className="vnfpackageListView">

@@ -86,7 +86,7 @@ html a {color: #333;}
 .card-body .inprogress{color: #1cd1eb;}
 .card-body .completed{color: #00b815;}
 .card-body .error{color: #e91717;}
-
+.card-body .inprogress i{cursor: pointer;}
 /* Progress */
 .pBarContainer{ border-top:1px solid #eee;}
 .pBar{height:72px;margin: 0 auto; background:#f6f6f6;    border-bottom: 2px solid #d2d3d4;box-shadow: 0 2px 4px rgba(0, 0, 0, .1);}
@@ -796,10 +796,11 @@ button.btn.btn-info {
 }
 .modal-dialog-newVnf {
     margin-left: 15%;
-    position: relative;
+    position: absolute;
     max-width: 70%;
     max-height: 80%;
     background-color: white;
+    top:70px;
 }
 .modal-content {
   min-width: 100%;
@@ -808,14 +809,15 @@ button.btn.btn-info {
   margin: auto;
 }
 
-.alertDiv {
-  position: relative;
+.alertDiv {    top:70px;
+
+  position: absolute;left: 43%;
   max-width: 30%;
   max-height: 40%;
   background-color: white;
   padding: 10px;
   border: none;
-  margin: auto;
+  margin: 0px auto;
 }
 .displayData .panel .panel-primary{
   border-color: #000;
@@ -913,4 +915,7 @@ foreignobject body{
   }.questionaireFors{
     padding-top:20px;
 
+  }
+  .chartContainerH2{
+    display: none;
   }

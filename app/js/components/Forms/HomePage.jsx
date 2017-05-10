@@ -182,6 +182,7 @@ self.loopTimeout();
                 axios.post(savePackageUrl, {
                     formData: data
                 }).then(function(response) {
+                  self.props.setActivePage(data);
               //    self.setState({loaderOn: false});
                   callback(response)
                 }).catch(function(error) {
@@ -252,7 +253,7 @@ self.loopTimeout();
                          <PackageUpload setPageActive={this.setPageActive} ref="upload"
                                           id={this.props.formData.id}
 
-                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.props.formData}/>
                                        <div className="col-sm-12 col-md-12 col-lg-12 workflowView">
 
                                 </div>
