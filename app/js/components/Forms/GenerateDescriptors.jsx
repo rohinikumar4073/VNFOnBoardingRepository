@@ -413,7 +413,7 @@ var GenerateDescriptors = React.createClass({
                                                             <h1>NSD Upload
                                                             </h1>
                                                             <div className="uploadfile">
-                                                                <Dropzone ref={(node) => {
+                                                                <Dropzone  style={{}} ref={(node) => {
                                                                     this.dropzone = node;
                                                                 }} onDrop={this.onDropNSD}>
                                                                     <div className="upload2" >Try dropping some files here, or click to select files to upload.</div>
@@ -440,7 +440,7 @@ var GenerateDescriptors = React.createClass({
                     </div>
                     <div className="net">
 
-                        <a href="#" className="btn btn-danger btn-sm nextBtn">Test Package</a>
+                        <a href="#" className="btn btn-danger btn-sm nextBtn"  onClick={this.testPackage} >Test Package</a>
                         <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.activateVNF} >Activate VNF</a>
                     </div>
                 </div>

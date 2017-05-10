@@ -8590,7 +8590,10 @@ button.btn.btn-info {
   padding: 10px;
   margin: auto;
 }
-
+legend{
+  font-family: nhg-text-bold,arial;
+  font-size: 14px;
+}
 .alertDiv {    top:70px;
 
   position: absolute;left: 43%;

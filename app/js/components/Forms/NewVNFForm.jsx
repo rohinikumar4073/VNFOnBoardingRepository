@@ -66,8 +66,21 @@ const uiSchema = {
   "phone": {
     "classNames": "col-sm-4"
   }
+},
+"productinfo":{
+  "vnfproductname":{
+    "classNames": "col-sm-12"
+
+  },  "highleveldes":{
+      "classNames": "col-sm-12"
+
+    },  "networkservice":{
+        "classNames": "col-sm-12"
+
+      },
 }
 };
+
 
  const formData = {
 };
