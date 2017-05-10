@@ -96,7 +96,7 @@ const uiSchema = {
                         <FormNetwork schema={schema} uiSchema={uiSchema} formData={this.props.formData} onSubmit={this.onSubmit}>
                         </FormNetwork>
                         <div className="net">
-                           <a href="#" className="btn  btn-default btn-sm previousBtn " onClick={this.props.setPageActive.bind(this,"generalInfo","prev")}>Previous</a>
+                      {/*     <a href="#" className="btn  btn-default btn-sm previousBtn " onClick={this.props.setPageActive.bind(this,"generalInfo","prev")}>Previous</a>
                             {/* <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                            <a href="#"  className="btn btn-danger btn-sm nextBtn" onClick={this.moveClick}>Next</a>
                         </div>

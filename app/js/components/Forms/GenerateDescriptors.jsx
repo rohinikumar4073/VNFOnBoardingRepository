@@ -2,17 +2,19 @@ var React = require("react");
 var toastr = require("toastr");
 var Loader = require("react-loading")
 var config = require("./../../properties/config.js")
+var $ = require("jquery");
+var Dropzone = require("react-dropzone")
 
 var GenerateDescriptors = React.createClass({
     getInitialState() {
         $(".leftMain").addClass("totalLeftScreenMode");
-        $(".contentMain").addClass("totalRightScreenMode");
+       $(".contentMain").addClass("totalRightScreenMode");
         return {files: [], NSDfiles: [], loaderOn: false};
     },
     saveAndExit: function() {
 
         $(".leftMain").addClass("totalLeftScreenMode");
-        $(".contentMain").addClass("totalRightScreenMode");
+       $(".contentMain").addClass("totalRightScreenMode");
         this.props.setActivePage("homePage", "next", {}, "");
 
     },

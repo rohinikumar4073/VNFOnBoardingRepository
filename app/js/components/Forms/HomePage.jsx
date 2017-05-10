@@ -7,6 +7,7 @@ var axios = require("axios");
 var config = require("./../../properties/config.js");
 var Workflow = require("./../Workflow.jsx");
 var PackageUpload = require("./VNFPackageUpload.jsx");
+var GenerateDescriptors = require("./GenerateDescriptors.jsx");
 var RightPanel = require("./../RightPanel.jsx");
 var LeftPanel = require("./../LeftPanel.jsx");
 global.jQuery = require('jquery');
@@ -21,8 +22,10 @@ var homePage = React.createClass({
   },
     loadQuestionaire: function() {
         this.setState({pageActive:"questionaire"});
-
-
+    },
+    loadGenerator:function(){
+      debugger;
+  this.setState({pageActive:"generateDescriptors"});
     },
     changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
@@ -263,7 +266,7 @@ self.loopTimeout();
 
                                     </a>
                                 </div>
-                                <div className="col-sm-3 col-md-3 col-lg-3">
+                                <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadGenerator}>
 
                                     <a href="#" className={this.state.pageActive =="generateDescriptors"
                                         ? "uploadPackage  cardPackage active"
@@ -296,12 +299,17 @@ self.loopTimeout();
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12  adjust">
                                     {
-                                      this.state.pageActive =="upload" ?
-                                      <PackageUpload setPageActive={this.setPageActive} ref="upload"
+                                      this.state.pageActive =="upload"
+                                      ? <PackageUpload setPageActive={this.setPageActive} ref="upload"
                                           id={this.props.formData.id}
 
                                          transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
-                                      : (this.state.pageActive =="questionaire" ? PanelElem:"" )}
+                                      : this.state.pageActive =="questionaire"
+                                        ? PanelElem
+                                        : this.state.pageActive =="generateDescriptors"
+                                        ?  <GenerateDescriptors/>
+                                      :""
+                                    }
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12 ">
                                     <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
