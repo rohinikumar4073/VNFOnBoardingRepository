@@ -8,6 +8,7 @@ const schema = {
   "properties": {
     "dhcpenabled": {
       "type": "boolean",
+      
       "title": "Do all of the VNF’s management interfaces have DHCP enabled?"
     },
     "intervm": {
