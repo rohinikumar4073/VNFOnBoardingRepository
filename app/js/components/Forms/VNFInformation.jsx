@@ -128,9 +128,9 @@ var ManagementInfo = require("./ManagementInfo.jsx");
                         </div>
                       </div>
 
-                      <div className="contentFooter">
+                      <div className="net">
                          <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a>
-                         <a href="#" id="save" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                    {/*    <a href="#" id="save" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                            <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
 
                       </div>

@@ -151,9 +151,9 @@ var Orchestration = React.createClass({
             <div id="orcReq">
                 <h2>Orchestration Requirements</h2>
                 <FormOS schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData}></FormOS>
-                <div className="contentFooter">
+                <div className="net">
                     <a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this, "vmInfo", "prev")}>Previous</a>
-                    <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                  {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>*/}
                     <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
                 </div>
             </div>

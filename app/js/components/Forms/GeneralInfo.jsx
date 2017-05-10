@@ -146,8 +146,8 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
                 <div id="vnfInfo">
                     <h2>General Information</h2>
                     <FormGeneral schema={schema} uiSchema={uiSchema} formData={this.state.formData} packageName={this.props.packageName} onSubmit={this.onSubmit}></FormGeneral>
-                    <div className="contentFooter">
-                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                    <div className="net">
+                    {/*    <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>*/}
                         <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
                     </div>
 

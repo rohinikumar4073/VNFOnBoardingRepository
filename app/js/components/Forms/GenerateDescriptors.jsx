@@ -295,7 +295,7 @@ var GenerateDescriptors = React.createClass({
                         </div>
                     </div>
                     <div className="contentFooter">
-                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                      {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                     </div>
                 </div>
                 <div className={this.state.loaderOn

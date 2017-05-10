@@ -1,4 +1,3 @@
-
 var React = require("react");
 var $ = require("jquery");
 var SampleMachina = require("./SampleMachina.js");
@@ -24,7 +23,8 @@ var homePage = React.createClass({
         this.setState({pageActive:"questionaire"});
 
 
-    },changeStatus: function(pageNumber) {
+    },
+    changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
     componentDidMount: function() {
@@ -294,7 +294,7 @@ self.loopTimeout();
                                     </a>
 
                                 </div>
-                                <div className="col-sm-12 col-md-12 col-lg-12 ">
+                                <div className="col-sm-12 col-md-12 col-lg-12  adjust">
                                     {
                                       this.state.pageActive =="upload" ?
                                       <PackageUpload setPageActive={this.setPageActive} ref="upload"
@@ -308,9 +308,9 @@ self.loopTimeout();
                                 </div>
 
                             </div>
-                            <div className="contentFooter">
-                                <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}>Return to VNF Directory</a>
-                            </div>
+                          {/*  <div className="contentFooter">
+                                <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}></a>
+                            </div> */}
                             <div className={this.state.loaderOn
                                 ? "showLoader"
                                 : "hideLoader"}>

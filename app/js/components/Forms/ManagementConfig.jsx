@@ -286,9 +286,9 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
                 <div id="mgmtConfig">
                     <h2>Management & Configuration Requirements</h2>
                     <FormConfig schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData}></FormConfig>
-                    <div className="contentFooter">
+                    <div className="net">
                       {/*  <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this, 5, "prev")}>Previous</a>*/}
-                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                      {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                         <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
                     </div>
 
@@ -313,5 +313,5 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
         }
     });
 
-  
+
 module.exports= ManagementInfo;

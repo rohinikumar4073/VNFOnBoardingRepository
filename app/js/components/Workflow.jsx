@@ -110,11 +110,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
                  var dispData=document.querySelectorAll(".displayData ");
                      dispData[i].classList.add(data[i].status);
                  if(data[i].status=="in-progress"){
-                    var str=  '<div class="spinner">'+
-                                               '   <div class="bounce1"></div>'+
-                                                '  <div class="bounce2"></div>'+
-                                                '  <div class="bounce3"></div>'+
-                                            '</div>';
+                    var str=  '';
 
 
                     textElements1[i].insertAdjacentHTML('beforeend', str);
