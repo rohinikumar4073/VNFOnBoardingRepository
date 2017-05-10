@@ -1,4 +1,3 @@
-
 var React = require("react");
 var $ = require("jquery");
 var SampleMachina = require("./SampleMachina.js");
@@ -8,6 +7,7 @@ var axios = require("axios");
 var config = require("./../../properties/config.js");
 var Workflow = require("./../Workflow.jsx");
 var PackageUpload = require("./VNFPackageUpload.jsx");
+var GenerateDescriptors = require("./GenerateDescriptors.jsx");
 var RightPanel = require("./../RightPanel.jsx");
 var LeftPanel = require("./../LeftPanel.jsx");
 global.jQuery = require('jquery');
@@ -22,12 +22,16 @@ var homePage = React.createClass({
   },
     loadQuestionaire: function() {
         this.setState({pageActive:"questionaire"});
-
-
-    },changeStatus: function(pageNumber) {
+    },
+    loadGenerator:function(){
+      debugger;
+  this.setState({pageActive:"generateDescriptors"});
+    },
+    changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
     componentDidMount: function() {
+      $('[data-toggle="tooltip"]').tooltip();
 
         var self = this;
         var gene = this.props.formData.generalInfo;
@@ -172,6 +176,18 @@ self.loopTimeout();
         });
 
 
+    },  saveAndSetFormData:function(data){
+      var savePackageUrl=config.formApi+ "/vnf/"+this.props.formData.id+"/saveFormData";
+      var self=this;
+                axios.post(savePackageUrl, {
+                    formData: data
+                }).then(function(response) {
+                  self.props.setActivePage(data);
+              //    self.setState({loaderOn: false});
+                  callback(response)
+                }).catch(function(error) {
+                //  self  .setState({loaderOn: false});
+                });
     },
     activateVNF: function() {
         var self = this;
@@ -225,11 +241,23 @@ self.loopTimeout();
 
     },
     render: function() {
-      var PanelElem=(<div className="row" >
+      var PanelElem=(<div className="row questionaireFors" >
                         <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
                             </LeftPanel>
                             <RightPanel className="totalRightScreenMode" formDataFromHome={this.props.formData} ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
                        </div>);
+                       var PackageUploadElem=(<div>
+                           <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
+
+
+                         <PackageUpload setPageActive={this.setPageActive} ref="upload"
+                                          id={this.props.formData.id}
+
+                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.props.formData}/>
+                                       <div className="col-sm-12 col-md-12 col-lg-12 workflowView">
+
+                                </div>
+                                </div>);
         return (
             <div className="contentMain rightPanel totalRightScreenMode">
                 <div className="contentBody">
@@ -243,12 +271,12 @@ self.loopTimeout();
                                     <span className="package-heading-span">{this.props.formData.generalInfo.productinfo.vnfproductname}</span>
                                 </h2>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <a href="#" className={this.state.pageActive=="upload"
+                                    <a href="#"  data-toggle="tooltip" title="Upload VNF Package" className={this.state.pageActive=="upload"
                                         ? "uploadPackage  cardPackage active"
                                         : "uploadPackage cardPackage  "} onClick={this.uploadPackage}>
                                         <i className="pull-left fa faicon fa-cloud-upload"></i>
 
-                                        <h2>Upload VNF Package</h2>
+                                        <h2>VNF Package</h2>
 
                                     </a>
 
@@ -263,7 +291,7 @@ self.loopTimeout();
 
                                     </a>
                                 </div>
-                                <div className="col-sm-3 col-md-3 col-lg-3">
+                                <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadGenerator}>
 
                                     <a href="#" className={this.state.pageActive =="generateDescriptors"
                                         ? "uploadPackage  cardPackage active"
@@ -274,7 +302,7 @@ self.loopTimeout();
                                     </a>
                                 </div>
 
-                                <div className="col-sm-3 col-md-3 col-lg-3 ">
+                                {/*<div className="col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="#" className={this.state.configurationStatus == 'Not Configured'
                                         ? " cardPackage "
                                         : (this.state.configurationStatus == "Configured"
@@ -293,24 +321,24 @@ self.loopTimeout();
 
                                     </a>
 
-                                </div>
-                                <div className="col-sm-12 col-md-12 col-lg-12 ">
+                                </div>*/}
+                                <div className="col-sm-12 col-md-12 col-lg-12  ">
                                     {
-                                      this.state.pageActive =="upload" ?
-                                      <PackageUpload setPageActive={this.setPageActive} ref="upload"
-                                          id={this.props.formData.id}
+                                      this.state.pageActive =="upload"
+                                      ? PackageUploadElem
+                                      : this.state.pageActive =="questionaire"
+                                        ? PanelElem
+                                        : this.state.pageActive =="generateDescriptors"
+                                        ?  <GenerateDescriptors formData={this.props.formData}  saveAndSetFormData={this.saveAndSetFormData} />
+                                      :""
+                                    }
+                                </div>
 
-                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
-                                      : (this.state.pageActive =="questionaire" ? PanelElem:"" )}
-                                </div>
-                                <div className="col-sm-12 col-md-12 col-lg-12 ">
-                                    <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
-                                </div>
 
                             </div>
-                            <div className="contentFooter">
-                                <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}>Return to VNF Directory</a>
-                            </div>
+                          {/*  <div className="contentFooter">
+                                <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}></a>
+                            </div> */}
                             <div className={this.state.loaderOn
                                 ? "showLoader"
                                 : "hideLoader"}>

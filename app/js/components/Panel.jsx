@@ -22,7 +22,7 @@ var Panel = React.createClass({
 
         },
         setActivePage:function(data){
-          
+
             this.setState(data);
         },
     render: function() {
@@ -31,7 +31,7 @@ var Panel = React.createClass({
             <div>
               <Header className="container-fluid" />
                 {this.state.pageActive == "package" ?
-                    <PackageData ref="package" setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
+                    <PackageData ref="package" setActivePage={this.setActivePage} setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
                      : (this.state.pageActive == "homePage"
                          ? <HomePage setActivePage={this.setActivePage} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>:"")
                        }

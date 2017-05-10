@@ -643,9 +643,9 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
                     <div className="tab-content">
                         {this.state.noOfVMS.map((vm) => <FormTabs data={vm} ref={vm.name} moveNext={moveNext} saveSubData={saveSubData}></FormTabs>)}
                     </div>
-                    <div className="contentFooter">
+                    <div className="net">
                         <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.movePrevious}>Previous</a>
-                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                      {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                         <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.clickedTheButton.bind(this, "vmManager")}>Next Page</a>
                         <a href="#" className="btn  btn-danger btn-sm nextBtn" disabled={this.state.currentIndex == 1} onClick={this.copyFromPrevForm}>Copy from Previous VM</a>
 

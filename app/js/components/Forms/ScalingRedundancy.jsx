@@ -57,9 +57,9 @@ const uiSchema = {
                 <div id="scalingRed">
                         <FormScale schema={schema} uiSchema={uiSchema} formData={this.state.formData} onSubmit={this.onSubmit}>
                         </FormScale>
-                         <div className="contentFooter">
+                         <div className="net">
                           {/*  <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,7,"prev")}>Previous</a> */}
-                            <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>
+                          {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                             <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
                          </div>
                         </div>

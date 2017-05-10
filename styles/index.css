@@ -44,6 +44,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 
 .contentMain{padding: 20px;padding-top: 70px;}
 .contentBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:850px;}
+.padd{margin-right: 1%;color:#FFA500;}
 
 .generateDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
 .uploadDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
@@ -62,11 +63,12 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 .leftMainFooter .forward,.leftMainFooter .backward{color: #FFF;width: 100%;padding: 15px; text-decoration:none;text-align: right;}
 .backward{display: inline-block;}
 .forward{display:none;}
-
 .viewOption{float:right;}
 .viewOption a{font-size: 20px;margin-right: 20px;}
 .viewOption .active{ color:#CD040B;}
-
+.adjust{
+  margin : 2% 0% 0 0;
+}
 .vnfpackageListView{display: none;}
 .vnfpackageCardView,.vnfpackageListView{ margin-top:20px;}
 .vnfpackageCardView > div {margin-bottom: 20px; }
@@ -84,7 +86,7 @@ html a {color: #333;}
 .card-body .inprogress{color: #1cd1eb;}
 .card-body .completed{color: #00b815;}
 .card-body .error{color: #e91717;}
-
+.card-body .inprogress i{cursor: pointer;}
 /* Progress */
 .pBarContainer{ border-top:1px solid #eee;}
 .pBar{height:72px;margin: 0 auto; background:#f6f6f6;    border-bottom: 2px solid #d2d3d4;box-shadow: 0 2px 4px rgba(0, 0, 0, .1);}
@@ -96,9 +98,11 @@ html a {color: #333;}
 .pBar ul.active1 li.step1, .pBar ul.active2 li.step2, .pBar ul.active3 li.step3, .pBar ul.active4 li.step4, .pBar ul.active5 li.step5{color: #ed1c24;background: #fff url('../images/pb_arrow_tab.png') no-repeat right 0px;border-right: none;}
 .pBar ul li .txt, .pBar ul li .numeric{float: left;font-family:"nhg-display-bold"; line-height:72px}
 .pBar ul li .txt {padding-left: 5px;}
+.displayData .panel-heading{
+  color:#ccc;
+}
 
-
-.previousBtn{float:left;}
+.previousBtn{float:left; margin: 0 0 0 1%;}
 .nextBtn,.finishBtn{float:right;}
 
 .contentBody h2{    font-family: nhg-display-bold,arial,sans-serif;font-size: 21px;}
@@ -106,6 +110,7 @@ html a {color: #333;}
 .contentBody label{    font-family: nhg-text-roman, arial, sans-serif;    font-weight: normal;}
 .contentBody{border-top: 4px solid #000;}
 .contentFooter{float: left;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 20px;}
+.net{float: right;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 20px;width:100%}
 .rjsf button{display:block;}
 
 #accordion .panel-heading .panel-title a, .accordion .panel-heading .panel-title a{ font-size:15px;}
@@ -375,8 +380,8 @@ ag-fresh .ag-paging-button {
     color: #CD040B;}
     .totalRightScreenMode .contentFooter{margin-left:0px !important;width: 100% !important;}
 .uploadfile > div{
-  padding: 10px;
-  margin: 10px;
+  padding: 0px;
+  margin:0px;
 }
 /*Home page */
 
@@ -472,11 +477,15 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
   position: relative;
 top: -4px;
 }
-.uploadfile div.upload{
+.uploadfile div.upload ,.uploadfile div.upload2{
   border: dashed 1px;
-  height: 200px;
+  height: 500px;
       width: auto;
       padding:  50px;}
+      .uploadfile div.upload2{
+        height: 200px;
+            margin-bottom: 10px;
+      }
 .crossFade{
   opacity: .50;
   color: #000;
@@ -495,7 +504,7 @@ button.btn.btn-info {
     position: relative;
     background: transparent;
 }
-.right-panel-forms .nextBtn,.finishBtn{float:left;}
+.right-panel-forms .nextBtn,.finishBtn{float:right;}
 
 .dots-container{
   position: relative;
@@ -789,10 +798,11 @@ button.btn.btn-info {
 }
 .modal-dialog-newVnf {
     margin-left: 15%;
-    position: relative;
+    position: absolute;
     max-width: 70%;
     max-height: 80%;
     background-color: white;
+    top:70px;
 }
 .modal-content {
   min-width: 100%;
@@ -800,15 +810,19 @@ button.btn.btn-info {
   padding: 10px;
   margin: auto;
 }
+legend{
+  font-family: nhg-text-bold,arial;
+  font-size: 14px;
+}
+.alertDiv {    top:70px;
 
-.alertDiv {
-  position: relative;
+  position: absolute;left: 43%;
   max-width: 30%;
   max-height: 40%;
   background-color: white;
   padding: 10px;
   border: none;
-  margin: auto;
+  margin: 0px auto;
 }
 .displayData .panel .panel-primary{
   border-color: #000;
@@ -818,7 +832,7 @@ button.btn.btn-info {
   font-family: nhg-text-bold,arial;
   background-color: transparent;
     border-color: transparent;
-    color: #000;
+    color: #ccc;
     text-align: center;
     text-transform: capitalize;
 } .displayData .panel-primary{
@@ -853,6 +867,12 @@ foreignobject body{
         margin-top: 6px;
         color: #fff
     }
+    .displayData.completed .panel-heading{
+      color:#a1b872;
+    }
+    .displayData.in-progress .panel-heading{
+      color:black ;
+    }
     .displayData.in-progress .panel-body,.displayData.completed .panel-body{
         background:transparent;
     }.displayData.in-progress .panel-body .fa{
@@ -872,3 +892,44 @@ foreignobject body{
       background-size: 78%;
       background-repeat: no-repeat;
     }
+    .packageUpload .left , .packageUpload .right{
+        margin-top: 15px;
+        padding: 0px 50px;
+    }.treeLevel{margin:0; padding:0; display: inline-block;}
+                .treeLevel li{border-left: 1px dashed #000;list-style: none; border-left: 1px dashed #000;list-style: none; padding: 10px 20px;font-family:nhg-text-roman; font-size:13px; color:#000}
+                .vLine{border-top: 1px dashed #000;width: 30px; height: 1px;float: left;position: relative;right: 20px;top: 9px;}
+                .closeFolder{ background: url("images/icons.png") 0 0 no-repeat; width: 20px;height: 17px;float: left;position: relative;left: -10px;}
+                .openFolder{ background: url("images/icons.png") 0 -17px no-repeat; width: 20px;height: 17px;float: left;position: relative;left: -10px;}
+                .nameFile{ margin-left: 20px;}
+                .pngFile{background: url("images/icons.png") 0 -32px no-repeat;background-color: #f3f3f3;padding: 4px 3px;margin-left: 10px;}
+                .scriptFile{background: url("images/icons.png") 0 -53px no-repeat;background-color: #f3f3f3;padding: 4px 3px;margin-left: 10px;}
+                .cloudFile{background: url("images/icons.png") 0 -74px no-repeat;background-color: #f3f3f3;padding: 1px 3px;margin-left: 10px;}
+                .imgFile{background: url("images/icons.png") 0 -90px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+                .txtFile{background: url("images/icons.png") 0 -109px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+                .docFile{background: url("images/icons.png") 0 -130px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+
+
+     @font-face{
+     font-family:nhg-text-roman;
+     src:url(fonts/Neue-haas/roman-text-55.eot?#iefix);
+     src:url(fonts/Neue-haas/roman-text-55.eot?#iefix) format("eot"),
+     url(fonts/Neue-haas/roman-text-55.woff2) format("woff2"),
+     url(fonts/Neue-haas/roman-text-55.woff) format("woff"),
+     url(fonts/Neue-haas/roman-text-55.ttf) format("truetype"),
+     url(fonts/Neue-haas/roman-text-55.svg) format("svg#roman-text-55");
+     font-weight:400;font-style:normal;letter-spacing:.025em
+     }
+     .workflowView{
+    padding-left: 50px;
+    padding-top:20px;
+    margin: 0px;
+  }.questionaireFors{
+    padding-top:20px;
+
+  }
+  .chartContainerH2{
+    display: none;
+    padding-left: 50px;
+    padding-top: 10px;
+    margin-bottom: -5px;
+  }

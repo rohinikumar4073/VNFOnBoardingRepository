@@ -66,8 +66,21 @@ const uiSchema = {
   "phone": {
     "classNames": "col-sm-4"
   }
+},
+"productinfo":{
+  "vnfproductname":{
+    "classNames": "col-sm-12"
+
+  },  "highleveldes":{
+      "classNames": "col-sm-12"
+
+    },  "networkservice":{
+        "classNames": "col-sm-12"
+
+      },
 }
 };
+
 
  const formData = {
 };
@@ -108,7 +121,8 @@ const uiSchema = {
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" onClick={this.handleCancel}>
-                                &times;
+                              <i className="fa fa-times" aria-hidden="true"></i>
+
                             </button>
                             <h3>{this.props.header}</h3>
                         </div>

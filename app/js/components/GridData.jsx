@@ -103,7 +103,7 @@ var $ = require("jquery");
                             <p></p>
                         </div>
                         <div className="card-footer" onClick={this.props.onSelectionGridChanged.bind(this,this.props.data.data,this.props.data.name)}>
-                            <span className="card-footer-text">View details</span>
+                          <a href="javascript:void(0)"><span className="card-footer-text">View details</span></a>
                             <i className="pull-right fa fa-chevron-right"></i>
                         </div>
                     </div>
