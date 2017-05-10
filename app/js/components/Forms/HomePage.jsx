@@ -289,7 +289,7 @@ self.loopTimeout();
                                     </a>
                                 </div>
 
-                                <div className="col-sm-3 col-md-3 col-lg-3 ">
+                                {/*<div className="col-sm-3 col-md-3 col-lg-3 ">
                                     <a href="#" className={this.state.configurationStatus == 'Not Configured'
                                         ? " cardPackage "
                                         : (this.state.configurationStatus == "Configured"
@@ -308,7 +308,7 @@ self.loopTimeout();
 
                                     </a>
 
-                                </div>
+                                </div>*/}
                                 <div className="col-sm-12 col-md-12 col-lg-12  adjust">
                                     {
                                       this.state.pageActive =="upload"
