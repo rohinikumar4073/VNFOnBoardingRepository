@@ -378,8 +378,8 @@ ag-fresh .ag-paging-button {
     color: #CD040B;}
     .totalRightScreenMode .contentFooter{margin-left:0px !important;width: 100% !important;}
 .uploadfile > div{
-  padding: 10px;
-  margin: 10px;
+  padding: 0px;
+  margin:0px;
 }
 /*Home page */
 
@@ -475,11 +475,15 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
   position: relative;
 top: -4px;
 }
-.uploadfile div.upload{
+.uploadfile div.upload ,.uploadfile div.upload2{
   border: dashed 1px;
-  height: 200px;
+  height: 500px;
       width: auto;
       padding:  50px;}
+      .uploadfile div.upload2{
+        height: 200px;
+            margin-bottom: 10px;
+      }
 .crossFade{
   opacity: .50;
   color: #000;
@@ -877,7 +881,7 @@ foreignobject body{
     }
     .packageUpload .left , .packageUpload .right{
         margin-top: 15px;
-        padding-left: 50px;
+        padding: 0px 50px;
     }.treeLevel{margin:0; padding:0; display: inline-block;}
                 .treeLevel li{border-left: 1px dashed #000;list-style: none; border-left: 1px dashed #000;list-style: none; padding: 10px 20px;font-family:nhg-text-roman; font-size:13px; color:#000}
                 .vLine{border-top: 1px dashed #000;width: 30px; height: 1px;float: left;position: relative;right: 20px;top: 9px;}
@@ -903,6 +907,10 @@ foreignobject body{
      font-weight:400;font-style:normal;letter-spacing:.025em
      }
      .workflowView{
-    padding: 0px;
+    padding-left: 50px;
+    padding-top:20px;
     margin: 0px;
+  }.questionaireFors{
+    padding-top:20px;
+
   }

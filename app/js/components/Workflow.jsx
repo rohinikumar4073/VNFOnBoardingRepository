@@ -218,11 +218,14 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
         },
         render: function() {
             return (
+              <div>
+              <h2 className="chartContainerH2">Workflow View</h2>
+
               <div className="chartContainer">
 
 
               </div>
-
+            </div>
 
             );
         }
