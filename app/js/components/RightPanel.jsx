@@ -192,8 +192,8 @@ var Networking =require("./Forms/Networking.jsx");
         },
 
         componentDidMount: function() {
-debugger;
-          this.setState({"data":this.props.formDataFromHome});
+          debugger;
+          this.setState({"data":this.props.formDataFromHome,packageName:this.props.formDataFromHome.id});
         }
     });
 

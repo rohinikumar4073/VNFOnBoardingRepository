@@ -44,6 +44,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 
 .contentMain{padding: 20px;padding-top: 70px;}
 .contentBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:850px;}
+.padd{margin-right: 1%;}
 
 .generateDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
 .uploadDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
@@ -874,3 +875,34 @@ foreignobject body{
       background-size: 78%;
       background-repeat: no-repeat;
     }
+    .packageUpload .left , .packageUpload .right{
+        margin-top: 15px;
+        padding-left: 50px;
+    }.treeLevel{margin:0; padding:0; display: inline-block;}
+                .treeLevel li{border-left: 1px dashed #000;list-style: none; border-left: 1px dashed #000;list-style: none; padding: 10px 20px;font-family:nhg-text-roman; font-size:13px; color:#000}
+                .vLine{border-top: 1px dashed #000;width: 30px; height: 1px;float: left;position: relative;right: 20px;top: 9px;}
+                .closeFolder{ background: url("images/icons.png") 0 0 no-repeat; width: 20px;height: 17px;float: left;position: relative;left: -10px;}
+                .openFolder{ background: url("images/icons.png") 0 -17px no-repeat; width: 20px;height: 17px;float: left;position: relative;left: -10px;}
+                .nameFile{ margin-left: 20px;}
+                .pngFile{background: url("images/icons.png") 0 -32px no-repeat;background-color: #f3f3f3;padding: 4px 3px;margin-left: 10px;}
+                .scriptFile{background: url("images/icons.png") 0 -53px no-repeat;background-color: #f3f3f3;padding: 4px 3px;margin-left: 10px;}
+                .cloudFile{background: url("images/icons.png") 0 -74px no-repeat;background-color: #f3f3f3;padding: 1px 3px;margin-left: 10px;}
+                .imgFile{background: url("images/icons.png") 0 -90px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+                .txtFile{background: url("images/icons.png") 0 -109px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+                .docFile{background: url("images/icons.png") 0 -130px no-repeat;background-color: #f3f3f3;padding: 2px 3px;margin-left: 10px;}
+
+
+     @font-face{
+     font-family:nhg-text-roman;
+     src:url(fonts/Neue-haas/roman-text-55.eot?#iefix);
+     src:url(fonts/Neue-haas/roman-text-55.eot?#iefix) format("eot"),
+     url(fonts/Neue-haas/roman-text-55.woff2) format("woff2"),
+     url(fonts/Neue-haas/roman-text-55.woff) format("woff"),
+     url(fonts/Neue-haas/roman-text-55.ttf) format("truetype"),
+     url(fonts/Neue-haas/roman-text-55.svg) format("svg#roman-text-55");
+     font-weight:400;font-style:normal;letter-spacing:.025em
+     }
+     .workflowView{
+    padding: 0px;
+    margin: 0px;
+  }

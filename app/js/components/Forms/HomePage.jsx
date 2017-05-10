@@ -31,6 +31,7 @@ var homePage = React.createClass({
         this.refs.leftPanel.changeStatus(pageNumber);
     },
     componentDidMount: function() {
+      $('[data-toggle="tooltip"]').tooltip();
 
         var self = this;
         var gene = this.props.formData.generalInfo;
@@ -233,6 +234,17 @@ self.loopTimeout();
                             </LeftPanel>
                             <RightPanel className="totalRightScreenMode" formDataFromHome={this.props.formData} ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
                        </div>);
+                       var PackageUploadElem=(<div><PackageUpload setPageActive={this.setPageActive} ref="upload"
+                                          id={this.props.formData.id}
+
+                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                       <div className="col-sm-12 col-md-12 col-lg-12 workflowView">
+                                         <h2>Workflow View</h2>
+                                         <div >
+                                    <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
+                                    </div>
+                                </div>
+                                </div>);
         return (
             <div className="contentMain rightPanel totalRightScreenMode">
                 <div className="contentBody">
@@ -300,10 +312,7 @@ self.loopTimeout();
                                 <div className="col-sm-12 col-md-12 col-lg-12  adjust">
                                     {
                                       this.state.pageActive =="upload"
-                                      ? <PackageUpload setPageActive={this.setPageActive} ref="upload"
-                                          id={this.props.formData.id}
-
-                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.state.data}/>
+                                      ? PackageUploadElem
                                       : this.state.pageActive =="questionaire"
                                         ? PanelElem
                                         : this.state.pageActive =="generateDescriptors"
@@ -311,9 +320,7 @@ self.loopTimeout();
                                       :""
                                     }
                                 </div>
-                                <div className="col-sm-12 col-md-12 col-lg-12 ">
-                                    <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
-                                </div>
+
 
                             </div>
                           {/*  <div className="contentFooter">
