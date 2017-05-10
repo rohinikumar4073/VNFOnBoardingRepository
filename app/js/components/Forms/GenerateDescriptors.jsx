@@ -330,10 +330,8 @@ var GenerateDescriptors = React.createClass({
                     </ul>
                     <div className="tab-content">
                         <div role="tabpanel" className="tab-pane active" id="vnfd" aria-labelledby="vnfd-tab">
-                            <div id="accordion">
-                                <div className="panel-group">
-                                    <div className="panel panel-default">
-                                        <div className="panel-heading">
+
+                                        {/*<div className="panel-heading">
                                             <h4 className="panel-title">
                                                 <a data-toggle="collapse" href="#createvnfd" aria-expanded="true">Create VNFD(s) based on questionaire inputs</a>
                                             </h4>
@@ -345,7 +343,7 @@ var GenerateDescriptors = React.createClass({
                                                     <a href="#" className="btn btn-danger btn-sm" onClick={this.createVnfd}>Create VNFD(s)</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                         <div className="panel-heading">
                                             <h4 className="panel-title">
                                                 <a data-toggle="collapse" href="#uploadvnfd" aria-expanded="true">Upload VNF Descriptors</a>
@@ -356,8 +354,7 @@ var GenerateDescriptors = React.createClass({
                                                 <div id="uploadDescriptors">
                                                     <div className="row">
                                                         <div className="col-sm-12">
-                                                            <h1>VNF Upload
-                                                            </h1>
+
                                                             <div className="uploadfile">
                                                                 <Dropzone ref={(node) => {
                                                                     this.dropzone = node;
@@ -379,16 +376,14 @@ var GenerateDescriptors = React.createClass({
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                         </div>
                         <div role="tabpanel" className="tab-pane" id="nsd" aria-labelledby="nsd-tab">
-                            <div id="accordion">
-                                <div className="panel-group">
-                                    <div className="panel panel-default">
-                                        <div className="panel-heading">
+
+
+
+                                        {/*<div className="panel-heading">
                                             <h4 className="panel-title">
                                                 <a data-toggle="collapse" href="#creatensd" aria-expanded="true">Create NSD(s)</a>
                                             </h4>
@@ -399,7 +394,7 @@ var GenerateDescriptors = React.createClass({
                                                     <a href="#" className="btn btn-danger btn-sm" onClick={this.createNsd}>Create NSD(s)</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                         <div className="panel-heading">
                                             <h4 className="panel-title">
                                                 <a data-toggle="collapse" href="#uploadnsd" aria-expanded="true">Upload NS Descriptors</a>
@@ -410,8 +405,7 @@ var GenerateDescriptors = React.createClass({
                                                 <div id="uploadNSDescriptors">
                                                     <div className="row">
                                                         <div className="col-sm-12">
-                                                            <h1>NSD Upload
-                                                            </h1>
+                                                          
                                                             <div className="uploadfile">
                                                                 <Dropzone  style={{}} ref={(node) => {
                                                                     this.dropzone = node;
@@ -433,15 +427,17 @@ var GenerateDescriptors = React.createClass({
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+
+
+
                         </div>
                     </div>
                     <div className="net">
 
-                        <a href="#" className="btn btn-danger btn-sm nextBtn"  onClick={this.testPackage} >Test Package</a>
-                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.activateVNF} >Activate VNF</a>
+                        <a href="#" className="btn btn-danger btn-sm nextBtn"  onClick={this.testPackage}>Test Package</a>
+                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.activateVNF}>Activate VNF</a>
+                        <a href="#" className="btn btn-danger btn-sm nextBtn">Create VNFD(s)</a>
+                        <a href="#" className="btn btn-danger btn-sm nextBtn">Create NSD(s)</a>
                     </div>
                 </div>
                 <div className={this.state.loaderOn

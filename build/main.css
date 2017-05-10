@@ -7880,7 +7880,9 @@ html a {color: #333;}
 .pBar ul.active1 li.step1, .pBar ul.active2 li.step2, .pBar ul.active3 li.step3, .pBar ul.active4 li.step4, .pBar ul.active5 li.step5{color: #ed1c24;background: #fff url('../images/pb_arrow_tab.png') no-repeat right 0px;border-right: none;}
 .pBar ul li .txt, .pBar ul li .numeric{float: left;font-family:"nhg-display-bold"; line-height:72px}
 .pBar ul li .txt {padding-left: 5px;}
-
+.displayData .panel-heading{
+  color:#ccc;
+}
 
 .previousBtn{float:left; margin: 0 0 0 1%;}
 .nextBtn,.finishBtn{float:right;}
@@ -8612,7 +8614,7 @@ legend{
   font-family: nhg-text-bold,arial;
   background-color: transparent;
     border-color: transparent;
-    color: #000;
+    color: #ccc;
     text-align: center;
     text-transform: capitalize;
 } .displayData .panel-primary{
@@ -8646,6 +8648,12 @@ foreignobject body{
         font-size: 30px;
         margin-top: 6px;
         color: #fff
+    }
+    .displayData.completed .panel-heading{
+      color:#a1b872;
+    }
+    .displayData.in-progress .panel-heading{
+      color:black ;
     }
     .displayData.in-progress .panel-body,.displayData.completed .panel-body{
         background:transparent;
@@ -8703,4 +8711,7 @@ foreignobject body{
   }
   .chartContainerH2{
     display: none;
+    padding-left: 50px;
+    padding-top: 10px;
+    margin-bottom: -5px;
   }
