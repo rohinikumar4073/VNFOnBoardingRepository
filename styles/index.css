@@ -44,7 +44,7 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 
 .contentMain{padding: 20px;padding-top: 70px;}
 .contentBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:850px;}
-.padd{margin-right: 1%;}
+.padd{margin-right: 1%;color:#FFA500;}
 
 .generateDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
 .uploadDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}

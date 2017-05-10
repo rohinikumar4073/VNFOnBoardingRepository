@@ -153,7 +153,7 @@ var Upload = React.createClass({
                                   {/*  <span className="openFolder"></span>*/}
                                     <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>Icons</span>
-                                    <span className="pngFile"><span className="nameFile">&lt;logo_name&gt;.png</span></span>
+                                    <span className="pngFile"><span className="nameFile"><i className="fa fa-file-image-o"></i>&lt;logo_name&gt;.png</span></span>
                                 </li>
                                 <li>
                                     <span className="vLine"></span>
@@ -161,7 +161,7 @@ var Upload = React.createClass({
                                       <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>scripts</span>
                                     <span className="scriptFile">
-                                    <span className="nameFile">&lt;script_file&gt;
+                                    <span className="nameFile"><i className="fa fa-file-code-o"></i>&lt;script_file&gt;
                                     </span>
                                     </span>
                                 </li>
@@ -170,7 +170,7 @@ var Upload = React.createClass({
                                     {/*  <span className="openFolder"></span>*/}
                                       <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>cloud_init</span>
-                                    <span className="cloudFile"><span className="nameFile">&lt;cloud_init_file&gt;
+                                    <span className="cloudFile"><span className="nameFile"><i className="fa fa-cloud"></i>&lt;cloud_init_file&gt;
                                     </span>
                                     </span>
                                 </li>
@@ -179,7 +179,7 @@ var Upload = React.createClass({
                                     {/*  <span className="openFolder"></span>*/}
                                       <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>images</span>
-                                    <span className="imgFile"><span className="nameFile">&lt;image_1&gt;.qcow2
+                                    <span className="imgFile"><span className="nameFile"><i className="fa fa-file-o"></i>&lt;image_1&gt;.qcow2
                                     </span>
                                     </span>
                                 </li>
@@ -188,7 +188,7 @@ var Upload = React.createClass({
                                       {/*  <span className="openFolder"></span>*/}
                                         <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>tests</span>
-                                    <span className="txtFile"><span className="nameFile">&lt;test_file&gt;
+                                    <span className="txtFile"><span className="nameFile"><i className="fa fa-file-text"></i>&lt;test_file&gt;
                                     </span>
                                     </span>
                                 </li>
@@ -197,7 +197,7 @@ var Upload = React.createClass({
                                       {/*  <span className="openFolder"></span>*/}
                                         <i className="fa fa-folder-open fa-lg padd"></i>
                                     <span>doc</span>
-                                    <span className="docFile"><span className="nameFile">&lt;doc_file&gt;
+                                    <span className="docFile"><span className="nameFile"><i className="fa fa-file-word-o"></i>&lt;doc_file&gt;
                                     </span>
                                     </span>
                                 </li>
