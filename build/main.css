@@ -8175,16 +8175,16 @@ ag-fresh .ag-paging-button {
 .mainPackage img{ position: absolute;height: 35px;bottom: 2.3em;left: 2.5em;}
 .cardPackage{ border:1px solid #000;padding:15px; width: 100%;display: inline-block; margin:0px 0px 10px; }
 
-.not-configured{    border-left: 10px solid #A80909 !important; border-top: 1px solid #A80909;border-bottom: 1px solid #A80909; border-right: 1px solid #A80909;}
+.not-configured{   color: #A80909; }
 .not-configured h2 span, .configured h3 span{ color: #A80909}
 .not-configured i.fa-flask{color: #A80909;}
-.configured{    border-left: 10px solid #FFBC3D !important; border-top: 1px solid #FFBC3D;border-bottom: 1px solid #FFBC3D; border-right: 1px solid #FFBC3D;}
+.configured{   color: #FFBC3D;}
 .configured h2 span, .configured h3 span{ color: #FFBC3D}
 .configured i.fa-flask{color: #FFBC3D;}
-.active-vnf{    border-left: 10px solid #00AC3E !important; border-top: 1px solid #00AC3E;border-bottom: 1px solid #00AC3E; border-right: 1px solid #00AC3E;}
+.active-vnf{    color: #00AC3E;}
 .active-vnf h2 span, .configured h3 span{ color: #00AC3E}
 .active-vnf i.fa-flask{color: #00AC3E;}
-.on-boarding{    border-left: 10px solid #ED7000 !important; border-top: 1px solid #ED7000;border-bottom: 1px solid #ED7000; border-right: 1px solid #ED7000;}
+.on-boarding{    color: #ED7000;}
 .on-boarding h2 span, .configured h3 span{ color: #ED7000}
 .on-boarding i.fa-flask{color: #ED7000;}
 .statusClass h2 span, .configured h3 span{color:#FF4500}
@@ -8650,7 +8650,7 @@ foreignobject body{
         color: #fff
     }
     .displayData.completed .panel-heading{
-      color:#a1b872;
+      color:#00AC3E;
     }
     .displayData.in-progress .panel-heading{
       color:black ;
@@ -8666,7 +8666,7 @@ foreignobject body{
     font-size: 46px;
 }   .displayData.completed .panel-body .fa{
 
-        color: #a1b872;
+        color: #00AC3E;
     }
     .displayData.in-progress .panel-body {
       background-image: url(images/three-circle-loader.gif);
@@ -8715,3 +8715,7 @@ foreignobject body{
     padding-top: 10px;
     margin-bottom: -5px;
   }
+.configuration{
+  float: right;
+  margin-right: 10px;
+}

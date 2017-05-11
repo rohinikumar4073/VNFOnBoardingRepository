@@ -30,6 +30,20 @@ var homePage = React.createClass({
     changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
+	updataConfigurationStatus:function(status){
+	
+                    if (status != null) {
+                        if (status == "NULL") {
+                            this.setState({configurationStatus: "Activating"});
+                        } else {
+                            this.setState({configurationStatus:status});
+                        }
+                    } else {
+                        self.setState({configurationStatus: "Not Configured"});
+                    }
+
+                
+	},
     componentDidMount: function() {
       $('[data-toggle="tooltip"]').tooltip();
 
@@ -269,6 +283,13 @@ self.loopTimeout();
                                 <h2 className="homePageHeading">
                                     <i className="fa fa-angle-left get-back" aria-hidden="true" onClick={this.goMainScreen}></i>
                                     <span className="package-heading-span">{this.props.formData.generalInfo.productinfo.vnfproductname}</span>
+                                    <span className="configuration " className={this.state.configurationStatus == 'Not Configured'
+                                        ? "  configuration"
+                                        : (this.state.configurationStatus == "Configured"
+                                            ? " configured configuration"
+                                            : (this.state.configurationStatus == "ACTIVE"
+                                                ? " active-vnf configuration"
+                                                : " on-boarding configuration"))}>Status : {this.state.configurationStatus}</span>
                                 </h2>
                                 <div className="col-sm-3 col-md-3 col-lg-3">
                                     <a href="#"  data-toggle="tooltip" title="Upload VNF Package" className={this.state.pageActive=="upload"
@@ -329,7 +350,7 @@ self.loopTimeout();
                                       : this.state.pageActive =="questionaire"
                                         ? PanelElem
                                         : this.state.pageActive =="generateDescriptors"
-                                        ?  <GenerateDescriptors formData={this.props.formData}  saveAndSetFormData={this.saveAndSetFormData} />
+                                        ?  <GenerateDescriptors formData={this.props.formData}  updataConfigurationStatus={this.updataConfigurationStatus} saveAndSetFormData={this.saveAndSetFormData} />
                                       :""
                                     }
                                 </div>
