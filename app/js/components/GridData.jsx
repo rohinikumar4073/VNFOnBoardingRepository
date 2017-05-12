@@ -1,5 +1,8 @@
+
+
 var React =require("react");
 var $ = require("jquery");
+var UOPService =require("./../services/UOPService.js")
     var GridData = React.createClass({
       getInitialState: function(){
           return {
@@ -15,51 +18,26 @@ var $ = require("jquery");
         var self = this;
         var gene = this.props.data.data.formData.generalInfo;
 
-        if (self.props.data.isVnfActive && self.props.data.isGenDescComp) {
-          $.ajax({
-              url: config.formApi + "/vnf/" + gene.productinfo.vnfproductname + "/getVnfStatus",
-              method: 'POST',
-              data: {},
-              success: function(data) {
-                if(data.status != null){
-                  if (data.status=="NULL") {
-                      self.setState({configurationStatus: "Activating"});
-                  } else {
-                      self.setState({configurationStatus: data.status});
-                  }
-                }
-                else if(self.props.data.isGenDescComp){
-                  self.setState({configurationStatus: "Configured"});
-                }
-                else{
-                  self.setState({configurationStatus: "Not Configured"});
-                }
-              },
-              error: function(data) {}
-          })
-            setInterval(function() {
-                $.ajax({
-                    url: config.formApi + "/vnf/" + gene.productinfo.vnfproductname + "/getVnfStatus",
-                    method: 'POST',
-                    data: {},
-                    success: function(data) {
-                      if(data.status != null){
-                        if (data.status=="NULL") {
-                            self.setState({configurationStatus: "Activating"});
-                        } else {
-                            self.setState({configurationStatus: data.status});
-                        }
-                      }
-                      else if(self.props.data.isGenDescComp){
-                        self.setState({configurationStatus: "Configured"});
-                      }
-                      else{
-                        self.setState({configurationStatus: "Not Configured"});
-                      }
-                    },
-                    error: function(data) {}
-                })
-            }, 10000);
+        if (self.props.data.isVnfActive && self.props.data.isGenDescComp &&  self.props.data.jobId) {
+            UOPService.getOssId(function(ossId){
+            UOPService.getJOBStatus(function(data){
+
+
+            if(response.data.status=="IN_PROGRESS"){
+              self.setState(configurationStatus, "Activating");
+            }
+            else if(response.data.status=="OK"){
+              self.setState(configurationStatus, "ACTIVE");
+
+
+            }
+            else if(response.data.status=="ON_ERROR")
+              self.setState(configurationStatus, "ERROR");
+
+
+              },ossId,self.props.data.jobId);
+
+                  },parent)
         }
       },
       render:function(){

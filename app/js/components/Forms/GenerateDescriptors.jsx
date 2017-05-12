@@ -6,7 +6,7 @@ var $ = require("jquery");
 var axios = require("axios");
 
 var Dropzone = require("react-dropzone")
-
+var UOPService = require("./../../services/UOPService.js")
 var GenerateDescriptors = React.createClass({
     getInitialState() {
         $(".leftMain").addClass("totalLeftScreenMode");
@@ -20,13 +20,14 @@ var GenerateDescriptors = React.createClass({
         this.props.setActivePage("homePage", "next", {}, "");
 
     },
-	
+
 	uploadVNFD:function(){
-		this.getOssId(this.uploadPackage)
-		
+
+	   UOPService.getOssId(this.uploadPackage,this)
+
 	},
     uploadPackage: function(ossId) {
-		
+
         var theform = new FormData();
         var vnf = this.state.files[0];
         var fileName = vnf.name;
@@ -58,7 +59,7 @@ var GenerateDescriptors = React.createClass({
 
                 self.props.formData.uploadNSDPackageId.push(data.packageId);
                 self.props.saveAndSetFormData(self.props.formData);
-		self.props.updataConfigurationStatus( "Configured");
+		        self.props.updataConfigurationStatus( "Configured");
 
             },
             error: function(data) {
@@ -146,179 +147,22 @@ var GenerateDescriptors = React.createClass({
                         toastr.error("Test cases could not be triggered");
                       }
                   })
-        },registerOSSApp:function(nfvoId,callback){
-			var self=this;
-				axios({
-					method: 'post',
-					url: config.uopApi+'/settings/applications/',
-
-					data:
-{
-  "appName": "MyOSS",
-  "domainId": "6ea7a82f-1f7c-42d7-abe4-2c6d92d94d30",
-  "modeInstanceId": "45698bbf-0419-4be4-acfe-4427c00054f7",
-  "modeInstanceUndeployId": "7c10bed4-6aa0-47f2-a54c-00515a410b54",
-  "nfvoId": nfvoId,
-  "orchType": "HP",
-  "orgId": "b877eb45-c18d-46eb-8a79-d20c3204d23d",
-  "resourceArtifactId": "c4ad5969-f921-3552-8c66-7828a6b5d306",
-  "tenantId": "f8ff51d0-3bac-4dbb-998d-d7a155aaf384",
-  "vnfGroupId": "43b5dfee-ec46-4101-aaa2-ca412f7ba056"
-}
+        },
 
 
-
-
-					}).then(function (response) {
-						callback(response.data.ossRegistrationId)
-
-					})
-					  .catch(function (error) {
-						console.log(error);
-						self.setState({loaderOn: false});
-					  });
-		},
-		getJOBStatus:function(jobId,ossId){
-			var self=this;
-			var interval=setInterval(function(){
-			axios({
-					method: 'get',
-					url: config.uopApi+'/jobs/'+jobId+"/",
-					  headers: {'Oss-Registration-Id': ossId}
-
-
-
-					}).then(function (response) {
-						if(response.data.status=="IN_PROGRESS")
-							self.props.updataConfigurationStatus( "Activating");
-						else if(response.data.status=="OK"){
-							self.props.updataConfigurationStatus("ACTIVE")
-								clearInterval(interval)
-
-						}
-						else if(response.data.status=="ON_ERROR")
-								self.props.updataConfigurationStatus("ERROR");
-					})
-					  .catch(function (error) {
-					  });
-		}, 5000);
-
-		},
-		deployPackage:function(ossId,packageId){
-			var self=this;
-
-				axios({
-					method: 'post',
-					url: config.uopApi+'/vnfs/instances/',
-					  headers: {'Oss-Registration-Id': ossId},
-					data:
-						{
-							  "virtualNetworks": ["data-network", "EDN"],
-							  "vnfDesc": "DNS",
-							  "vnfName": "DNS-INFO-BLOX",
-							  "vnfPackageId": packageId, 
-							  "tenantName": "",
-							  "vimZoneName": "",
-							  "vdc": {
-								"id": ""
-							  },
-							  "hotPackage": {
-								"vapp": {
-								  "name": "",
-								  "productInfo": {
-									"version": "",
-									"vendor": ""
-								  },
-								  "type": "",
-								  "flavor": "",
-								  "description": "",
-								  "configData": [
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-									},
-									{
-									  "name": "",
-									  "value": ""
-								   }
-								  ],
-							   "configDataEnvFile": [],
-								  "configFiles": []
-								}
-							  }
-							}
-
-
-
-					}).then(function (response) {
-						console.log(response);
-						self.setState({loaderOn: false});
-						 self.props.formData.jobId=response.data.jobId;
-							self.props.saveAndSetFormData(self.props.formData);
-							self.getJOBStatus(response.data.jobId,ossId)
-
-					})
-					  .catch(function (error) {
-						console.log(error);
-						self.setState({loaderOn: false});
-					  });
-		},
-		getOssId:function(callback){
-			var self=this;
-			axios({
-					method: 'post',
-					url: config.uopApi+'/settings/nfvo/',
-					data:
-						
-								{
-								 "sOrchType": "HP",
-								  "sPassword": "Welcome@1234",
-								  "sTargetURL": "http://10.75.14.83:8080",
-								  "sUsername": "vdsi_onb_vnf_mgr@vdsi"
-								}
-
-
-					}).then(function (response) {
-						console.log(response);
-						if(response.data.nfvoId)
-						self.registerOSSApp(response.data.nfvoId,callback)
-					})
-					  .catch(function (error) {
-						console.log(error);
-						self.setState({loaderOn: false});
-					  });
-		},
         activateVNF: function() {
+            this.props.formData.isVnfActive = true;
+            this.props.saveAndSetFormData(this.props.formData);
             var self = this;
             var gene = this.props.formData.generalInfo;
             self.setState({statusLoaderOn: true});
-           var packageId=this.props.formData.uploadNSDPackageId[0];
-
+            var packageId=this.props.formData.uploadNSDPackageId[0];
 			self.setState({loaderOn: true});
-			 this.getOssId(function(ossId){
-				 self.deployPackage(ossId,packageId)
-			 });
-					if (this.state.isGenDescComp && !this.state.isVnfActive) { }
+			 UOPService.getOssId(function(ossId){
+				 UOPService.deployPackage(ossId,packageId,self);
+			 },self);
+					if (this.state.isGenDescComp && !this.state.isVnfActive) {
+                     }
 
         },
     createVnfd: function() {
@@ -465,7 +309,7 @@ var GenerateDescriptors = React.createClass({
                                                 <div id="uploadNSDescriptors">
                                                     <div className="row">
                                                         <div className="col-sm-12">
-                                                          
+
                                                             <div className="uploadfile">
                                                                 <Dropzone  style={{}} ref={(node) => {
                                                                     this.dropzone = node;
