@@ -18,9 +18,9 @@ var UOPService =require("./../services/UOPService.js")
         var self = this;
         var gene = this.props.data.data.formData.generalInfo;
 
-        if (self.props.data.isVnfActive && self.props.data.isGenDescComp &&  self.props.data.jobId) {
+        if (self.props.data.isVnfActive && self.props.data.isGenDescComp &&  self.props.data.data.formData.jobId) {
             UOPService.getOssId(function(ossId){
-            UOPService.getJOBStatus(function(data){
+            UOPService.getJOBStatus(function(response){
 
 
             if(response.data.status=="IN_PROGRESS"){
@@ -35,9 +35,9 @@ var UOPService =require("./../services/UOPService.js")
               self.setState(configurationStatus, "ERROR");
 
 
-              },ossId,self.props.data.jobId);
+              }, self.props.data.data.formData.jobId,ossId,self);
 
-                  },parent)
+                  },self)
         }
       },
       render:function(){

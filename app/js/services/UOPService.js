@@ -89,8 +89,8 @@ module.exports={
 						console.log(response);
 						parent.setState({loaderOn: false});
 						parent.props.formData.jobId=response.data.jobId;
-						parent.props.saveAndSetFormData(self.props.formData);
-						self.getJOBStatus(function(response){
+						parent.props.saveAndSetFormData(parent.props.formData);
+						self.getJOBStatus(function(response,parent){
 
 						if(response.data.status=="IN_PROGRESS"){
 							parent.props.updataConfigurationStatus( "Activating");
@@ -120,7 +120,7 @@ module.exports={
 
 
 					}).then(function (response) {
-						callback(response);
+						callback(response,parent);
 
 					if(response.data.status=="OK"){
 							clearInterval(interval)

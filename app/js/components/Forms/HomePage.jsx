@@ -47,53 +47,7 @@ var homePage = React.createClass({
     componentDidMount: function() {
       $('[data-toggle="tooltip"]').tooltip();
 
-        var self = this;
-        var gene = this.props.formData.generalInfo;
-
-        if (self.props.formData.isVnfActive && self.props.formData.isGenDescComp) {
-            $.ajax({
-                url: config.formApi + "/vnf/" + gene.productinfo.vnfproductname + "/getVnfStatus",
-                method: 'POST',
-                data: {},
-                success: function(data) {
-                    if (data.status != null) {
-                        if (data.status == "NULL") {
-                            self.setState({configurationStatus: "Activating"});
-                        } else {
-                            self.setState({configurationStatus: data.status});
-                        }
-                    } else if (self.props.formData.isGenDescComp) {
-                        self.setState({configurationStatus: "Configured"});
-                    } else {
-                        self.setState({configurationStatus: "Not Configured"});
-                    }
-
-                },
-                error: function(data) {}
-            })
-            setInterval(function() {
-                $.ajax({
-                    url: config.formApi + "/vnf/" + gene.productinfo.vnfproductname + "/getVnfStatus",
-                    method: 'POST',
-                    data: {},
-                    success: function(data) {
-                        if (data.status != null) {
-                            if (data.status == "NULL") {
-                                self.setState({configurationStatus: "Activating"});
-                            } else {
-                                self.setState({configurationStatus: data.status});
-                            }
-                        } else if (self.props.formData.isGenDescComp) {
-                            self.setState({configurationStatus: "Configured"});
-                        } else {
-                            self.setState({configurationStatus: "Not Configured"});
-                        }
-                    },
-                    error: function(data) {}
-                })
-            }, 10000);
-        }
-
+      
     },
     uploadPackage: function() {
         this.setState({pageActive:"upload"});
