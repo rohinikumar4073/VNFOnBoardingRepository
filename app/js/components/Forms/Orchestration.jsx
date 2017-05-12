@@ -141,7 +141,10 @@ var Orchestration = React.createClass({
             this.props.setPageActive("homePage", "next", data, "vmManager");
             $(".leftMain").addClass("totalLeftScreenMode");
             $(".contentMain").addClass("totalRightScreenMode");
-        } else {
+        }
+        else if(this.state.val == "prev"){
+            this.props.setPageActive("vmInfo", "prev", data, "vmManager");
+        }else {
             this.props.setPageActive("verification", "next", data, "vmManager");
         }
     },
@@ -152,7 +155,8 @@ var Orchestration = React.createClass({
                 <h2>Orchestration Requirements</h2>
                 <FormOS schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData}></FormOS>
                 <div className="net">
-                    <a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this, "vmInfo", "prev")}>Previous</a>
+                    <a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.movePrev}>Previous</a>
+                      {/*<a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this, "vmInfo", "prev")}>Previous</a>*/}
                   {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>*/}
                     <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
                 </div>
@@ -172,6 +176,10 @@ var Orchestration = React.createClass({
     },
     moveNext: function() {
         this.state.val = "";
+        $("#orcReq button").click();
+    },
+    movePrev: function() {
+        this.state.val = "prev";
         $("#orcReq button").click();
     }
 });

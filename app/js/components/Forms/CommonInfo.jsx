@@ -55,6 +55,9 @@ const uiSchema = {
             $(".leftMain").addClass("totalLeftScreenMode");
             $(".contentMain").addClass("totalRightScreenMode");
           }
+          else if(this.state.val == "prev"){
+            this.props.setPageActive("vmManager","prev",data,"verification");
+          }
           else{
             this.props.setPageActive("additonalInfo","next",data,"verification");
           }
@@ -66,7 +69,8 @@ const uiSchema = {
                         <FormCommon schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData} >
                         </FormCommon>
                          <div className="net">
-                           <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"vmManager","prev")}>Previous</a>
+                           {/*<a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"vmManager","prev")}>Previous</a>*/}
+                           <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.movePrev}>Previous</a>
                           {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>*/}
                             <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
                          </div>
@@ -86,5 +90,9 @@ const uiSchema = {
                 this.state.val = "";
                $("#verification button").click();
              },
+             movePrev: function(){
+               this.state.val = "prev";
+              $("#verification button").click();
+             }
     });
     module.exports= CommonInfo;

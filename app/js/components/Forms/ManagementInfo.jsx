@@ -110,7 +110,7 @@ const uiSchema = {
            this.state.val = "saveAndExit";
              $("#managementInfo button").click();
            //this.setState({val: "saveAndExit"});
-         },
+         },      
          finishForm:function(){
            this.state.val = "";
               $("#managementInfo button").click();

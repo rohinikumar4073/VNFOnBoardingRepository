@@ -31,10 +31,24 @@ var Networking =require("./Forms/Networking.jsx");
            if(pageNumber!="package"){
             this.props.changeStatus(pageNumber)
           }
-            if(fromPage=="prev" || !formData){
+            if(fromPage=="prev" && !formData){
+                debugger;
               this.setState({pageActive: pageNumber, packageName: packageName});
-
-            }else{
+            }
+            else if(fromPage=="prev" && formData){
+        debugger;
+        this.setState({pageActive: pageNumber, packageName: packageName});
+        this.state.data[prevPageName]=formData;
+          this.state.data.pageNumber=(pageNumber);
+          this.state.data.status="inProgress";
+        var savePackageUrl=config.formApi+ "/vnf/"+packageName+"/saveFormData";
+        this.setState({loaderOn: true});
+        var self=this;
+        this.ajaxCalltoSetData(self.state.data,packageName,function(response){
+            self.setState({pageActive: pageNumber, packageName: packageName,data:self.state.data});
+        })
+        }else{
+                debugger;
               this.state.data[prevPageName]=formData;
                 this.state.data.pageNumber=(pageNumber);
                 this.state.data.status="inProgress";

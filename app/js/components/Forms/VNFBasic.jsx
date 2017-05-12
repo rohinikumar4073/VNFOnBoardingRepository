@@ -123,6 +123,10 @@ const uiSchema = {
             $(".leftMain").addClass("totalLeftScreenMode");
             $(".contentMain").addClass("totalRightScreenMode");
           }
+          else if(this.state.val == "prev"){
+            debugger;
+            this.props.setPageActive("networkInfo","prev",data,"vnfInfo")
+          }
           else{
             this.props.setPageActive("vmInfo","next",data,"vnfInfo")
           }
@@ -132,11 +136,15 @@ const uiSchema = {
                 <div id="virRes">
                       <FormVNF schema={schema} uiSchema={uiSchema} formData={this.state.formData} onSubmit={this.onSubmit}>
                         </FormVNF>
-                        
+
                         </div>
             );
         },moveNext:function(){
           this.state.val = "";
+          $("#virRes button").click();
+        },
+        movePrev:function(){
+          this.state.val = "prev";
           $("#virRes button").click();
         },
         saveAndExit: function(){

@@ -5,6 +5,7 @@ var VNFBasic = require("./VNFBasic.jsx");
 var KpiParameters = require("./KpiParameters.jsx");
 var ManagementInfo = require("./ManagementInfo.jsx");
   var nextPage="";
+
     var VMInformation = React.createClass({
         getInitialState:function(){
           var formData={};
@@ -79,6 +80,7 @@ var ManagementInfo = require("./ManagementInfo.jsx");
              nextPageClone =nextPage;
              nextPage="";
          }
+
    this.setState({ "formData": this.state.formData });
          this.props.saveFormData(this.state.formData, "vnfInfo", "vnfInfo", this, nextPageClone, function (self) {
          })
@@ -129,7 +131,8 @@ var ManagementInfo = require("./ManagementInfo.jsx");
                       </div>
 
                       <div className="net">
-                         <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a>
+                        {/* <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a>*/}
+                          <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.movePrev}>Previous</a>
                     {/*    <a href="#" id="save" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
                            <a href="#"  className="btn btn-danger btn-sm nextBtn"  onClick={this.moveNext}>Next</a>
 
@@ -139,6 +142,10 @@ var ManagementInfo = require("./ManagementInfo.jsx");
         },moveNext:function(){
            nextPage="vmInfo"
           this.clickTheButton();
+        },
+        movePrev: function(){
+          nextPage="networkInfo"
+         this.clickTheButton();
         },
         saveAndExit: function(){
           this.state.val = "saveAndExit";

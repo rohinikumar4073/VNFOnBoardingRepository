@@ -57,6 +57,10 @@ var PostInstall=require("./PostInstall.jsx")
         moveNextSection: function (data) {
             this.clickTheButton();
        },
+       movePrev: function(){
+         nextPage="verification"
+        this.clickTheButton();
+       },
        saveFormData:function(data){
          if(!this.state.formData){
            this.state.formData={};
@@ -126,7 +130,9 @@ var PostInstall=require("./PostInstall.jsx")
                                           </div>
                           </div>
                         </div>
-                  
+                        <div className="net">
+                            <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.movePrev}>Previous</a>
+                        </div>
                         </div>
             );
         },
