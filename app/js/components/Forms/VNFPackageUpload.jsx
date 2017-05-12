@@ -60,7 +60,7 @@ $(".chartContainerH2").show();
             var f = fileName.substr(0, fileName.lastIndexOf('.'));
             theform.append('uploadFile', nsd, nsd.name);
             $.ajax({
-                url: config.formApi + "/vnf/"+ self.props.id+"/UploadFile",
+                url: config.formApi + "vnf/"+ self.props.id+"/UploadFile",
                 data: theform,
                 type: 'POST',
                 contentType: false,

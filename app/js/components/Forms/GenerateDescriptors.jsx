@@ -3,6 +3,8 @@ var toastr = require("toastr");
 var Loader = require("react-loading")
 var config = require("./../../properties/config.js")
 var $ = require("jquery");
+var axios = require("axios");
+
 var Dropzone = require("react-dropzone")
 
 var GenerateDescriptors = React.createClass({
@@ -18,7 +20,13 @@ var GenerateDescriptors = React.createClass({
         this.props.setActivePage("homePage", "next", {}, "");
 
     },
-    uploadPackage: function() {
+	
+	uploadVNFD:function(){
+		this.getOssId(this.uploadPackage)
+		
+	},
+    uploadPackage: function(ossId) {
+		
         var theform = new FormData();
         var vnf = this.state.files[0];
         var fileName = vnf.name;
@@ -28,14 +36,15 @@ var GenerateDescriptors = React.createClass({
         var f = fileName.substr(0, fileName.lastIndexOf('.'));
         this.setState({loaderOn: true});
 
-        theform.append('uploadFile', vnf, vnf.name);
+        theform.append('VNFTemplateFile', vnf, vnf.name);
 
         self.props.formData.uploadNSDPackageId = [];
 
         self.props.saveAndSetFormData(self.props.formData);
 
         $.ajax({
-            url: config.formApi + "/vnf/" + f + "/uploadVnfd",
+            url: config.uopApi + "/vnfs/packages/upload",
+			  headers: {'Oss-Registration-Id': ossId},
             data: theform,
             type: 'POST',
             contentType: false,
@@ -47,8 +56,9 @@ var GenerateDescriptors = React.createClass({
                 self.props.formData.isGenDescComp = true;
                 self.props.formData.isVnfActive = false;
 
-                self.props.formData.uploadNSDPackageId.push(data.id);
+                self.props.formData.uploadNSDPackageId.push(data.packageId);
                 self.props.saveAndSetFormData(self.props.formData);
+		self.props.updataConfigurationStatus( "Configured");
 
             },
             error: function(data) {
@@ -122,18 +132,18 @@ var GenerateDescriptors = React.createClass({
           this.setState({loaderOn: true});
           var self = this;
           $.ajax({
-              url: config.testApi+"/executeJava",
-              method: 'GET',
+              url: config.formApi+"/vnf/"+self.props.formData.id+"/testVnf",
+              method: 'POST',
               data: {},
               success: function(data) {
                 self.setState({testPackageExecuted: true,loaderOn: false});
                 self.props.formData.testPackageExecuted=true;
                 self.props.saveAndSetFormData(self.props.formData);
-                  toastr.success("Test cases executed successfully");
+                  toastr.success("Test cases triggered successfully");
                       },
                       error: function(data) {
                         self.setState({loaderOn: false});
-                        toastr.error("Test cases could not be executed");
+                        toastr.error("Test cases could not be triggered");
                       }
                   })
         },registerOSSApp:function(nfvoId,callback){
@@ -143,19 +153,19 @@ var GenerateDescriptors = React.createClass({
 					url: config.uopApi+'/settings/applications/',
 
 					data:
+{
+  "appName": "MyOSS",
+  "domainId": "6ea7a82f-1f7c-42d7-abe4-2c6d92d94d30",
+  "modeInstanceId": "45698bbf-0419-4be4-acfe-4427c00054f7",
+  "modeInstanceUndeployId": "7c10bed4-6aa0-47f2-a54c-00515a410b54",
+  "nfvoId": nfvoId,
+  "orchType": "HP",
+  "orgId": "b877eb45-c18d-46eb-8a79-d20c3204d23d",
+  "resourceArtifactId": "c4ad5969-f921-3552-8c66-7828a6b5d306",
+  "tenantId": "f8ff51d0-3bac-4dbb-998d-d7a155aaf384",
+  "vnfGroupId": "43b5dfee-ec46-4101-aaa2-ca412f7ba056"
+}
 
-							{
-							  "appName": "MyOSS",
-							  "domainId": "6ea7a82f-1f7c-42d7-abe4-2c6d92d94d30",
-							  "modeInstanceId": "45698bbf-0419-4be4-acfe-4427c00054f7",
-							  "modeInstanceUndeployId": "7c10bed4-6aa0-47f2-a54c-00515a410b54",
-							  "nfvoId": nfvoId,
-							  "orchType": "HP",
-							  "orgId": "b877eb45-c18d-46eb-8a79-d20c3204d23d",
-							  "resourceArtifactId": "c4ad5969-f921-3552-8c66-7828a6b5d306",
-							  "tenantId": "f8ff51d0-3bac-4dbb-998d-d7a155aaf384",
-							  "vnfGroupId": "43b5dfee-ec46-4101-aaa2-ca412f7ba056"
-							}
 
 
 
@@ -180,15 +190,14 @@ var GenerateDescriptors = React.createClass({
 
 					}).then(function (response) {
 						if(response.data.status=="IN_PROGRESS")
-							self.setState({configurationStatus: "Activating"});
+							self.props.updataConfigurationStatus( "Activating");
 						else if(response.data.status=="OK"){
-								self.setState({configurationStatus: "ACTIVE"});
+							self.props.updataConfigurationStatus("ACTIVE")
 								clearInterval(interval)
 
 						}
 						else if(response.data.status=="ON_ERROR")
-							self.setState({configurationStatus: "Error"});
-
+								self.props.updataConfigurationStatus("ERROR");
 					})
 					  .catch(function (error) {
 					  });
@@ -203,13 +212,62 @@ var GenerateDescriptors = React.createClass({
 					url: config.uopApi+'/vnfs/instances/',
 					  headers: {'Oss-Registration-Id': ossId},
 					data:
-						 {
-						  "virtualNtwk1": "data-network-2",
-						  "virtualNtwk2": "data-network",
-						  "vnfDesc": "INFOBLOX DNS UOP",
-						  "vnfName": "IB-DNS",
-						  "vnfPackageId": packageId
-						   }
+						{
+							  "virtualNetworks": ["data-network", "EDN"],
+							  "vnfDesc": "DNS",
+							  "vnfName": "DNS-INFO-BLOX",
+							  "vnfPackageId": packageId, 
+							  "tenantName": "",
+							  "vimZoneName": "",
+							  "vdc": {
+								"id": ""
+							  },
+							  "hotPackage": {
+								"vapp": {
+								  "name": "",
+								  "productInfo": {
+									"version": "",
+									"vendor": ""
+								  },
+								  "type": "",
+								  "flavor": "",
+								  "description": "",
+								  "configData": [
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+									},
+									{
+									  "name": "",
+									  "value": ""
+								   }
+								  ],
+							   "configDataEnvFile": [],
+								  "configFiles": []
+								}
+							  }
+							}
+
 
 
 					}).then(function (response) {
@@ -231,12 +289,14 @@ var GenerateDescriptors = React.createClass({
 					method: 'post',
 					url: config.uopApi+'/settings/nfvo/',
 					data:
-						{
-							  "sOrchType": "HP",
-							  "sPassword": "Welcome@1234",
-							  "sTargetURL": "http://localhost:10022",
-							  "sUsername": "vdsi_onb_vnf_mgr@vdsi"
-						}
+						
+								{
+								 "sOrchType": "HP",
+								  "sPassword": "Welcome@1234",
+								  "sTargetURL": "http://10.75.14.83:8080",
+								  "sUsername": "vdsi_onb_vnf_mgr@vdsi"
+								}
+
 
 					}).then(function (response) {
 						console.log(response);
@@ -372,7 +432,7 @@ var GenerateDescriptors = React.createClass({
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="#" className="btn btn-danger btn-sm" onClick={this.uploadPackage}>Upload VNFD</a>
+                                                    <a href="#" className="btn btn-danger btn-sm" onClick={this.uploadVNFD}>Upload VNFD</a>
                                                 </div>
                                             </div>
                                         </div>

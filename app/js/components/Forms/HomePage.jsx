@@ -30,6 +30,20 @@ var homePage = React.createClass({
     changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
+	updataConfigurationStatus:function(status){
+	
+                    if (status != null) {
+                        if (status == "NULL") {
+                            this.setState({configurationStatus: "Activating"});
+                        } else {
+                            this.setState({configurationStatus:status});
+                        }
+                    } else {
+                        self.setState({configurationStatus: "Not Configured"});
+                    }
+
+                
+	},
     componentDidMount: function() {
       $('[data-toggle="tooltip"]').tooltip();
 
@@ -336,7 +350,7 @@ self.loopTimeout();
                                       : this.state.pageActive =="questionaire"
                                         ? PanelElem
                                         : this.state.pageActive =="generateDescriptors"
-                                        ?  <GenerateDescriptors formData={this.props.formData}  saveAndSetFormData={this.saveAndSetFormData} />
+                                        ?  <GenerateDescriptors formData={this.props.formData}  updataConfigurationStatus={this.updataConfigurationStatus} saveAndSetFormData={this.saveAndSetFormData} />
                                       :""
                                     }
                                 </div>
