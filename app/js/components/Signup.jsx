@@ -4,10 +4,10 @@ var React = require('react');
 var Signup = React.createClass({
         render: function() {
            return (
-               <div className="container loginWidget">
+               <div className="container signupWidget">
                     <div className="login-header">
                         <div className="app-branding">
-                            <img src="css/images/vz_logotab_115x115.png" />
+                            <img src="images/vz_logotab_115x115.png"/>
                       <a class="vzlogo1" href="#"></a>
                         </div>
                         <div className="app-header__body">
@@ -26,14 +26,14 @@ var Signup = React.createClass({
                                              <div className="form-group input-transparent-field">
                                                       <input type="password" id="password" className="form-control" placeholder=" Password"/>
                                              </div>
-                                              <a href="#"  onClick={this.props.setUserName} role="button" className="btn  btn-danger signin">Sign Up</a>
+                                               <a href="#"  role="button" className="btn  btn-danger signin"> Sign Up </a>
+                                                <a href="#"  role="button" className="btn  btn-danger signin"> Go to Home </a>
                                      </div>
                                 </div>
-
                             </div>
                             <div className="signin__footer">
-                                <h3>Need help?</h3>
-                                <div><a href="#">For any questions or concerns, drop us a line.</a></div>
+                                <h3> Need help? </h3>
+                                <div> <a href="#">For any questions or concerns, drop us a line. </a> </div>
                             </div>
                         </div>
                     </div>

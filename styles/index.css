@@ -9,6 +9,8 @@ body{margin-bottom:0;background-color: #e4e5e3;}
         width: 970px;
     }
 }
+.signupWidget{ margin-left: auto;
+    margin-right: auto;}
 .login-header{ float: left; background: transparent; border-bottom:0;     box-shadow: transparent !important; -webkit-box-shadow: transparent !important;    float: left;    width: 100%;    padding-bottom: 20px;}
 .app-branding{ line-height: 110px; text-align: center;width: 170px;overflow-y: hidden;float: left;}
 .app-header__body{font-family:"nhg-display-bold";font-size: 24px; padding-top: 60px; padding-left: 1em;    float: left;margin-top: 16px;color:#000}
