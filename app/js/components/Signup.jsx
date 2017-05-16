@@ -27,7 +27,7 @@ var Signup = React.createClass({
                                                       <input type="password" id="password" className="form-control" placeholder=" Password"/>
                                              </div>
                                                <a href="#"  role="button" className="btn  btn-danger signin"> Sign Up </a>
-                                                <a href="#"  role="button" className="btn  btn-danger signin"> Go to Home </a>
+                                                <a href="#"  role="button" onClick={this.props.goHome}  className="btn  btn-danger signin"> Go to Home </a>
                                      </div>
                                 </div>
                             </div>

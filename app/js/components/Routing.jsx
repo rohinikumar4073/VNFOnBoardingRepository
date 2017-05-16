@@ -15,7 +15,9 @@ var $ = require('jquery');
           };
 
       },
-
+goHome: function(){
+  this.setState({val : ""})
+},
        setUserName:function(userName){
                   this.setState({userName:$("#user").val()})
                   $(".userName").html($("#user").val())
@@ -33,7 +35,7 @@ var $ = require('jquery');
                   {this.state.userName ?
                       <Panel/>
                       : (this.state.val == "signup"
-                      ? <Signup/>
+                      ? <Signup goHome={this.goHome}/>
                     :  <Login  goSignup ={this.goSignup} setUserName={this.setUserName}/>)
                       }
              </div>
