@@ -2,17 +2,17 @@ var flux = require('flux-react');
 var actions = require('./actions.js');
 
 module.exports = flux.createStore({
-  messages: [],
+  formData: {},
   actions: [
-    actions.addMessage
+    actions.addData
   ],
-  addMessage: function (message) {
-    this.messages.push(message);
+  addData: function (data) {
+    this.formData=data;
     this.emitChange();
   },
   exports: {
-    getMessages: function () {
-      return this.messages;
+    getData: function () {
+      return this.formData;
     }
   }
 });

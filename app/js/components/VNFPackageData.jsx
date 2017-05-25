@@ -119,13 +119,13 @@ var PackageData = React.createClass({
 
         var self = this;
         return (
-          <div className="container-fluid">
+          <div className="container">
             <div className="row content-body packageData">
                 <div className="col-md-12 vnfPackages">
                     <h2 className="page-heading">VNF Directory</h2>
                     <div className="viewOption">
 
-                      
+
 
                     </div>
                     <div className="vnfpackageListView">
@@ -159,7 +159,7 @@ var PackageData = React.createClass({
                 </div>
               </div>
             {this.state.addNew
-            ? <NewVNFForm header="Create VNF Record" closePage={this.closePage} />
+            ? <NewVNFForm header="Create VNF Record" userName={this.props.userName}closePage={this.closePage} />
           : ""
         }
         {this.state.deleteComponent
@@ -170,7 +170,7 @@ var PackageData = React.createClass({
     },
     handleDelete(value){
       $('.packageData').addClass('crossFade');
-      deleteVnfName = value;
+      deleteVnfName = value.name;
       this.setState({deleteComponent: true});
     },
     closePopup: function(){
@@ -180,13 +180,11 @@ var PackageData = React.createClass({
     deleteRecord: function(){
       var self=this;
       var vnfProductName = deleteVnfName;
-      var deleteURL = config.formApi + "/vnf/" + vnfProductName + "/deleteForm";
+      var deleteURL = config.formApi + "/vnfForm/" +  vnfProductName+ "/deleteForm";
       axios["delete"](deleteURL).then(function (response) {
           toastr.success("VNF Deleted successfully!");
           deleteVnfName = "";
-          axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
-              self.processPackageData(response.data);
-          });
+          self.setPageData();
           self.closePopup();
       });
     },
@@ -195,15 +193,12 @@ var PackageData = React.createClass({
         this.setState({addNew: false});
         $('.packageData').removeClass('crossFade');
         var self = this;
-        axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
-            self.processPackageData(response.data);
-        })
+        this.setPageData();
       }
     },
     createNew: function() {
       this.setState({addNew: true});
       $('.packageData').addClass('crossFade');
-      debugger;
         //this.props.forAddNew();
     },
     cardClick: function() {
@@ -238,8 +233,8 @@ var packageData = this.state.rowData;
                 packageJSON.vnfproductname = p[key]["formData"]["generalInfo"]["productinfo"]["vnfproductname"];
             packageJSON.id = index;
             packageJSON.data = p[key];
-            packageJSON.name = key;
-            p[key]["formData"].id = key;
+            packageJSON.name =  p[key].id;
+            p[key]["formData"].id = p[key].id;
             packageJSON.isGenDescComp = p[key]["formData"]["isGenDescComp"]
                 ? true
                 : false;
@@ -264,13 +259,14 @@ var packageData = this.state.rowData;
 
     },
     componentDidMount: function() {
-        var self = this;
-        debugger;
-        axios.get(config.formApi + "/vnf/getAllPackage").then(function(response) {
-            self.processPackageData(response.data);
-        })
-        //self.state.gridOptions.api.sizeColumnsToFit();
-        dataService.registerGridData(this);
+          this.setPageData();
+//        dataService.registerGridData(this);
+    },
+    setPageData:function(){
+      var self=this;
+      axios.get(config.formApi + "/vnfForm/"+this.props.userName+"/getAllPackage").then(function(response) {
+          self.processPackageData(response.data);
+      });
     }
 });
 

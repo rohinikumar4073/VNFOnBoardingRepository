@@ -2,6 +2,7 @@ var React = require("react");
 var $ = require("jquery");
 var Form = require("./../../thirdParty/react-jsonschema-form.js");
     var FormPostInstall = Form.default;
+    var DataService=require("./../../services/DataService.js")
 
 const schema = {
   "type": "object",
@@ -41,15 +42,29 @@ const uiSchema = {
 };
     var PostInstall = React.createClass({
         getInitialState:function(){
-            return({
-              formData:this.props.formData, val: ""
+            var formData = {};
+            if (this.props.formData && this.props.formData["additonalInfo"]) {
+                formData = this.props.formData["additonalInfo"]["postInstall"];
             }
-            );
+            return ({vmArr: [], formData: formData, noOfVms: 0, val: "", statusActive: "phyRes"});
         },
         onSubmit: function(e) {
-            this.props.saveFormData(e.formData);
-            this.setState({formData:e.formData});
-        },
+            var formData=this.props.formData;
+            if(!formData.additonalInfo){
+                formData["additonalInfo"]={};
+              }
+            formData["additonalInfo"]["postInstall"]=e.formData;
+            var self=this;
+            DataService.saveandUpdateData(formData,function(){
+              if(self.state.val=="next" || self.state.val=="prev"){
+              self.props.saveFormData("additonalInfo");
+                self.setState({formData:e.formData,val:""})
+
+              }else{
+                self.setState({formData:e.formData})
+
+              }
+            });  },
         handleConfirm: function(data) {
          if(this.state.val == "saveAndExit"){
             this.props.setPageActive("homePage", "next", data,"verification");
@@ -83,7 +98,7 @@ const uiSchema = {
            //this.setState({val: "saveAndExit"});
          },
          moveNext:function(){
-                this.state.val = "";
+           this.setState({"val":"next"}) ;
                $("#commonInfo button").click();
              },
     });

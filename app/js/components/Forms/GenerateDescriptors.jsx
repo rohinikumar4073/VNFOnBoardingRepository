@@ -81,7 +81,7 @@ var GenerateDescriptors = React.createClass({
         var f = fileName.substr(0, fileName.lastIndexOf('.'));
         theform.append('uploadFile', nsd, nsd.name);
         $.ajax({
-            url: config.formApi + "/vnf/" + f + "/uploadNsd",
+            url: config.formApi + "/vnfNetwork/" + f + "/uploadNsd",
             data: theform,
             type: 'POST',
             contentType: false,
@@ -113,7 +113,7 @@ var GenerateDescriptors = React.createClass({
         }
         var self = this;
         $.ajax({
-            url: config.formApi + "/vnf/createNsd",
+            url: config.formApi + "/vnfNetwork/createNsd",
             data: JSON.stringify(dataTobeSent),
             type: 'POST',
             contentType: "application/json; charset=utf-8",
@@ -133,7 +133,7 @@ var GenerateDescriptors = React.createClass({
           this.setState({loaderOn: true});
           var self = this;
           $.ajax({
-              url: config.formApi+"/vnf/"+self.props.formData.id+"/testVnf",
+              url: config.formApi+"/vnfWorkFlow/"+self.props.formData.id+"/testVnf",
               method: 'POST',
               data: {},
               success: function(data) {
@@ -215,7 +215,7 @@ var GenerateDescriptors = React.createClass({
         //  debugger;
 
         return (
-            <div>
+            <div className="generateDesc">
                 <div className={this.state.loaderOn
                     ? "generateDescriptors"
                     : ""}>

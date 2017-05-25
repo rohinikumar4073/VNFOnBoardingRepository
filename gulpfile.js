@@ -13,7 +13,7 @@ var gutil = require('gulp-util');
 var shell = require('gulp-shell');
 var glob = require('glob');
 var livereload = require('gulp-livereload');
-var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
+//var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
 var order = require("gulp-order");
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
@@ -203,5 +203,5 @@ gulp.task('deploy', function () {
 });
 
 gulp.task('test', function () {
-    return gulp.src('./build/testrunner-phantomjs.html').pipe(jasminePhantomJs());
+    //return gulp.src('./build/testrunner-phantomjs.html').pipe(jasminePhantomJs());
 });

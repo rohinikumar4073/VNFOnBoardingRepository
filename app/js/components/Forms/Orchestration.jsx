@@ -1,75 +1,87 @@
 var React = require("react");
 var $ = require("jquery");
 var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var DataService=require("./../../services/DataService.js")
 
 var FormOS = Form.default;
-
-const schema = {
+var vnfmSchema ={
     "type": "object",
+    "title":"VNFM Managed Section",
     "properties": {
-        "openstackversion": {
-            "type": "boolean",
-            "title": "Has the VNF been booted under OpenStack version described in VCP Requirements Document?"
-        },
-        "kvmprescribed": {
-            "type": "boolean",
-            "title": "Has the VNF been booted under KVM prescribed in VCP Requirements document?"
-        },
-        "vnf-m": {
-            "type": "object",
-            "title": "If VNF require VNF-M",
-            "properties": {
-                "vfmrequired": {
+
+
+              "isManoComplaint":  {
+                    "title": "Does the specific VNF-M have a MANO compliant Or-Vnfm interface?",
                     "type": "boolean",
-                    "title": "Does the VNF require its own specific VNF-M?"
-                },
-                "vfm-yes": {
-                    "type": "array",
-                    "title": "If VNF requires ",
-                    "items": [
-                        {
-                            "title": "VNF-M have a MANO compliant Or-Vnfm interface?",
-                            "type": "boolean",
-                            "default": false
-                        }, {
-                            "title": "What format is the Or-Vnfm interface (REST, etc.)",
-                            "type": "string"
-                        }, {
-                            "title": "Which resource allocation model does the specific VNFM use: NFVO allocation or VNFM allocation?",
-                            "type": "string"
-                        }, {
-                            "title": "Is VNF-M complaint with all requirements in the VNF-M section of VCP Requirement Document? If no, describe all non-complaint requirements",
-                            "type": "string"
-                        }, {
-                            "title": "Can VNF-M instantiate VNF 5 directly? If yes, is it supported via REST API?",
-                            "type": "string"
-                        }, {
-                            "title": "Does VNF-M support upgrade to VNF? If yes, describe lifecycle involved in the upgrade",
-                            "type": "string"
-                        }, {
-                            "title": "Does VNF-M support downgrades to VNF? If yes, describe lifecycle involved in the downgrade",
-                            "type": "string"
-                        }, {
-                            "title": "Does VNF-M require admin access to the VIM? (Yes/No)",
-                            "type": "boolean",
-                            "default": false
-                        }, {
-                            "title": "How to provide OpenStack credentials to VNF-M, and how does VNF-M securely store the given credentials?",
-                            "type": "string"
-                        }
-                    ]
+                    "default": false
+                }, "VnfmInterfaceFormat":{
+                    "title": "What format is the Or-Vnfm interface (REST, etc.)",
+                    "type": "string"
+                },  "isNfVOallocation":{
+                    "title": "Which resource allocation model does the specific VNFM use ?",
+                    "type": "string",
+                    "enum": [
+                        "NFVO allocation",
+                        "VNFM allocation"
+                      ]
+                }, "vnfMComplaint":{
+                    "title": "Is VNF-M complaint with all requirements in the VNF-M section of VCP Requirement Document? If no, describe all non-complaint requirements",
+                    "type": "string"
+                }, "isVnmInstatiate":{
+                    "title": "Can VNF-M instantiate VNF directly? If yes, is it supported via REST API?",
+                    "type": "string"
+                },  "isVNFMSupportUpgrade":{
+                    "title": "Does VNF-M support upgrade to VNF? If yes, describe lifecycle involved in the upgrade",
+                    "type": "string"
+                }, "isVNFMSupportDowngrade":{
+                    "title": "Does VNF-M support downgrades to VNF? If yes, describe lifecycle involved in the downgrade",
+                    "type": "string"
+                }, "vnfmAdminAccess":{
+                    "title": "Does VNF-M require admin access to the VIM ? ",
+                    "type": "boolean",
+                    "default": false
+                }, "isOpenStackCredentails":{
+                    "title": "How to provide OpenStack credentials to VNF-M, and how does VNF-M securely store the given credentials?",
+                    "type": "string"
                 }
-            }
-        }
+
     }
-};
+}
 
 const uiSchema = {
     "openstackversion": {
-        "ui:widget": "radio"
+        "ui:widget": "radio",
+         "ui:options": {
+            "inline": true
+          }
+    },"openstackversion": {
+        "ui:widget": "radio",
+        "ui:options": {
+           "inline": true
+         }
     },
-    "kvmprescribed": {
-        "ui:widget": "radio"
+    "isVnfm": {
+        "ui:widget": "radio",
+        "ui:options": {
+           "inline": true
+         }
+    },"kvmprescribed": {
+        "ui:widget": "radio",
+        "ui:options": {
+           "inline": true
+         }
+    },"vnfm":{
+      "isManoComplaint": {
+          "ui:widget": "radio",
+          "ui:options": {
+             "inline": true
+           }
+      },"vnfmAdminAccess": {
+          "ui:widget": "radio",
+          "ui:options": {
+             "inline": true
+           }
+      }
     },
     "vnf-m": {
         "vfmrequired": {
@@ -101,41 +113,53 @@ const uiSchema = {
     }
 };
 
-const formData = {
-    "companyname": "Test1",
-    "companytechnicalcontact": {
-        "email": "keerthi@gmail.com",
-        "phone": "3434343434"
-    },
-    "vnfproductname": "Test1",
-    "highleveldes": "Hello world",
-    "networkservice": "Hello world",
-    "etsicompliant": true,
-    "datamodellanguage": "Hello world",
-    "openstackversion": true,
-    "kvmprescribed": false,
-    "vnf-m": {
-        "vfmrequired": true,
-        "vfm-yes": [
-            true,
-            "Hello world",
-            "Hello world",
-            "Hello world",
-            "Hello world",
-            "Hello world",
-            null,
-            false,
-            null
-        ]
-    }
-}
 var Orchestration = React.createClass({
     getInitialState: function() {
-        return ({formData: this.props.formData, val: ""});
+      var data={};
+      if(this.props.formData["orchestration"]){
+        data=this.props.formData["orchestration"];
+      }
+        return({
+          formData:data,
+           val: "",
+            "schema" :{
+                 "type": "object",
+                 "properties": {
+                     "openstackversion": {
+                         "type": "boolean",
+                         "title": "Has the VNF been booted under OpenStack version described in VCP Requirements Document?"
+                     },
+                     "kvmprescribed": {
+                         "type": "boolean",
+                         "title": "Has the VNF been booted under KVM prescribed in VCP Requirements document?"
+                     },"isVnfm":{
+                       "type": "boolean",
+                       "title": "Is VNF managed by VNFM ?"
+                     }
+
+                 }
+             }
+        }
+        );
     },
     onSubmit: function(e) {
-        this.handleConfirm(e.formData)
-    },
+
+          var formData=this.props.formData;
+          if(!formData.orchestration){
+              formData["orchestration"]={};
+            }
+          formData["orchestration"]=e.formData;
+          var self=this;
+          DataService.saveandUpdateData(formData,function(){
+            if(self.state.val=="next" || self.state.val=="prev"){
+              self.props.saveFormData("verification");
+              self.setState({formData:e.formData,val:""})
+
+            }else{
+              self.setState({formData:e.formData})
+
+            }
+          });    },
     handleConfirm: function(data) {
         if (this.state.val == "saveAndExit") {
             this.props.setPageActive("homePage", "next", data, "vmManager");
@@ -147,13 +171,21 @@ var Orchestration = React.createClass({
         }else {
             this.props.setPageActive("verification", "next", data, "vmManager");
         }
+    },handleChange:function(e){
+      var schema= JSON.parse(JSON.stringify(this.state.schema))
+      if(e.formData.isVnfm){
+        schema.properties.vnfm=vnfmSchema;
+      }else{
+        schema.properties.vnfm={};
+      }
+      this.setState({schema:schema,formData:e.formData})
     },
     render: function() {
 
         return (
             <div id="orcReq">
                 <h2>Orchestration Requirements</h2>
-                <FormOS schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData}></FormOS>
+                <FormOS schema={this.state.schema} uiSchema={uiSchema} onSubmit={this.onSubmit}  onChange={this.handleChange} formData={this.state.formData}></FormOS>
                 <div className="net">
                     <a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.movePrev}>Previous</a>
                       {/*<a href="#" className="btn btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this, "vmInfo", "prev")}>Previous</a>*/}
@@ -175,7 +207,7 @@ var Orchestration = React.createClass({
         //this.setState({val: "saveAndExit"});
     },
     moveNext: function() {
-        this.state.val = "";
+      this.setState({"val":"next"}) ;
         $("#orcReq button").click();
     },
     movePrev: function() {

@@ -1,5 +1,5 @@
 html,body{ height:100%}
-body{margin-bottom:0;background-color: #e4e5e3;}
+body{margin-bottom:0;background-color: #e4e5e3;;}
 .navbar{ margin-bottom:0;border-color: #CCC;position: fixed;width: 100%;z-index: 1;}
 .loginbar{ position:relative;   }
 .navbar-header{margin-top:8px !important;padding-right: 15px;border-right: 1px solid #CCC;}
@@ -9,6 +9,30 @@ body{margin-bottom:0;background-color: #e4e5e3;}
         width: 970px;
     }
 }
+#netReq {
+  border-left: 1px solid #EEE;
+  padding-left: 2%;
+}
+.cpdWidth{
+  width:50%;
+}
+
+.homePageHeadOne{      background-color: #000;
+    color: #FFF;
+    height: 50px;
+    margin-top: 50px;
+    /* z-index: 2; */
+
+    width: 100%; }
+.homePageHeadTwo{      background-color: #FFF;
+    color: #CCC;
+    height: 60px;
+    margin-top: 0px;
+    /* z-index: 2; */
+    /* position: absolute; */
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 4px 4px 4px #ccc;}
 .signupWidget{ margin-left: auto; margin-right: auto;}
 .login-header{ float: left; background: transparent; border-bottom:0;     box-shadow: transparent !important; -webkit-box-shadow: transparent !important;    float: left;    width: 100%;    padding-bottom: 20px;}
 .app-branding{ line-height: 110px; text-align: center;width: 170px;overflow-y: hidden;float: left;}
@@ -47,9 +71,11 @@ font-size: 16px; line-height: 1.083333333; margin: 0 5px 5px 0; min-width: 80px;
 .leftnav  li a:hover,.leftnav  li a:focus{ text-decoration:none;}
 .leftnav  li i{font-size:25px; float:right;}
 
-.contentMain{padding: 20px;padding-top: 70px;}
-.contentBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:850px;}
+.contentMain{padding:0px;padding-top: 0px;}
+.contentBody{ background:#FFF;padding: 0px;margin-bottom: 35px; min-height:600px;}
+.workflowBody{ background:#FFF;padding: 20px;margin-bottom: 35px; min-height:600px;}
 .padd{margin-right: 1%;color:#FFA500;}
+.padFile{ margin-right: 1%; }
 
 .generateDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
 .uploadDiv{ width:100%; border:1px solid #CCC; padding:20px; background:url('../images/uploadBg.png') right no-repeat;background-position: 96%;    margin-bottom: 20px;}
@@ -113,9 +139,9 @@ html a {color: #333;}
 .contentBody h2{    font-family: nhg-display-bold,arial,sans-serif;font-size: 21px;}
 .contentBody legend{    font-family: "nhg-display-bold";font-size: 18px;}
 .contentBody label{    font-family: nhg-text-roman, arial, sans-serif;    font-weight: normal;}
-.contentBody{border-top: 4px solid #000;}
+.contentBody{border-top: 3px solid #000;}
 .contentFooter{float: left;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 20px;}
-.net{float: right;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 20px;width:100%}
+.net{float: right;position: fixed;bottom: 0;background: #000;padding:10px;text-align:right;right: 0px;width:100%}
 .rjsf button{display:block;}
 
 #accordion .panel-heading .panel-title a, .accordion .panel-heading .panel-title a{ font-size:15px;}
@@ -387,16 +413,22 @@ ag-fresh .ag-paging-button {
 .uploadfile > div{
   padding: 0px;
   margin:0px;
+  padding-bod
 }
 /*Home page */
 
 .mainPackage{ background: #000; padding:15px; width: 100%; display: inline-block; margin-top:15px; margin-bottom:15px;}
 .mainPackage h2,.cardPackage h2{ display: inline-block; color: #FFF; font-size:18px;margin-bottom: 0px;}
 .cardPackage h2{ color:#000}
-.cardPackage .faicon{ color:#000; font-size: 24px;}
+.cardPackage .faicon{ color:#000; font-size: 22px;}
 .mainPackage .fa-question-circle{ font-size: 64px; color:#FFF;}
 .mainPackage img{ position: absolute;height: 35px;bottom: 2.3em;left: 2.5em;}
-.cardPackage{ border:1px solid #000;padding:15px; width: 100%;display: inline-block; margin:0px 0px 10px; }
+.cardPackage{ /*border:1px solid #000;*/
+    width: 100%;
+    display: inline-block;
+    margin: 0px 0px 10px;
+    padding-top: 20px;
+  padding-left: 11px; }
 
 .not-configured{   color: #A80909; }
 .not-configured h2 span, .configured h3 span{ color: #A80909}
@@ -416,7 +448,7 @@ ag-fresh .ag-paging-button {
 nav{border-radius: 0 !important;}
 .input-transparent-field input[type=text],.input-transparent-field input[type=password]{padding-left: 10px;}
 /*Home page */
-.homePageHeading{text-align: left;}
+.homePageHeading{text-align: left;position: relative;top:20px;}
 .vnf-disabled{
   cursor: unset;
 }
@@ -443,16 +475,19 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
 .greenColor i.fa-cubes {color: #00AC3E;}
 .greenColor i.fa-cloud-upload {color: #00AC3E;}
 .greenColor i.fa-check {color: #00AC3E;}
-.cardPackage.active{    border-left: 10px solid #A80909 !important;
+.cardPackage.active{   /* border-left: 10px solid #A80909 !important;
     border-top: 1px solid #A80909;
     border-bottom: 1px solid #A80909;
-    border-right: 1px solid #A80909; }
+    border-right: 1px solid #A80909;*/
+}
 .showLoader {display: block; margin-left: 50%;}
 .hideLoader {display: none;}
 .homePageClass {opacity: 0.2;}
 .loaderPackageUpload {opacity: 0.2;}
 .generateDescriptors {opacity: 0.2;}
 .showLoaderStatus {display: block; margin-left: 20%; height: 5px;}
+.headContent{color:#ccc;}
+.headContent.active{color:#A80909 !important;}
 
 .one {opacity: 0;-webkit-animation: dot 1.3s infinite;-webkit-animation-delay: 0.0s;animation: dot 1.3s infinite;animation-delay: 0.0s;}
 .two {opacity: 0;-webkit-animation: dot 1.3s infinite;-webkit-animation-delay: 0.2s;animation: dot 1.3s infinite;animation-delay: 0.2s;}
@@ -472,25 +507,53 @@ margin: 0 auto 3px auto;border-radius: 50%; background-color: #000;    z-index: 
   padding-top: 70px;
 }
 .vnfPackages h2.page-heading{
- margin-left:10px;    margin-bottom: 0px;
+ margin-left:15px;    margin-bottom: 0px;
 }
 .get-back{
   padding-right: 10px;
-  font-size: 32px;
+font-size: 24px;
+color: red;
+padding-top: 12px;
+padding-left: 28px;
 }
 .package-heading-span{
   position: relative;
-top: -4px;
+  top: -3px;
+  font-size: 19px;
 }
+.package-span{    /* position: relative; */
+    /* top: -3px; */
+    font-size: 15px;
+    float: right;
+    padding-top: 12px;
+    padding-right: 25px;}
+    .product{       /* position: relative; */
+    /* top: -3px; */
+    /* font-size: 15px; */
+    /* float: right; */
+    /* padding-top: 12px; */
+    padding-right: 9px;}
 .uploadfile div.upload ,.uploadfile div.upload2{
-  border: dashed 1px;
-  height: 500px;
+
+  height: 250px;
+  background-color: #FAF8F6;
       width: auto;
-      padding:  50px;}
+      padding:  50px;  margin-bottom:  10px;}
       .uploadfile div.upload2{
         height: 200px;
             margin-bottom: 10px;
       }
+.uploadIcon{
+  color:#ccc;
+  padding-left: 42%;
+  padding-top: 25px;
+}
+.drag{
+  color: #7E7C79;
+      padding-top: 10px;
+      padding-left: 38%;
+      display: inline-block;
+}
 .crossFade{
   opacity: .50;
   color: #000;
@@ -802,7 +865,7 @@ button.btn.btn-info {
   }
 }
 .modal-dialog-newVnf {
-    margin-left: 15%;
+    margin-left: 10%;
     position: absolute;
     max-width: 70%;
     max-height: 80%;
@@ -833,7 +896,7 @@ legend{
   border-color: #000;
 }
 .displayData .panel-primary>.panel-heading{
-  font-size: 18px;
+  font-size: 16px;
   font-family: nhg-text-bold,arial;
   background-color: transparent;
     border-color: transparent;
@@ -841,12 +904,31 @@ legend{
     text-align: center;
     text-transform: capitalize;
 } .displayData .panel-primary{
-  border-color: #000;
+  border-color: transparent;
+  box-shadow: none;
+
+}
+.contact{
+  float:right;
+  padding-top: 15px;
+  font-family: "nhg-text-roman","arial";
+}.phone-no{
+  float:right;
+  padding-top: 15px;
+  font-family: "nhg-text-bold","arial";    margin-right: 5px;
+}.pipe{
+  float: right;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding-top: 26px;
+  margin-top: 10px;
+  margin-right: 8px;
+  margin-left: 2px;
 
 }
 .chartContainer{
     position:relative;
-    left:100px;
+    left:10px;
 }.displayData .panel-body{
     background: #cbcbcb;
     border-radius: 87%;
@@ -897,10 +979,16 @@ foreignobject body{
       background-size: 78%;
       background-repeat: no-repeat;
     }
-    .packageUpload .left , .packageUpload .right{
+    .packageUpload .left{
         margin-top: 15px;
         padding: 0px 50px;
-    }.treeLevel{margin:0; padding:0; display: inline-block;}
+        border-right: 1px solid #ccc;
+    }
+    .packageUpload .right{
+        margin-top: 15px;
+        padding: 0px 50px;
+        }
+    .treeLevel{margin:0; padding:0; display: inline-block;}
                 .treeLevel li{border-left: 1px dashed #000;list-style: none; border-left: 1px dashed #000;list-style: none; padding: 10px 20px;font-family:nhg-text-roman; font-size:13px; color:#000}
                 .vLine{border-top: 1px dashed #000;width: 30px; height: 1px;float: left;position: relative;right: 20px;top: 9px;}
                 .closeFolder{ background: url("images/icons.png") 0 0 no-repeat; width: 20px;height: 17px;float: left;position: relative;left: -10px;}
@@ -932,6 +1020,15 @@ foreignobject body{
     padding-top:20px;
 
   }
+fieldSet fieldSet legend#root_externalCpd_0_addressData__title {
+    font-size: 18px;
+}
+fieldSet fieldSet fieldSet legend#root_externalCpd_0_addressData_l2AddressData__title {
+    font-size: 15px;
+}
+fieldSet fieldSet fieldSet fieldSet legend#root_externalCpd_0_addressData_l3AddressData__title{
+font-size: 15px;
+}
   .chartContainerH2{
     display: none;
     padding-left: 50px;
@@ -941,4 +1038,54 @@ foreignobject body{
 .configuration{
   float: right;
   margin-right: 10px;
+}
+button.btn.btn-info.btn-add.col-xs-12{
+  display: block;
+  line-height: 36px;
+    min-height: auto;
+
+}button.btn.btn-danger.array-item-remove ,button.btn.btn-info.btn-add.col-xs-12{
+    line-height: 36px;
+    min-height: auto;
+
+}button.btn.btn-danger.array-item-remove::after{
+content:"";
+}
+.col-xs-9.right-panel-forms {
+    height: 680px;
+    overflow: auto;
+}.row.homePageMain {
+    height: 730px;
+}.contentMain {
+
+    padding-bottom: 0px;
+}
+.levelTwo.container {
+    background-color: #fff;    padding: 0px;
+}
+@media (min-width: 767px){
+.nav-tabs > li {
+    padding-right: 30px;
+    width: auto;
+}
+}
+@media (min-width: 1500px){
+.container {
+    width: 1400px;
+}.loginWidget.container{
+  width: 1170px
+}
+}
+.modal-body{
+  max-height: 720px;
+}
+div#virRes {
+    position: relative;
+    top: -15px;
+}
+.tabs-left li{
+  height: 43px
+
+}.generateDesc{
+  padding: 20px;
 }

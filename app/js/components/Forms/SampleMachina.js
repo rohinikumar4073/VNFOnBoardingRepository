@@ -19,7 +19,7 @@ var axios=require("axios");
                 },
                 upload: {
                     _onEnter: function() {
-                        var uploadUrl = "http://10.76.110.81:40512/vnf/123/initialize";
+                        var uploadUrl = "http://10.76.110.81:40512/vnfAction/123/initialize";
                         var self = this;
                         axios.put(uploadUrl,{}).then(function(response) {
                             console.log(response);

@@ -1,6 +1,7 @@
 var React = require("react");
 var $ = require("jquery");
 var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var DataService=require("./../../services/DataService.js")
 
 var FormResource = Form.default;
 
@@ -44,14 +45,34 @@ const uiSchema = {
     var Resource = React.createClass({
 
         getInitialState:function(){
-            return({formData:this.props.formData,val: ""}
+          var data ={}
+          if(this.props.formData["additonalInfo"]){
+            data=this.props.formData["additonalInfo"]["physicalResource"];
+          }
+            return({
+              formData:data,
+               val: ""
+            }
             );
         },
 
         onSubmit: function(e) {
-            this.props.saveFormData(e.formData);
-            this.setState({formData:e.formData});
-        },
+            var formData=this.props.formData;
+            if(!formData.additonalInfo){
+                formData["additonalInfo"]={};
+              }
+            formData["additonalInfo"]["physicalResource"]=e.formData;
+            var self=this;
+            DataService.saveandUpdateData(formData,function(){
+              if(self.state.val=="next" || self.state.val=="prev"){
+              self.props.saveFormData("additonalInfo");
+                self.setState({formData:e.formData,val:""})
+
+              }else{
+                self.setState({formData:e.formData})
+
+              }
+            });},
 
 
 
@@ -94,7 +115,7 @@ const uiSchema = {
 
          },
          finishForm:function(){
-           this.state.val = "";
+           this.setState({"val":"next"}) ;
               $("#prd button").click();
          }
     });

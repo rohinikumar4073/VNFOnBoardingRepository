@@ -1,5 +1,4 @@
 
-
 var React =require("react");
 var $ = require("jquery");
 var UOPService =require("./../services/UOPService.js")
@@ -17,25 +16,19 @@ var UOPService =require("./../services/UOPService.js")
       componentDidMount: function(){
         var self = this;
         var gene = this.props.data.data.formData.generalInfo;
-
         if (self.props.data.isVnfActive && self.props.data.isGenDescComp &&  self.props.data.data.formData.jobId) {
             UOPService.getOssId(function(ossId){
-            UOPService.getJOBStatus(function(response){
-
-
+            UOPService.getJOBStatus(function(response,self){
             if(response.data.status=="IN_PROGRESS"){
-              self.setState(configurationStatus, "Activating");
+              self.setState({"configurationStatus":"Activating"});
             }
             else if(response.data.status=="OK"){
-              self.setState(configurationStatus, "ACTIVE");
-
-
+              self.setState({"configurationStatus": "ACTIVE"});
             }
-            else if(response.data.status=="ON_ERROR")
-              self.setState(configurationStatus, "ERROR");
-
-
-              }, self.props.data.data.formData.jobId,ossId,self);
+            else if(response.data.status=="ON_ERROR"){
+              self.setState({"configurationStatus": "ERROR"});
+            }
+            }, self.props.data.data.formData.jobId,ossId,self);
 
                   },self)
         }
@@ -58,7 +51,7 @@ var UOPService =require("./../services/UOPService.js")
 
                             <h4>Company Name -
                                 <span>{this.props.data.companyname}</span>
-                                <span className={"status "+flag2}><i onClick={this.props.handleDelete.bind(this,this.props.data.name)}>x</i></span>
+                                <span className={"status "+flag2}><i onClick={this.props.handleDelete.bind(this,this.props.data)}>x</i></span>
                             </h4>
 
                             <h4>VNF Product Name -

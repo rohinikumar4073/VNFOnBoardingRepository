@@ -30,7 +30,7 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
                         "type": "number"
                     }
                 }
-            },
+            },            
             "productinfo": {
                 "type": "object",
                 "title": "Product Information",

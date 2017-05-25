@@ -7,11 +7,12 @@ var $ = require("jquery");
                   <div className="leftMainBody">
                           <div className="leftnav list-group">
                               <div id="generate" className="submenuList">
+                                <a href="javascript:void(0)" id="vnfInfo" onClick={this.changeRightPanel.bind(this,"vnfInfo")}
+                                  className="list-group-item"><span>VNF Information</span> <i className="fa fa-info-circle" aria-hidden="true"></i></a>
 
-                                  <a href="javascript:void(0)" id="networkInfo" onClick={this.changeRightPanel.bind(this,"networkInfo")} className="list-group-item"><span>Network Information</span> <i className="fa fa-random" aria-hidden="true"></i></a>
+                                  <a href="javascript:void(0)" id="networkInfo" onClick={this.changeRightPanel.bind(this,"networkInfo")}
+                                    className="list-group-item"><span>Network Information</span> <i className="fa fa-random" aria-hidden="true"></i></a>
 
-                                <a href="javascript:void(0)" id="vnfInfo" onClick={this.changeRightPanel.bind(this,"vnfInfo")} className="list-group-item"><span>VNF Information</span> <i className="fa fa-info-circle" aria-hidden="true"></i></a>
-                                  <a href="javascript:void(0)" id="vmInfo" onClick={this.changeRightPanel.bind(this,"vmInfo")} className="list-group-item"><span>VM Information</span> <i className="fa fa-info-circle" aria-hidden="true"></i></a>
                                     <a href="javascript:void(0)" id="vmManager" onClick={this.changeRightPanel.bind(this,"vmManager")} className="list-group-item"><span>VNF Manager</span> <i className="fa fa-book" aria-hidden="true"></i></a>
 
                                    <a href="javascript:void(0)" id="verification" onClick={this.changeRightPanel.bind(this,"verification")} className="list-group-item"><span>Verification</span> <i className="fa fa-check-square" aria-hidden="true"></i></a>
@@ -51,13 +52,10 @@ moveBackward:function(){
 
   },
   componentDidMount:function(){
-    this.changeStatus("networkInfo");
+    this.changeStatus("vnfInfo");
   },
 changeRightPanel:function(pageNumber){
-  if(pageNumber=="homePage"){
-    $(".leftMain").addClass("totalLeftScreenMode")
-    $(".rightPanel").addClass("totalRightScreenMode")
-  }
+  
           this.props.changeRightPanel(pageNumber)
       },
       changeStatus:function(pageNumber){

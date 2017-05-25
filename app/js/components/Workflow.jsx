@@ -18,7 +18,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
        snakeChart:function(data, chartContainer){
 
         var boxWidthPercent = 10; // in percentage
-        var boxHeightPercent = 10; // in percentage
+        var boxHeightPercent = 12; // in percentage
         var xMargin = 20;
         var yMArgin = 40;
         var arrowWidth  = 8;
@@ -38,7 +38,7 @@ var d3 =require("./../thirdParty/d3/d3.min.js");
         var  svgWidth = containerWidth-xMargin;
         var  svgHeight = totalRows * rowHeight + yMArgin;
 
-             svgHeight = svgHeight - rowMArgin;
+             svgHeight = 250;
 
         chartContainer.style.height=svgHeight+"px";
 

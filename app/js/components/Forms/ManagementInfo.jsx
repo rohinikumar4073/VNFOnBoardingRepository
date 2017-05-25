@@ -1,6 +1,8 @@
 var React = require("react");
 var $ = require("jquery");
 var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var DataService=require("./../../services/DataService.js")
+
     var FormMgmtInfo = Form.default;
     const schema = {
         "type": "object",
@@ -83,13 +85,33 @@ const uiSchema = {
 };
     var Management = React.createClass({
         getInitialState:function(){
-            return({formData:this.props.formData,val: ""}
+          var data ={}
+          if(this.props.formData["vnfInfo"]){
+            data=this.props.formData["vnfInfo"]["managementInfo"];
+          }
+            return({
+              formData:data,
+               val: ""
+            }
             );
         },
         onSubmit: function(e) {
-          this.props.saveFormData(e.formData);
-          this.setState({formData:e.formData});
-        },
+            var formData=this.props.formData;
+            if(!formData.vnfInfo){
+                formData["vnfInfo"]={};
+              }
+            formData["vnfInfo"]["managementInfo"]=e.formData;
+            var self=this;
+            DataService.saveandUpdateData(formData,function(){
+              if(self.state.val=="next" || self.state.val=="prev"){
+                self.props.saveFormData("networkInfo");
+                self.setState({formData:e.formData,val:""})
+
+              }else{
+                self.setState({formData:e.formData})
+
+              }
+            });},
         render: function() {
             return (
                 <div id="managementInfo">
@@ -98,9 +120,18 @@ const uiSchema = {
                          <div className="contentFooter">
                         {/*  <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"verification","prev")}>Previous</a>*/}
                     {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a>*/}
+                    <div className="net">
+                        {/* <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"networkInfo","prev")}>Previous</a>*/}
+                        {/*    <a href="#" id="save" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
+                        <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
+
+                    </div>
                          </div>
                         </div>
             );
+        },moveNext:function(){
+          this.setState({"val":"next"}) ;
+          $("#managementInfo button").click();
         },
          componentDidMount: function() {
             var bodyWidth=$('body').width();
@@ -110,7 +141,7 @@ const uiSchema = {
            this.state.val = "saveAndExit";
              $("#managementInfo button").click();
            //this.setState({val: "saveAndExit"});
-         },      
+         },
          finishForm:function(){
            this.state.val = "";
               $("#managementInfo button").click();

@@ -6,10 +6,11 @@ var toastr = require("toastr");
 var Loader = require("react-loading");
 var config = require("./../../properties/config.js");
 var Dropzone = require("react-dropzone");
+var DataService=require("./../../services/DataService.js")
 
 var Upload = React.createClass({
     getInitialState: function() {
-        return {files: [], loaderOn: false};
+        return {files: [], loaderOn: false,textAreaVal:""};
     },
     parseHeatTempate:function(){
       var self=this;
@@ -30,7 +31,7 @@ var Upload = React.createClass({
            "vm_count": 1
           };
         data.data.forEach(function(v,i){
-             vmInfo["VM_"+(i+1)]={
+             vmInfo["VNFC_"+(i+1)]={
                "generalInfo": {
 
                    "imagename": v.image,
@@ -41,43 +42,49 @@ var Upload = React.createClass({
            });
  self.props.formData.vmInfo=vmInfo;
      self.props.formData.vnfInfo = {
-       "vnfBasic": {
+       "generalInfo": {
          "countvms":   data.vm_count
        }
-     };  self.props.formData.isPackageUploaded=true;
-   self.props.saveAndSetFormData(self.props.formData);
+     };
+     self.props.formData.isPackageUploaded=true;
+   DataService.saveandUpdateData( self.props.formData,function(){});
+
     },
     onDrop: function(acceptedFiles) {
         this.setState({files: acceptedFiles});
-        this.parseHeatTempate()
-            var theform = new FormData();
-            var nsd = acceptedFiles[0];
-            var fileName = nsd.name;
-$(".chartContainerH2").show();
-            console.log(nsd.name);
-            console.log(nsd);
-            var self = this;
-            var f = fileName.substr(0, fileName.lastIndexOf('.'));
-            theform.append('uploadFile', nsd, nsd.name);
-            $.ajax({
-                url: config.formApi + "vnf/"+ self.props.id+"/UploadFile",
-                data: theform,
-                type: 'POST',
-                contentType: false,
-                processData: false,
-                enctype: 'multipart/form-data',
-                success: function(data) {
-                  //  toastr.success("File Upload Succesfully");
-                },
-                error: function(data) {
-                  //  toastr.error("error in file uploaded");
-                }
-            })
 
-
-        this.props.transition();
     },
+    uploadVNFPakcage:function(){
+      this.parseHeatTempate()
+          var theform = new FormData();
+          var nsd = this.state.files[0];
+          var fileName = nsd.name;
+          $(".chartContainerH2").show();
+          console.log(nsd.name);
+          console.log(nsd);
+          var self = this;
+          var f = fileName.substr(0, fileName.lastIndexOf('.'));
+          theform.append('uploadFile', nsd, nsd.name);
+          theform.append('checksumValue', this.state.textAreaVal);
 
+          $.ajax({
+              url: config.formApi + "/vnfWorkFlow/"+ self.props.id+"/UploadFile",
+              data: theform,
+              type: 'POST',
+              contentType: false,
+              processData: false,
+              enctype: 'multipart/form-data',
+              success: function(data) {
+                //  toastr.success("File Upload Succesfully");
+              },
+              error: function(data) {
+                //  toastr.error("error in file uploaded");
+              }
+          })
+
+
+      this.props.transition();
+    },
     onOpenClick: function() {
         this.dropzone.open();
     },
@@ -92,7 +99,7 @@ $(".chartContainerH2").show();
         axios.get(config.heatTemplateApi).then(function(response) {
             console.log(response);
             response.data.data.forEach(function(v, i) {
-                vmInfo["VM_" + (i + 1)] = {
+                vmInfo["VNFC_" + (i + 1)] = {
                     "generalInfo": {
 
                         "imagename": v.image,
@@ -112,6 +119,9 @@ $(".chartContainerH2").show();
             console.log(error);
         });
 
+    },
+    handleCheckSumChange:function(event){
+  this.setState({textAreaVal: event.target.value});
     },
     uploadPackage: function() {
         var self = this;
@@ -154,7 +164,7 @@ $(".chartContainerH2").show();
                     : "packageUpload "}>
                     <div className="row">
                         <div className="col-sm-12">
-                            <div className="col-sm-6 left">
+                          <div className="col-sm-6 left">
                              <h1 >
                                     VNF Package Structure</h1>
                                     <div>
@@ -169,28 +179,17 @@ $(".chartContainerH2").show();
                                 <li>
                                     <span className="vLine"></span>
                                   {/*  <span className="closeFolder"></span>*/}
-                                    <i className="fa fa-folder fa-lg padd"></i>
+                                    <i className="fa fa-file-text fa-lg padFile"></i>
                                     <span>Checksums.txt</span>
                                 </li>
                                 <li>
                                     <span className="vLine"></span>
                                     {/*<span className="closeFolder"></span>*/}
-                                    <i className="fa fa-folder fa-lg padd"></i>
-                                    <span>&lt;vnfd_id&gt;_vnfd</span>
+                                    <i className="fa fa-file-text fa-lg padFile"></i>
+                                    <span>vnfd</span>
                                 </li>
-                                <li>
-                                    <span className="vLine"></span>
-                                  {/*<span className="closeFolder"></span>*/}
-                                    <i className="fa fa-folder fa-lg padd"></i>
-                                    <span>README</span>
-                                </li>
-                                <li>
-                                    <span className="vLine"></span>
-                                  {/*  <span className="openFolder"></span>*/}
-                                    <i className="fa fa-folder-open fa-lg padd"></i>
-                                    <span>Icons</span>
-                                    <span className="pngFile"><span className="nameFile"><i className="fa fa-file-image-o"></i>&lt;logo_name&gt;.png</span></span>
-                                </li>
+
+
                                 <li>
                                     <span className="vLine"></span>
                                       {/*  <span className="openFolder"></span>*/}
@@ -203,13 +202,12 @@ $(".chartContainerH2").show();
                                 </li>
                                 <li>
                                     <span className="vLine"></span>
-                                    {/*  <span className="openFolder"></span>*/}
-                                      <i className="fa fa-folder-open fa-lg padd"></i>
-                                    <span>cloud_init</span>
-                                    <span className="cloudFile"><span className="nameFile"><i className="fa fa-cloud"></i>&lt;cloud_init_file&gt;
-                                    </span>
-                                    </span>
+                                  {/*  <span className="openFolder"></span>*/}
+                                    <i className="fa fa-folder-open fa-lg padd"></i>
+                                    <span>icons</span>
+                                    <span className="pngFile"><span className="nameFile"><i className="fa fa-file-image-o"></i>&lt;logo_name&gt;.png</span></span>
                                 </li>
+
                                 <li>
                                     <span className="vLine"></span>
                                     {/*  <span className="openFolder"></span>*/}
@@ -221,24 +219,22 @@ $(".chartContainerH2").show();
                                 </li>
                                 <li>
                                     <span className="vLine"></span>
-                                      {/*  <span className="openFolder"></span>*/}
                                         <i className="fa fa-folder-open fa-lg padd"></i>
-                                    <span>tests</span>
-                                    <span className="txtFile"><span className="nameFile"><i className="fa fa-file-text"></i>&lt;test_file&gt;
-                                    </span>
-                                    </span>
+                                    <span>libs</span>
+
                                 </li>
                                 <li>
                                     <span className="vLine"></span>
-                                      {/*  <span className="openFolder"></span>*/}
-                                        <i className="fa fa-folder-open fa-lg padd"></i>
-                                    <span>doc</span>
-                                    <span className="docFile"><span className="nameFile"><i className="fa fa-file-word-o"></i>&lt;doc_file&gt;
-                                    </span>
-                                    </span>
+                                    <i className="fa fa-file-text fa-lg padFile"></i>
+
+                                    <span>config-artifacts</span>
+                                </li>
+                                <li>
+                                    <span className="vLine"></span>
+                                          <i className="fa fa-file-text fa-lg padFile"></i>
+                                    <span>api</span>
                                 </li>
         </ul>
-
                                     </div>
                             </div>
                             <div className="col-sm-6 right">
@@ -249,15 +245,17 @@ $(".chartContainerH2").show();
                                     <Dropzone ref={(node) => {
                                         this.dropzone = node;
                                     }} onDrop={this.onDrop} style={{}}>
-                                        <div className="upload">Try dropping some files here, or click to select files to upload.</div>
+                                        <div className="upload"><i className="fa fa-upload fa-5x uploadIcon"></i><br/><span className="drag">Drag files to upload</span></div>
                                     </Dropzone>
                                     {this.state.files.length > 0
                                         ? <div>
-                                                <h2>Uploading {this.state.files.length}
-                                                    files...</h2>
                                                 <div>{this.state.files.map((file) => <h3>{file.name}</h3>)}</div>
                                             </div>
                                         : null}
+                                        <h3>Checksum (SHA1)</h3>
+                                        <textarea className="form-control checksumtxt" onChange={this.handleCheckSumChange}></textarea>
+                                        <br/>
+                                        <button disabled={(this.state.textAreaVal && this.state.files.length > 0 )? false : true } className="btn btn-danger btn-sm "  onClick={this.uploadVNFPakcage}>Validate Package</button>
 
                                 </div>
                             </div>

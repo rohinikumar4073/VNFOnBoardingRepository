@@ -1,12 +1,14 @@
 var React = require("react");
 var $ = require("jquery");
 var Form = require("./../../thirdParty/react-jsonschema-form.js");
+var DataService=require("./../../services/DataService.js")
+
     var FormKpi = Form.default;
 
     const schema = {
         "name": "kpiParameters",
         "type": "object",
-        "description": "For monitoring, service assurance, and scaling needs, provide relevant KPI access information.",
+        "description": "* For monitoring, service assurance, and scaling needs, provide relevant KPI access information.",
         "properties": {
             "protocolport": {
                 "type": "string",
@@ -82,13 +84,34 @@ const uiSchema = {
     var KpiParameters = React.createClass({
 
         getInitialState:function(){
-            return({formData:this.props.formData,val: ""}
+          var data ={}
+          if(this.props.formData["vnfInfo"]){
+            data=this.props.formData["vnfInfo"]["kpiParameters"];
+          }
+            return({
+              formData:data,
+               val: ""
+            }
             );
         },
 
         onSubmit: function(e) {
-          this.props.saveFormData(e.formData);
-          this.setState({formData:e.formData});
+            var formData=this.props.formData;
+            if(!formData.vnfInfo){
+                formData["vnfInfo"]={};
+              }
+            formData["vnfInfo"]["kpiParameters"]=e.formData;
+            var self=this;
+            DataService.saveandUpdateData(formData,function(){
+              if(self.state.val=="next" || self.state.val=="prev"){
+                self.props.saveFormData("networkInfo");
+                self.setState({formData:e.formData,val:""})
+
+              }else{
+                self.setState({formData:e.formData})
+
+              }
+            });
         },
 
 
@@ -114,9 +137,10 @@ const uiSchema = {
                         <FormKpi schema={schema} uiSchema={uiSchema} formData={this.state.formData} onSubmit={this.onSubmit} >
                         </FormKpi>
                          <div className="contentFooter">
-                        {/*  <a href="#" className="btn  btn-default btn-sm previousBtn" onClick={this.props.setPageActive.bind(this,"verification","prev")}>Previous</a>*/}
-                    {/*  <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.saveAndExit}>Save & Exit</a> */}
-                         </div>
+                           <div className="net">
+                               <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.moveNext}>Next</a>
+
+                           </div>   </div>
                         </div>
 
             );
@@ -124,6 +148,9 @@ const uiSchema = {
          componentDidMount: function() {
             var bodyWidth=$('body').width();
             $('.contentFooter').css('width',bodyWidth-300);
+         },moveNext:function(){
+           this.setState({"val":"next"}) ;
+           $("#kpiRes button").click();
          },
          saveAndExit: function(){
            this.state.val = "saveAndExit";

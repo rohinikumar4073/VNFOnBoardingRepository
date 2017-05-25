@@ -268,7 +268,23 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
         },
 
         onSubmit: function(e) {
-            this.handleConfirm(e.formData)
+            var formData=this.props.formData;
+            if(!formData.vnfInfo){
+                formData["vnfInfo"]={};
+              }
+            formData["vnfInfo"]["managementConfig"]=e.formData;
+            var self=this;
+            self.setState({data:e.formData})
+
+            DataService.saveandUpdateData(formData,function(){
+              if(self.state.val=="next" || self.state.val=="prev"){
+                self.props.saveFormData("networkInfo");
+                self.setState({data:e.formData,val:""});
+              }else{
+                self.setState({data:e.formData})
+
+              }
+            });
         },
 
         handleConfirm: function(data) {
@@ -307,8 +323,8 @@ var Form =require("./../../thirdParty/react-jsonschema-form.js");
 
         },
         moveNext: function() {
-            this.state.val = "";
-            $("#mgmtConfig button").click();
+                this.setState({"val":"next"}) ;
+                $("#mgmtConfig button").click();
 
         }
     });

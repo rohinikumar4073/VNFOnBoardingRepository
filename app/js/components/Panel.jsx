@@ -29,11 +29,11 @@ var Panel = React.createClass({
 
         return (
             <div>
-              <Header className="container-fluid" />
+              <Header/>
                 {this.state.pageActive == "package" ?
-                    <PackageData ref="package" setActivePage={this.setActivePage} setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
+                    <PackageData ref="package" userName={this.props.userName} setActivePage={this.setActivePage} setPackageDataAndName={this.setPackageDataAndName} forAddNew = {this.forAddNew} formData={this.state.data} setPageActive={this.setPageActive}/>
                      : (this.state.pageActive == "homePage"
-                         ? <HomePage setActivePage={this.setActivePage} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>:"")
+                         ? <HomePage setActivePage={this.setActivePage} userName={this.props.userName} ref="homePage" formData={this.state.data}  saveAndSetFormData={this.saveAndSetFormData}/>:"")
                        }
 
             </div>
@@ -62,7 +62,7 @@ var Panel = React.createClass({
             $('.leftMainFooter').css('width', '55px');
         }
 
-        
+
 
     }
 });

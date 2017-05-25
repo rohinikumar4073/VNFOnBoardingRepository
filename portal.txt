@@ -1,0 +1,250 @@
+VNF Questionnaire
+
+Section 1: VNF Product Details:
+1.	Product General Information
+o	Product Name:
+o	Product version:
+o	Provide a high level description of the product
+2.	Company Contact Information
+o	Company Name
+o	Company Technical Contact
+o	Email
+o	Phone
+
+Section 2: VNF Information:
+A.	VNF Generic Details
+3.	How many VNFCs are in the VNF?
+4.	Are there any startup ordering dependencies?
+5.	If there are startup order dependencies, explain the steps.
+
+B.	VNF Component Details
+
+I.	Software Image Details
+6.	Software Image Details
+o	Image file name
+o	ID
+o	Version
+o	Checksum
+o	VNF container format
+o	VNF software image format
+o	Minimum Primary VM block disk space for image required in GB
+o	Minimum memory in MB  required for this image to run
+o	Size of the image in GB
+o	Operating System
+o	Supported Virtualization Environment
+o	License Information
+	Product Activation key
+	License Date Validity
+	License Instance Validity
+	License Additional Details			
+II.	Network Details
+7.	Internal Connection Point
+o	ID / Name
+o	Type of port
+o	Layer Port - Identifies which protocol the CP uses for connectivity purposes
+o	Internal Virtual Link Descriptor - Reference of a network ID in VLD
+o	Bit Rate Requirement
+o	Address Mappings
+	Address Type (L2 or L3) : L2 Address / L3 Address
+	L2 Address Details
+•	MAC address of the port
+•	VLAN ID of the port
+•	Virtual Network ID of the port
+	L3 Address Details
+•	Specify if the address assignment is the responsibility of management and orchestration function or not. NOTE:  If it is set to True, it is the management and orchestration function responsibility. "
+•	Floating IP activated?
+•	IP Address Type (IPv4 or IPv6) : L2 Address / L3 Address
+•	Number of IP addresses
+8.	NIC Capability
+III.	Compute Details
+9.	ID / Name
+10.	Additional Capability Details
+o	Capability Name
+o	Support Mandatory
+o	Minimum version required for the capability
+o	Preferred version for the capability
+o	Targeted Performance Parameters
+11.	Virtual Memory details
+o	Virtual Memory Size
+o	Subscription Policy
+o	Huge page size
+12.	Virtual CPU Details
+o	CPU architecture
+o	Number of vCPUs
+o	Virtual CPU Clock
+o	Virtual CPU Oversubscription Policy
+o	Virtual CPU Pinning
+	CPU Policy
+	CPU Pinning Policy : static / dynamic
+	CPU Pinning Map
+IV.	Storage Details
+13.	ID
+14.	Cinder Volume Name
+15.	Storage type
+16.	Storage size in GB
+17.	Does storage support RDMA
+18.	Base file image
+19.	Define boot order of Virtual Storage
+
+V.	Deployment Flavor
+20.	Provide deployment flavor details
+o	Flavor ID
+o	Description
+o	VDU Profile
+	Point to the VNFC ID / VDU ID
+	Minimum number of instances allowed for this VNFC
+	Maximum number of instances allowed for this VNFC
+	Local Affinity Or Anti-Affinity Details
+•	Affinity Or anti-affinity : Affinity / antiAffinity
+•	Scope : NFVI-PoP / Zone / ZoneGroup / NFVI-node
+•	Affinity Or AntiAffinity GroupId
+o	Virtual link Profile
+	Affinity Or AntiAffinity GroupId : Affinity / AntiAffinity
+	Flavor ID
+	Bit Rate Requirements
+•	Leaf
+•	Root
+	Local Affinity Or Anti-Affinity Details
+•	Affinity Or anti-affinity : Affinity / antiAffinity
+•	Scope : NFVI-PoP / Zone / ZoneGroup / NFVI-node
+•	Affinity Or AntiAffinity GroupId
+	VNF Virtual Link Descriptor ID
+o	Instantiation Level Details
+	Level ID
+	Description
+	VDU Level
+•	VDU ID
+•	Number of instance of this VDU to deploy for this level
+	Scaling Info - shall be present if the VNF supports scaling
+•	Identifier of the scaling aspect
+•	Scale level - Represents for each aspect the scale level that corresponds to this instantiation level. 
+o	Default instantiation level for this VNF
+o	Which operations are available for this DF via the VNF LCM interface : Scale Up / Scale Down / Scale In
+o	Configuration parameters for the VNF Lifecycle Management operations
+	VNF Operational configuration parameters
+	VNF scaling Operational configuration parameters
+	Is scaling by more than one step supported?
+o	Affinity or anti-affinity group
+o	Monitoring parameters
+o	Scaling Aspect
+C.	Management and Configuration Details
+21.	Is there support for cloud-init? (Yes/No)
+22.	Does VM require config-drive? (Yes/No)
+23.	Does VM require passing custom configuration file in config-drive? (Yes/No)
+24.	Does VM require passing custom configuration file in config-drive? (Yes/No)
+25.	Does VM require metadata support? (Yes/No)
+26.	Provide details on cloudinit/configuration templates/metadata required, if any. (Attach sample configuration/templates)
+27.	What configuration parameters are required? (Provide example template in YAML format.)
+28.	Does the VNF support a Native Application dashboard GUI?
+29.	If yes, describe how to use/access the GUI (e.g., port # and credentials)?
+30.	Does the VNF support SSH management?
+31.	If SSH support is enabled by default, what are the default credentials?
+32.	If not enabled by default, how is support enabled and configured?
+33.	Does the VNF support NETCONF management?
+34.	If NETCONF support is enabled by default, what are the default credentials?
+35.	If not enabled by default, how is support enabled and configured?
+36.	How can we determine if the VNF is ready to accept configuration post resource orchestration? Is there a preferred configuration mechanism/protocol?
+
+D.	KPI Parameters
+For monitoring, service assurance and scaling needs, provide relevant KPI access information.
+37.	Protocol and port number:
+38.	Username/password credentials:
+39.	Corresponding endpoint URL:
+40.	Display name:
+41.	Short description:
+42.	Access method (e.g., JSONPATH, OBJECTPATH):
+43.	Access method parameters (e.g., ‘json_path’ : ‘$.system.mem_total’):
+44.	Value-type of monitoring parameter (string, integer, decimal):
+45.	Range of possible values:
+46.	Display units, if applicable (e.g., MB, KB, %, etc.): 
+47.	Display widget for monitoring parameter (counter, gauge):
+48.	Min/max frequency at which the parameter should be fetched:
+49.	Any requirement to provision security groups in the cloud?
+          
+
+
+
+
+
+
+
+
+
+Section 3: VNF Network Details:
+50.	Do all of the VNF’s management interfaces have DHCP enabled?
+51.	(If more than one VM in VNF) Is there a separate internal network required for inter-VM communication?"
+52.	Do any of the interfaces require static IP address assignment at boot?
+53.	Do any of the interfaces require floating-IP address assignment?
+54.	Do any of the interfaces require anti-spoofing (port security) disabled?
+55.	External Connection Point(s) 
+o	ID / Name
+o	Type of port
+o	Layer Port - Identifies which protocol the CP uses for connectivity purposes
+o	Internal Virtual Link Descriptor - Reference of a network ID in VLD
+o	Bit Rate Requirement
+o	Address Mappings
+	Address Type (L2 or L3) : L2 Address / L3 Address
+	L2 Address Details
+•	MAC address of the port
+•	VLAN ID of the port
+•	Virtual Network ID of the port
+	L3 Address Details
+•	Specify if the address assignment is the responsibility of management and orchestration function or not. NOTE: If it is set to True, it is the management and orchestration function responsibility.
+•	Floating IP activated?
+•	IP Address Type (IPv4 or IPv6) : L2 Address / L3 Address
+•	Number of IP addresses
+o	NIC Capability
+
+
+
+
+
+
+
+
+
+Section 4: VNF Orchestration Details:
+
+56.	Has the VNF been booted under OpenStack version described in VCP Requirements Document?
+57.	Has the VNF been booted under KVM prescribed in VCP Requirements document?
+58.	Does VNF require a VNF-M (Yes / No)
+o	(If Yes)Does the VNF require its own specific VNF-M? (Yes / No)
+	(If yes)VNF-M has a MANO compliant Or-Vnfm interface?
+	What format is the Or-Vnfm interface (REST, etc.)
+	Which resource allocation model does the specific VNFM use: NFVO allocation or VNFM allocation?
+	Is VNF-M complaint with all requirements in the VNF-M section of VCP Requirement Document? If no, describe all non-complaint requirements
+	Can VNF-M instantiate VNF 5 directly? If yes, is it supported via REST API?
+	Does VNF-M support upgrade to VNF? If yes, describe lifecycle involved in the upgrade
+	Does VNF-M support downgrades to VNF? If yes, describe lifecycle involved in the downgrade
+	Does VNF-M require admin access to the VIM? (Yes/No)
+	How to provide OpenStack credentials to VNF-M, and how does VNF-M securely store the given credentials?
+
+
+Section 5: VNF Verification Details:
+
+59.	Describe how Verizon can quickly verify that the VNF is functioning properly. Provide a minimal sanity-test procedure and expected results.
+60.	Provide Instructions for how to download a copy of your software images and product admin/configuration manuals, or attach a copy when you return this questionnaire.
+
+
+
+
+
+
+
+
+
+
+Section 6: VNF Additional Details:
+
+A.	Physical Resource 
+61.	Does VM require affinity/anti-affinity placements?
+62.	How many physical hosts are required to support a single instance of this VNF?
+63.	For each constituent VM, note the EPA parameters to be used during instantiation.
+B.	Scaling and Redundancy
+64.	How should VM failures be handled?
+65.	What is the VM Redundancy Schema (i.e., Local Intra Data Center and Geo-redundancy)?
+C.	Post Install
+66.	Describe how licensing works, if any. (Attach details, such as license server address, key, etc.)
+67.	Do any of the interfaces require public internet connectivity, such as access to a licensing server or to a public software repository?
+68.	Are there specific items that the operator must input during VNF instantiation, such as DNS, RADIUS, licensing servers, and so on. If yes, describe below.
+

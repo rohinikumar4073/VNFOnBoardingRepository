@@ -1,7 +1,16 @@
 /* Login Page */
 var React = require('react');
+
+var Signup = require('./Signup.jsx');
+
 var Login = React.createClass({
+    onClickFunc: function() {
+        console.log("Inside onclick");
+        return <Signup></Signup>;
+    },
+
     render: function() {
+        var signup = <Signup></Signup>;
         return (
             <div className="container loginWidget">
                 <div className="login-header">
@@ -42,8 +51,7 @@ var Login = React.createClass({
                                     <div className="form-group input-transparent-field">
                                         <input type="password" id="password" className="form-control" placeholder=" Password"/>
                                     </div>
-                                    <a href="#" onClick={this.props.setUserName} role="button" className="btn  btn-danger signin">Sign In</a>
-                                    <a href="#"  onClick={this.props.goSignup} role="button" className="btn  btn-danger signin">Sign Up</a>
+                                    <a href="#" onClick={this.props.setUserName} role="button" className="btn  btn-danger signin">Sign in</a>
                                 </div>
                             </div>
                         </div>

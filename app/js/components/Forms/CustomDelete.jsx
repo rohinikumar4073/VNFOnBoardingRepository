@@ -21,7 +21,7 @@ var CreateFormCustomDelete = React.createClass({
             return;
         } else {
             var vnfProductName = this.props.data.name;
-            var deleteURL = config.formApi + "/vnf/" + vnfProductName + "/deleteForm";
+            var deleteURL = config.formApi + "/vnfForm/" + vnfProductName + "/deleteForm";
 
             axios.delete(deleteURL).then(function(response) {
                 toastr.success("VNF Deleted successfully!");

@@ -10,58 +10,67 @@ var PackageUpload = require("./VNFPackageUpload.jsx");
 var GenerateDescriptors = require("./GenerateDescriptors.jsx");
 var RightPanel = require("./../RightPanel.jsx");
 var LeftPanel = require("./../LeftPanel.jsx");
+var Stomp = require("./../../websocket/stomp.js");
+var SockJS = require("./../../websocket/sockjs.js");
 global.jQuery = require('jquery');
-
-
+var DataService=require("./../../services/DataService.js")
 var bootstrap = require("bootstrap");
 
 var homePage = React.createClass({
   changeRightPanel: function(pageNumber) {
-      this.refs.rightPanel.setPageActive(pageNumber)
+        this.refs.rightPanel.saveFormData(pageNumber)
 
-  },
-    loadQuestionaire: function() {
-        this.setState({pageActive:"questionaire"});
     },
-    loadGenerator:function(){
-      debugger;
-  this.setState({pageActive:"generateDescriptors"});
+    loadQuestionaire: function() {
+        this.setState({pageActive: "questionaire"});
+    },
+    loadGenerator: function() {
+        this.setState({pageActive: "generateDescriptors"});
     },
     changeStatus: function(pageNumber) {
         this.refs.leftPanel.changeStatus(pageNumber);
     },
-	updataConfigurationStatus:function(status){
-	
-                    if (status != null) {
-                        if (status == "NULL") {
-                            this.setState({configurationStatus: "Activating"});
-                        } else {
-                            this.setState({configurationStatus:status});
-                        }
-                    } else {
-                        self.setState({configurationStatus: "Not Configured"});
-                    }
+    updataConfigurationStatus: function(status) {
 
-                
-	},
+        if (status != null) {
+            if (status == "NULL") {
+                this.setState({configurationStatus: "Activating"});
+            } else {
+                this.setState({configurationStatus: status});
+            }
+        } else {
+            self.setState({configurationStatus: "Not Configured"});
+        }
+
+    },
     componentDidMount: function() {
-      $('[data-toggle="tooltip"]').tooltip();
+      DataService.registerHomePage(this);
+      DataService.registerUserName(this.props.userName);
+      DataService.registerPackageName(this.props.formData.id);
+        var self = this;
+        var socket = new SockJS(config.formApi + '/workflow-validation-websocket');
+        var stompClient = Stomp.Stomp.over(socket);
+        $('[data-toggle="tooltip"]').tooltip();
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/jenkins/' + self.props.formData.id, function(response) {
+              self.callTransition(JSON.parse(response.body));
 
-      
+            });
+        });
+
     },
     uploadPackage: function() {
-        this.setState({pageActive:"upload"});
-
+        this.setState({pageActive: "upload"});
 
     },
     generateDescriptors: function() {
-      this.setState({pageActive:"generateDescriptors"});
-
+        this.setState({pageActive: "generateDescriptors"});
         this.props.setActivePage("generateDescriptors");
         $(".totalLeftScreenMode").removeClass("totalLeftScreenMode")
     },
     goMainScreen: function() {
-        this.props.setActivePage({pageActive:"package"});
+        this.props.setActivePage({pageActive: "package"});
     },
     getInitialState: function() {
 
@@ -74,7 +83,8 @@ var homePage = React.createClass({
             testPackageExecuted: this.props.formData.testPackageExecuted,
             loaderOn: false,
             statusLoaderOn: false,
-            pageActive:"upload"
+            pageActive: "upload",
+            formData:this.props.formData
         };
     },
     testPackage: function() {
@@ -95,8 +105,7 @@ var homePage = React.createClass({
                 toastr.error("Test cases could not be executed");
             }
         })
-    },
-    loopTimeout: function() {
+    },loopTimeout: function() {
 
 this.callTransition();
 var self=this;
@@ -104,11 +113,11 @@ var self=this;
             self.callTransition();
             },5000);
     },
-    callTransition:function(){
+    callTransition1:function(){
         var self = this;
 
-            var retrieveUrl = config.formApi + "/vnf/" + self.props.formData.id + "/retrieve";
-var counter =1;
+            var retrieveUrl = config.formApi + "/vnfAction/" + self.props.formData.id + "/retrieve";
+var inProgressFlag =false;
             axios.get(retrieveUrl).then(function(response) {
                 var data = [];
                 console.log(response.data)
@@ -118,8 +127,13 @@ var counter =1;
                         status:response.data[object].status
                     }
                     dataObj.content = object;
-                    if (response.data[object].status == "not-started" && counter ==1) {
-                                counter++;
+                    dataObj.status = dataObj.status.toLowerCase();
+
+                    if (response.data[object].status == "failed" && !inProgressFlag )  {
+                                inProgressFlag=true;
+                    }
+                    if (response.data[object].status == "not-started" && !inProgressFlag )  {
+                                inProgressFlag=true;
                                 dataObj.status="in-progress";
                     }
                                         data.push(dataObj);
@@ -132,9 +146,9 @@ var counter =1;
             });
 
     },
-    transition: function() {
+    transition1: function() {
         console.log(this.props.formData.id)
-        var uploadUrl = config.formApi + "/vnf/" + this.props.formData.id + "/initialize";
+        var uploadUrl = config.formApi + "/vnfAction/" + this.props.formData.id + "/initialize";
         var self = this;
         axios.put(uploadUrl, {}).then(function(response) {
             console.log(response);
@@ -144,18 +158,56 @@ self.loopTimeout();
         });
 
 
-    },  saveAndSetFormData:function(data){
-      var savePackageUrl=config.formApi+ "/vnf/"+this.props.formData.id+"/saveFormData";
-      var self=this;
-                axios.post(savePackageUrl, {
-                    formData: data
-                }).then(function(response) {
-                  self.props.setActivePage(data);
-              //    self.setState({loaderOn: false});
-                  callback(response)
-                }).catch(function(error) {
-                //  self  .setState({loaderOn: false});
-                });
+    },
+    callTransition: function(response) {
+        var self = this;
+        var inProgressFlag = false;
+        var data = [];
+        for (var object in response) {
+          if(object=="id"){
+            continue;
+          }
+            var dataObj = {
+                content: "",
+                status: response[object].status
+            }
+            dataObj.content = object;
+            dataObj.status = dataObj.status.toLowerCase();
+
+            if (response[object].status == "failed" && !inProgressFlag) {
+                inProgressFlag = true;
+            }
+            if (response[object].status == "not-started" && !inProgressFlag) {
+                inProgressFlag = true;
+                dataObj.status = "in-progress";
+            }
+            data.push(dataObj);
+        }
+        self.refs.workFlow.loadData(data);
+    },
+    transition: function() {
+        console.log(this.props.formData.id)
+        var uploadUrl = config.formApi + "/vnfAction/" + this.props.formData.id + "/initialize";
+        var self = this;
+        axios.put(uploadUrl, {}).then(function(response) {
+
+            self.callTransition(response.data);
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+    },
+
+    saveAndSetFormData: function(data) {
+        var savePackageUrl = config.formApi + "/vnfForm/" + this.props.formData.id + "/saveFormData";
+        var self = this;
+        axios.post(savePackageUrl, {formData: data}).then(function(response) {
+            self.props.setActivePage(data);
+            //    self.setState({loaderOn: false});
+            callback(response)
+        }).catch(function(error) {
+            //  self  .setState({loaderOn: false});
+        });
     },
     activateVNF: function() {
         var self = this;
@@ -209,115 +261,127 @@ self.loopTimeout();
 
     },
     render: function() {
-      var PanelElem=(<div className="row questionaireFors" >
-                        <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}>
-                            </LeftPanel>
-                            <RightPanel className="totalRightScreenMode" formDataFromHome={this.props.formData} ref="rightPanel" changeStatus={this.changeStatus}> </RightPanel>
-                       </div>);
-                       var PackageUploadElem=(<div>
-                           <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
+        var PanelElem = (
+            <div className="row questionaireFors">
+              <div className="col-md-12">
+                <LeftPanel className="totalLeftScreenMode" ref="leftPanel" changeRightPanel={this.changeRightPanel}></LeftPanel>
+                <RightPanel className="totalRightScreenMode" formData={this.state.formData} ref="rightPanel" changeStatus={this.changeStatus}></RightPanel>
+                </div>
+          </div>
+        );
+        var PackageUploadElem = (
+            <div>
+                <Workflow ref="workFlow" id={this.props.formData.id}></Workflow>
 
-
-                         <PackageUpload setPageActive={this.setPageActive} ref="upload"
-                                          id={this.props.formData.id}
-
-                                         transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.props.formData}/>
-                                       <div className="col-sm-12 col-md-12 col-lg-12 workflowView">
-
-                                </div>
-                                </div>);
+                <PackageUpload setPageActive={this.setPageActive} ref="upload" id={this.props.formData.id} transition={this.transition} saveAndSetFormData={this.saveAndSetFormData} formData={this.props.formData}/>
+                <div className="col-sm-12 col-md-12 col-lg-12 workflowView"></div>
+            </div>
+        );
         return (
-            <div className="contentMain rightPanel totalRightScreenMode">
-                <div className="contentBody">
-                    <div className="row">
-                        <div>
-                            <div className={this.state.loaderOn
-                                ? "homePageClass"
-                                : ""}>
-                                <h2 className="homePageHeading">
-                                    <i className="fa fa-angle-left get-back" aria-hidden="true" onClick={this.goMainScreen}></i>
-                                    <span className="package-heading-span">{this.props.formData.generalInfo.productinfo.vnfproductname}</span>
-                                    <span className="configuration " className={this.state.configurationStatus == 'Not Configured'
-                                        ? "  configuration"
-                                        : (this.state.configurationStatus == "Configured"
-                                            ? " configured configuration"
-                                            : (this.state.configurationStatus == "ACTIVE"
-                                                ? " active-vnf configuration"
-                                                : " on-boarding configuration"))}>Status : {this.state.configurationStatus}</span>
-                                </h2>
-                                <div className="col-sm-3 col-md-3 col-lg-3">
-                                    <a href="#"  data-toggle="tooltip" title="Upload VNF Package" className={this.state.pageActive=="upload"
-                                        ? "uploadPackage  cardPackage active"
-                                        : "uploadPackage cardPackage  "} onClick={this.uploadPackage}>
-                                        <i className="pull-left fa faicon fa-cloud-upload"></i>
+            <div className="levelTwo container">
+                <div className="homePageHeadOne">
+                    <i className="fa fa-angle-left get-back" aria-hidden="true" onClick={this.goMainScreen}></i>
+                    <span className="package-heading-span">
+                        <b>{this.props.formData.generalInfo.productinfo.vnfproductname}</b>
+                    </span>
+                    <span className="package-span">
+                        <i className="fa fa-info-circle product"></i>
+                        <b>Contact & Product Info</b>
+                    </span>
+                </div>
+                <div className="homePageHeadTwo">
 
-                                        <h2>VNF Package</h2>
+                    <div className="col-sm-3 col-md-3 col-lg-3">
+                        <a href="#" data-toggle="tooltip" title="Upload VNF Package" className={this.state.pageActive == "upload"
+                            ? "uploadPackage cardPackage active"
+                            : "uploadPackage cardPackage "} onClick={this.uploadPackage}>
+                            <i className={this.state.pageActive == "upload"
+                                ? "pull-left fa faicon fa-cloud-upload headContent active"
+                                : " pull-left fa faicon fa-cloud-upload headContent"}></i>
 
-                                    </a>
+                            <h2 className={this.state.pageActive == "upload"
+                                ? "headContent active"
+                                : "headContent"}>Upload VNF Package</h2>
+
+                        </a>
+
+                    </div>
+                    <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadQuestionaire}>
+                        <a href="#" className={this.state.pageActive == "questionaire"
+                            ? "uploadPackage cardPackage active"
+                            : "uploadPackage cardPackage "}>
+                            <i className={this.state.pageActive == "questionaire"
+                                ? "pull-left fa fa-question-circle faicon fa-2x headContent active"
+                                : " pull-left fa fa-question-circle faicon fa-2x headContent"}></i>
+
+                            <h2 className={this.state.pageActive == "questionaire"
+                                ? "headContent active"
+                                : "headContent"}>Onboarding Questionaire</h2>
+
+                        </a>
+                    </div>
+
+                    <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadGenerator}>
+
+                        <a href="#" className={this.state.pageActive == "generateDescriptors"
+                            ? "uploadPackage cardPackage active"
+                            : "uploadPackage cardPackage "} onClick={this.generateDescriptors}>
+                            <i className={this.state.pageActive == "generateDescriptors"
+                                ? "pull-left fa faicon fa-cubes headContent active"
+                                : " pull-left fa faicon fa-cubes headContent"}></i>
+                            <h2 className={this.state.pageActive == "generateDescriptors"
+                                ? "headContent active"
+                                : "headContent"}>Generate Descriptors</h2>
+
+                        </a>
+                    </div>
+                    <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadGenerator}>
+
+                        <a href="#" className={this.state.pageActive == "generateDescriptors"
+                            ? "uploadPackage cardPackage active"
+                            : "uploadPackage cardPackage "} onClick={this.generateDescriptors}>
+                            <h2>
+                            <span className="configuration" className={this.state.configurationStatus == 'Not Configured'
+                                ? " configuration"
+                                : (this.state.configurationStatus == "Configured"
+                                    ? " configured configuration"
+                                    : (this.state.configurationStatus == "ACTIVE"
+                                        ? " active-vnf configuration"
+                                        : " on-boarding configuration"))}>
+                             {this.state.configurationStatus}</span>
+                              </h2>
+
+                        </a>
+                    </div>
+                </div>
+                <div className="contentMain rightPanel totalRightScreenMode">
+
+                    <div className="contentBody">
+                        <div className="row homePageMain">
+                            <div>
+                                <div className={this.state.loaderOn
+                                    ? "homePageClass"
+                                    : ""}>
+                                    <div className="col-sm-12 col-md-12 col-lg-12  ">
+                                        {this.state.pageActive == "upload"
+                                            ? PackageUploadElem
+                                            : this.state.pageActive == "questionaire"
+                                                ? PanelElem
+                                                : this.state.pageActive == "generateDescriptors"
+                                                    ? <GenerateDescriptors formData={this.props.formData} updataConfigurationStatus={this.updataConfigurationStatus} saveAndSetFormData={this.saveAndSetFormData}/>
+                                                    : ""
+}
+                                    </div>
 
                                 </div>
-                                <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadQuestionaire}>
-                                    <a href="#" className={this.state.pageActive =="questionaire"
-                                        ? "uploadPackage  cardPackage active"
-                                        : "uploadPackage cardPackage  "}>
-                                        <i className="pull-left fa fa-question-circle faicon "></i>
-
-                                        <h2>VNF Onboarding Questionaire</h2>
-
-                                    </a>
-                                </div>
-                                <div className="col-sm-3 col-md-3 col-lg-3" onClick={this.loadGenerator}>
-
-                                    <a href="#" className={this.state.pageActive =="generateDescriptors"
-                                        ? "uploadPackage  cardPackage active"
-                                        : "uploadPackage cardPackage  "} onClick={this.generateDescriptors}>
-                                        <i className="pull-left fa faicon fa-cubes"></i>
-                                        <h2>Generate Descriptors</h2>
-
-                                    </a>
-                                </div>
-
-                                {/*<div className="col-sm-3 col-md-3 col-lg-3 ">
-                                    <a href="#" className={this.state.configurationStatus == 'Not Configured'
-                                        ? " cardPackage "
-                                        : (this.state.configurationStatus == "Configured"
-                                            ? "cardPackage configured"
-                                            : (this.state.configurationStatus == "ACTIVE"
-                                                ? "cardPackage active-vnf"
-                                                : "cardPackage on-boarding"))}>
-                                        <h2>Status
-                                            <span>{this.state.configurationStatus}</span>
-                                            <span className="progressActive">
-                                                <span className="one">.</span>
-                                                <span className="two">.</span>
-                                                <span className="three">.</span>
-                                            </span>
-                                        </h2>
-
-                                    </a>
-
-                                </div>*/}
-                                <div className="col-sm-12 col-md-12 col-lg-12  ">
-                                    {
-                                      this.state.pageActive =="upload"
-                                      ? PackageUploadElem
-                                      : this.state.pageActive =="questionaire"
-                                        ? PanelElem
-                                        : this.state.pageActive =="generateDescriptors"
-                                        ?  <GenerateDescriptors formData={this.props.formData}  updataConfigurationStatus={this.updataConfigurationStatus} saveAndSetFormData={this.saveAndSetFormData} />
-                                      :""
-                                    }
-                                </div>
-
-
-                            </div>
-                          {/*  <div className="contentFooter">
+                                {/*  <div className="contentFooter">
                                 <a href="#" className="btn btn-danger btn-sm nextBtn" onClick={this.goMainScreen}></a>
                             </div> */}
-                            <div className={this.state.loaderOn
-                                ? "showLoader"
-                                : "hideLoader"}>
-                                <Loader type='spinningBubbles' color='#000000'></Loader>
+                                <div className={this.state.loaderOn
+                                    ? "showLoader"
+                                    : "hideLoader"}>
+                                    <Loader type='spinningBubbles' color='#000000'></Loader>
+                                </div>
                             </div>
                         </div>
                     </div>

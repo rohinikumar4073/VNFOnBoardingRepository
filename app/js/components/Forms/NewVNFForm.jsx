@@ -38,14 +38,19 @@ const schema = {
           "type": "string",
           "title": "VNF Product"
         },
+        "version": {
+          "type": "string",
+          "title": "Version"
+        },
         "highleveldes": {
           "type": "string",
           "title": "Provide high level description of the function of the VNF"
-        },
+        }
+        /*,
         "networkservice":{
           "type": "string",
           "title": "How is the VNF typically used as a part of a network service?"
-        }
+        }*/
       }
     }
   }
@@ -72,12 +77,16 @@ const uiSchema = {
     "classNames": "col-sm-12"
 
   },  "highleveldes":{
+    "ui:widget": "textarea",
       "classNames": "col-sm-12"
 
     },  "networkservice":{
         "classNames": "col-sm-12"
 
-      },
+      }, "version":{
+          "classNames": "col-sm-12"
+
+        }
 }
 };
 
@@ -94,21 +103,23 @@ const uiSchema = {
             this.handleConfirm(e.formData)
         },
         handleConfirm: function(fData) {
-          debugger;
           var packageName=this.generatePackageName();
           this.state.data.generalInfo=fData;
           var self = this;
           this.ajaxCalltoSetData(self.state.data,packageName,function(response){
-            debugger;
             self.props.closePage("close");
           })
         },
         ajaxCalltoSetData:function(data,packageName,callback){
-          var savePackageUrl=config.formApi+ "/vnf/"+packageName+"/saveFormData";
+
+          var savePackageUrl=config.formApi+ "/vnfForm/"+this.props.userName+"/"+packageName+"/saveFormData";
           var self=this;
-                    axios.post(savePackageUrl, {
-                        formData: data
-                    }).then(function(response) {
+          var postData={
+              formData: data,
+              userId:this.props.userName,
+              id:packageName
+          };
+                    axios.post(savePackageUrl,postData ).then(function(response) {
                       self.setState({loaderOn: false});
                       callback(response)
                     }).catch(function(error) {
